@@ -83,7 +83,7 @@ patterns, and business intelligence tools. I play a pivotal role in creating app
 scaffolds that enable teams to rapidly set up new applications while adhering to
 consistent patterns, streamlining the development process across the organisation.
 In addition to my development responsibilities, I serve as one of the leads for the firm’s
-Rick Technology space, driving innovation and best practices in UI development. I am
+Risk Technology space, driving innovation and best practices in UI development. I am
 also actively engaged in managing client relationships, mentoring team members, and
 promoting "sensible defaults" to ensure scalable and efficient application
 development. My role combines technical expertise, strategic leadership, and a

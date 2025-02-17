@@ -32,8 +32,9 @@ export const ResumeCard = ({
   defaultExpanded = true,
 }: ResumeCardProps) => {
   const { isAboveMd } = useBreakpoint("md");
-  console.log("isAboveMd", isAboveMd);
-  const [isExpanded, setIsExpanded] = useState(isAboveMd);
+  const [isExpanded, setIsExpanded] = useState(
+    isAboveMd ? defaultExpanded : true
+  );
 
   const handleClick = (e: ReactMouseEvent<HTMLAnchorElement, MouseEvent>) => {
     if (description) {

@@ -33,7 +33,7 @@ export const ResumeCard = ({
 }: ResumeCardProps) => {
   const { isAboveMd } = useBreakpoint("md");
   const [isExpanded, setIsExpanded] = useState(
-    isAboveMd ? defaultExpanded : true
+    isAboveMd ? defaultExpanded : false
   );
 
   const handleClick = (e: ReactMouseEvent<HTMLAnchorElement, MouseEvent>) => {
@@ -55,14 +55,14 @@ export const ResumeCard = ({
             <AvatarImage
               src={logoUrl}
               alt={altText}
-              className="object-contain"
+              className="object-cover"
             />
             <AvatarFallback>{altText[0]}</AvatarFallback>
           </Avatar>
         </div>
         <div className="flex-grow ml-4 items-center flex-col group">
           <CardHeader>
-            <div className="flex items-center justify-between gap-x-2 text-base xs:flex-col-reverse xs:justify-start">
+            <div className="flex flex-col-reverse items-start gap-x-2 text-base sm:flex-row sm:items-center sm:justify-between">
               <h3 className="inline-flex items-center justify-center font-semibold leading-none text-xs sm:text-sm">
                 {title}
                 {badges && (

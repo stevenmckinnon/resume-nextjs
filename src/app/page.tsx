@@ -40,7 +40,7 @@ export default function Page() {
           </div>
         </div>
       </section>
-      <section id="about">
+      <section id="location">
         <BlurFade delay={BLUR_FADE_DELAY * 3}>
           <h2 className="text-xl font-bold">Location</h2>
         </BlurFade>
@@ -122,6 +122,29 @@ export default function Page() {
           </div>
         </div>
       </section>
+      <section id="other-work">
+        <div className="flex min-h-0 flex-col gap-y-3">
+          <BlurFade delay={BLUR_FADE_DELAY * 6}>
+            <h2 className="text-xl font-bold">Other Work</h2>
+          </BlurFade>
+          {DATA.otherWork.map((work, id) => (
+            <BlurFade
+              key={`${work.company}-${work.start}`}
+              delay={BLUR_FADE_DELAY * 7 + id * 0.05}
+            >
+              <ResumeCard
+                logoUrl={work.logoUrl}
+                altText={work.company}
+                title={work.company}
+                subtitle={work.title}
+                href={work.href}
+                period={`${work.start} - ${work.end ?? "Present"}`}
+                defaultExpanded={work.defaultExpanded}
+              />
+            </BlurFade>
+          ))}
+        </div>
+      </section>
       <section id="contact">
         <div className="grid items-center justify-center gap-4 px-4 text-center md:px-6 w-full py-12">
           <BlurFade delay={BLUR_FADE_DELAY * 10}>
@@ -132,9 +155,7 @@ export default function Page() {
               <p className="mx-auto max-w-[600px] text-muted-foreground md:text-xl/relaxed lg:text-base/relaxed xl:text-xl/relaxed">
                 Want to chat? Just shoot me an email&nbsp;
               </p>
-              <RainbowButton href="/contact">
-                Contact me
-              </RainbowButton>
+              <RainbowButton href="/contact">Contact me</RainbowButton>
             </div>
           </BlurFade>
         </div>

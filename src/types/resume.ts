@@ -24,13 +24,13 @@ export type NavbarItem = {
 export type WorkExperience = {
   company: string;
   href: string;
-  badges: string[]; // Or a more specific badge type if needed
-  location: string;
+  badges?: string[]; // Or a more specific badge type if needed
+  location?: string;
   title: string;
   logoUrl: string;
   start: string;
   end?: string; // Optional end date
-  description: string;
+  description?: string;
   defaultExpanded?: boolean;
 };
 
@@ -64,4 +64,5 @@ export type Resume = {
   contact: Contact;
   work: WorkExperience[];
   education: EducationItem[];
+  otherWork: WorkExperience[];
 };

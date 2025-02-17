@@ -4,7 +4,7 @@ import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import * as z from "zod";
 import { useState } from "react";
-import router from "next/router";
+import { useRouter } from "next/navigation";
 
 import { Button } from "@/components/ui/button";
 import {
@@ -34,6 +34,8 @@ export type ContactFormData = z.infer<typeof schema>;
 const BLUR_FADE_DELAY = 0.04;
 
 const Page = () => {
+  const router = useRouter();
+
   const { toast } = useToast();
 
   const [loading, setLoading] = useState(false);
@@ -66,9 +68,6 @@ const Page = () => {
       });
 
       if (response.ok) {
-        toast({
-          title: "Email sent successfully!",
-        });
         router.push("/contact/confirm");
       } else {
         toast({

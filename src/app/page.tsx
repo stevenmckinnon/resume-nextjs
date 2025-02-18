@@ -22,7 +22,7 @@ export default function Page() {
               <BlurFade delay={BLUR_FADE_DELAY}>
                 <h1 className="text-3xl font-bold tracking-tighter sm:text-5xl xl:text-6xl/none">
                   Hi, I&apos;m&nbsp;
-                  <AuroraText>{DATA.name.split(" ")[0]}</AuroraText> 👋
+                  <AuroraText>{DATA.name.split(" ")[0]}</AuroraText> <span className="text-2xl sm:text-4xl xl:text-5xl/none">👋</span>
                 </h1>
               </BlurFade>
               <BlurFadeText

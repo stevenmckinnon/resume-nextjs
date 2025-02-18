@@ -19,7 +19,20 @@ interface ResumeCardProps {
   period: string;
   description?: string;
   defaultExpanded?: boolean;
+  index?: number;
 }
+
+const getDefaultExpanded = (
+  isAboveMd: boolean,
+  defaultExpanded: boolean,
+  index?: number
+) => {
+  if (index === 0 && !isAboveMd) {
+    return true;
+  }
+  return isAboveMd ? defaultExpanded : false;
+};
+
 export const ResumeCard = ({
   logoUrl,
   altText,
@@ -30,10 +43,11 @@ export const ResumeCard = ({
   period,
   description,
   defaultExpanded = true,
+  index,
 }: ResumeCardProps) => {
   const { isAboveMd } = useBreakpoint("md");
   const [isExpanded, setIsExpanded] = useState(
-    isAboveMd ? defaultExpanded : false
+    getDefaultExpanded(isAboveMd, defaultExpanded, index)
   );
 
   const handleClick = (e: ReactMouseEvent<HTMLAnchorElement, MouseEvent>) => {
@@ -52,11 +66,7 @@ export const ResumeCard = ({
       <Card className="flex">
         <div className="flex-none">
           <Avatar className="border size-12 m-auto bg-muted-background dark:bg-foreground">
-            <AvatarImage
-              src={logoUrl}
-              alt={altText}
-              className="object-cover"
-            />
+            <AvatarImage src={logoUrl} alt={altText} className="object-cover" />
             <AvatarFallback>{altText[0]}</AvatarFallback>
           </Avatar>
         </div>
@@ -103,7 +113,7 @@ export const ResumeCard = ({
                 duration: 0.7,
                 ease: [0.16, 1, 0.3, 1],
               }}
-              className="mt-2 pt-2 border-t border-solid border-[hsl(var(--border)] leading-[150%] text-xs sm:text-sm"
+              className="mt-2 pt-2 border-t border-solid border-[hsl(var(--border)] text-xs/normal sm:text-sm/normal whitespace-pre-wrap"
             >
               {description}
             </motion.div>

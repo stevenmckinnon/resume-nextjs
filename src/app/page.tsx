@@ -22,7 +22,7 @@ export default function Page() {
               <BlurFade delay={BLUR_FADE_DELAY}>
                 <h1 className="flex items-center text-3xl font-bold tracking-tighter sm:text-5xl xl:text-6xl/none">
                   Hi, I&apos;m&nbsp;
-                  <AuroraText className="pr-[1px] pl-[1px]">{DATA.name.split(" ")[0]}</AuroraText> <span className="ml-2 sm:ml-4 text-xl sm:text-3xl xl:text-4xl/none">👋</span>
+                  <AuroraText className="pr-[1px] pl-[1px]">{DATA.name.split(" ")[0]}</AuroraText> <span className="ml-2 sm:ml-2.5 text-xl sm:text-3xl xl:text-4xl/none">👋</span>
                 </h1>
               </BlurFade>
               <BlurFadeText
@@ -79,6 +79,7 @@ export default function Page() {
                 badges={work.badges}
                 period={`${work.start} - ${work.end ?? "Present"}`}
                 description={work.description}
+                index={id}
               />
             </BlurFade>
           ))}

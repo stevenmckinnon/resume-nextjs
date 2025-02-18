@@ -82,11 +82,10 @@ and implementation of robust UI libraries featuring reusable components, design
 patterns, and business intelligence tools. I play a pivotal role in creating application
 scaffolds that enable teams to rapidly set up new applications while adhering to
 consistent patterns, streamlining the development process across the organisation.
-In addition to my development responsibilities, I serve as one of the leads for the firm’s
-Risk Technology space, driving innovation and best practices in UI development. I am
-also actively engaged in managing client relationships, mentoring team members, and
-promoting "sensible defaults" to ensure scalable and efficient application
-development. My role combines technical expertise, strategic leadership, and a
+
+In addition to my development responsibilities, I serve as one of the leads for the firm’s Risk Technology space, driving innovation and best practices in UI development. I am also actively engaged in managing client relationships, mentoring team members, and promoting "sensible defaults" to ensure scalable and efficient application development. 
+
+My role combines technical expertise, strategic leadership, and a
 commitment to fostering both individual and team growth.`,
     },
     {
@@ -103,12 +102,9 @@ helped enable companies to seamlessly deliver tailored and curated gifts to
 employees, clients, and other stakeholders. Employing React and TypeScript, I have
 participated in crafting a responsive, accessible, and secure application through the
 creation of a well-tested and documented custom component library, hooks, and
-functions. The platform showcases a versatile gift recipient interface, and personalised
-emails that adapt to each client's branding, fostering trust among recipients and
-emphasising the gifts' origins. In close collaboration with management, product, and
-design teams, I consistently strive to surpass client needs and expectations. As a
-proactive team member, I have confidently led initiatives, mentored colleagues, and
-contributed to shaping the company's strategic direction.`,
+functions. The platform showcases a versatile gift recipient interface, and personalised emails that adapt to each client's branding, fostering trust among recipients and emphasising the gifts' origins. 
+
+In close collaboration with management, product, and design teams, I consistently strive to surpass client needs and expectations. As a proactive team member, I have confidently led initiatives, mentored colleagues, and contributed to shaping the company's strategic direction.`,
     },
     {
       company: "Evotix",
@@ -119,12 +115,7 @@ contributed to shaping the company's strategic direction.`,
       logoUrl: "/evotix.png",
       start: "January 2021",
       end: "March 2022",
-      description: `Worked on the next generation of the company’s health and safety application. Using
-React/TypeScript to build a responsive, modern and secure application. This involved
-building a component library to transform JSON into complex forms using a bespoke
-renderer, which can be used by the client to create custom forms, with strong
-considerations to accessibility, language and simplicity. Working alongside the product
-and UX teams to meet customer needs and expectations.`,
+      description: `Worked on the next generation of the company’s health and safety application. Using React/TypeScript to build a responsive, modern and secure application. This involved building a component library to transform JSON into complex forms using a bespoke renderer, which can be used by the client to create custom forms, with strong considerations to accessibility, language and simplicity. Working alongside the product and UX teams to meet customer needs and expectations.`,
     },
     {
       company: "JP Morgan Chase",
@@ -135,10 +126,7 @@ and UX teams to meet customer needs and expectations.`,
       logoUrl: "/jpm.png",
       start: "May 2019",
       end: "December 2020",
-      description: `Building an Electron based desktop platform for Windows, which is used by multiple
-development teams and end users across the firm. Using Typescript, React and Redux
-and OpenFin to power the platform, which offers advanced layout capabilities, and
-client-side interoperability.`,
+      description: `Building an Electron based desktop platform for Windows, which is used by multiple development teams and end users across the firm. Using Typescript, React and Redux and OpenFin to power the platform, which offers advanced layout capabilities, and client-side interoperability.`,
     },
     {
       company: "JP Morgan Chase",
@@ -149,11 +137,7 @@ client-side interoperability.`,
       logoUrl: "/jpm.png",
       start: "June 2018",
       end: "May 2019",
-      description: `Worked to build a modern and responsive GraphQL playground, and an aggregated
-company news application, with the end-user in mind. I also worked with the UX team
-to host usability sessions to determine end-user’s expectations and needs. Building
-React component library for other development teams in the firm to use. Training team
-members up on front end technologies.`,
+      description: `Worked to build a modern and responsive GraphQL playground, and an aggregated company news application, with the end-user in mind. I also worked with the UX team to host usability sessions to determine end-user’s expectations and needs. Building React component library for other development teams in the firm to use. Training team members up on front end technologies.`,
     },
     {
       company: "JP Morgan Chase",
@@ -164,11 +148,7 @@ members up on front end technologies.`,
       logoUrl: "/jpm.png",
       start: "November 2016",
       end: "June 2018",
-      description: `Full stack developer with other responsibilities including: discussing business
-requirements with end users on a global scale, making design decisions for the
-project, handling deployments and maintaining stability of application environments,
-and working with, and managing Scrum and agile methodologies. Training new team
-members.`,
+      description: `Full stack developer with other responsibilities including: discussing business requirements with end users on a global scale, making design decisions for the project, handling deployments and maintaining stability of application environments, and working with, and managing Scrum and agile methodologies. Training new team members.`,
     },
     {
       company: "JP Morgan Chase",
@@ -179,10 +159,9 @@ members.`,
       logoUrl: "/jpm.png",
       start: "June 2014",
       end: "November 2016",
-      description: `Key point of contact for designing — utilising wireframes and proof of concepts— and
-implementing the application front end to meet end user needs.
-Development of a comprehensive, automated end-to-end test suite. Leveraging the
-power of Selenium and embracing BDD principles.`,
+      description: `Key point of contact for designing — utilising wireframes and proof of concepts — and implementing the application front end to meet end user needs. 
+      
+Development of a comprehensive, automated end-to-end test suite. Leveraging the power of Selenium and embracing BDD principles.`,
     },
   ],
   education: [

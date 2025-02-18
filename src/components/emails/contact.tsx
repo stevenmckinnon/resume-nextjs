@@ -18,9 +18,7 @@ interface EmailTemplateProps {
   message: string;
 }
 
-const baseUrl = process.env.VERCEL_URL
-  ? `https://${process.env.VERCEL_URL}`
-  : "";
+const baseUrl = "https://stevenmckinnon.co.uk";
 
 export const ContactEmail = ({
   name,
@@ -28,7 +26,7 @@ export const ContactEmail = ({
   subject,
   message,
 }: EmailTemplateProps) => {
-  const previewText = `Message from ${name}`;
+  const previewText = `${message.substring(0, 15)}...`;
 
   return (
     <Html>

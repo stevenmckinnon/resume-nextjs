@@ -103,7 +103,7 @@ export const ResumeCard = ({
                 duration: 0.7,
                 ease: [0.16, 1, 0.3, 1],
               }}
-              className="mt-2 pt-2 border border-solid border-[hsl(var(--border)] leading-[150%] text-xs sm:text-sm"
+              className="mt-2 pt-2 border-t border-solid border-[hsl(var(--border)] leading-[150%] text-xs sm:text-sm"
             >
               {description}
             </motion.div>

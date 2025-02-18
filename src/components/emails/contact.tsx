@@ -18,7 +18,7 @@ interface EmailTemplateProps {
   message: string;
 }
 
-const baseUrl = "https://stevenmckinnon.co.uk";
+const baseUrl = "https://stevemckinnon.co.uk";
 
 export const ContactEmail = ({
   name,

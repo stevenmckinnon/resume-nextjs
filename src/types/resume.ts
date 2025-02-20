@@ -9,7 +9,6 @@ export type SocialLink = {
 
 export type Contact = {
   email: string;
-  tel: string;
   social: {
     [key: string]: SocialLink; // Index signature for dynamic social media keys
   };

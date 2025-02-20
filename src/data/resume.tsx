@@ -18,6 +18,7 @@ export const DATA: Resume = {
     "Next.js",
     "Typescript",
     "Node.js",
+    "Storybook",
     "Javascript",
     "HTML",
     "CSS/SCSS",
@@ -26,7 +27,6 @@ export const DATA: Resume = {
   navbar: [{ href: "/", icon: HomeIcon, label: "Home" }],
   contact: {
     email: "hello@stevenmckinnon.co.uk",
-    tel: "+447753232305",
     social: {
       GitHub: {
         name: "GitHub",

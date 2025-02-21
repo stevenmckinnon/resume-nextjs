@@ -49,6 +49,11 @@ export type ProjectLink = {
   icon: JSX.Element; // Use JSX.Element for the actual icon JSX
 };
 
+export type Skill = {
+  name: string;
+  icon?: React.ComponentType<IconProps>;
+};
+
 export type Resume = {
   name: string;
   initials: string;
@@ -58,7 +63,7 @@ export type Resume = {
   description: string;
   summary: string;
   avatarUrl: string;
-  skills: string[];
+  skills: Skill[];
   navbar: NavbarItem[];
   contact: Contact;
   work: WorkExperience[];

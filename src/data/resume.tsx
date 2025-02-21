@@ -14,15 +14,25 @@ export const DATA: Resume = {
   summary: `I am a highly focused, enthusiastic software developer with over ${calculateYearsOfExperience()}  years experience. Strong team working and communication skills; including a high level of comfort when it comes to working with, and understanding business and technical requirements from end users.`,
   avatarUrl: "/me.jpg",
   skills: [
-    "React",
-    "Next.js",
-    "Typescript",
-    "Node.js",
-    "Storybook",
-    "Javascript",
-    "HTML",
-    "CSS/SCSS",
-    "GraphQL",
+    {
+      name: "React",
+      icon: Icons.react,
+    },
+    {
+      name: "Next.js",
+      icon: Icons.nextjs,
+    },
+    {
+      name: "Typescript",
+      icon: Icons.typescript,
+    },
+    { name: "Javascript", icon: Icons.javascript },
+    { name: "HTML", icon: Icons.html },
+    { name: "CSS/SCSS", icon: Icons.sass },
+    { name: "TailwindCSS", icon: Icons.tailwindcss },
+    { name: "GraphQL", icon: Icons.graphql },
+    { name: "Storybook", icon: Icons.storybook },
+    { name: "Figma", icon: Icons.figma },
   ],
   navbar: [{ href: "/", icon: HomeIcon, label: "Home" }],
   contact: {
@@ -77,16 +87,11 @@ export const DATA: Resume = {
       title: "Lead Frontend Developer",
       logoUrl: "/jpm.png",
       start: "February 2024",
-      description: `As the lead developer, I manage a team of eight developers, overseeing the design
-and implementation of robust UI libraries featuring reusable components, design
-patterns, and business intelligence tools. I play a pivotal role in creating application
-scaffolds that enable teams to rapidly set up new applications while adhering to
-consistent patterns, streamlining the development process across the organisation.
+      description: `As the lead developer, I manage a team of eight developers, overseeing the design and implementation of robust UI libraries featuring reusable components, design patterns, and business intelligence tools. I play a pivotal role in creating application scaffolds that enable teams to rapidly set up new applications while adhering to consistent patterns, streamlining the development process across the organisation.
 
 In addition to my development responsibilities, I serve as one of the leads for the firm’s Risk Technology space, driving innovation and best practices in UI development. I am also actively engaged in managing client relationships, mentoring team members, and promoting "sensible defaults" to ensure scalable and efficient application development. 
 
-My role combines technical expertise, strategic leadership, and a
-commitment to fostering both individual and team growth.`,
+My role combines technical expertise, strategic leadership, and a commitment to fostering both individual and team growth.`,
     },
     {
       company: "&Open",
@@ -97,12 +102,7 @@ commitment to fostering both individual and team growth.`,
       logoUrl: "/andopen.png",
       start: "March 2022",
       end: "February 2024",
-      description: `Contributing to the development of a multi-tenant corporate gifting platform, I have
-helped enable companies to seamlessly deliver tailored and curated gifts to
-employees, clients, and other stakeholders. Employing React and TypeScript, I have
-participated in crafting a responsive, accessible, and secure application through the
-creation of a well-tested and documented custom component library, hooks, and
-functions. The platform showcases a versatile gift recipient interface, and personalised emails that adapt to each client's branding, fostering trust among recipients and emphasising the gifts' origins. 
+      description: `Contributing to the development of a multi-tenant corporate gifting platform, I have helped enable companies to seamlessly deliver tailored and curated gifts to employees, clients, and other stakeholders. Employing React and TypeScript, I have participated in crafting a responsive, accessible, and secure application through the creation of a well-tested and documented custom component library, hooks, and functions. The platform showcases a versatile gift recipient interface, and personalised emails that adapt to each client's branding, fostering trust among recipients and emphasising the gifts' origins. 
 
 In close collaboration with management, product, and design teams, I consistently strive to surpass client needs and expectations. As a proactive team member, I have confidently led initiatives, mentored colleagues, and contributed to shaping the company's strategic direction.`,
     },

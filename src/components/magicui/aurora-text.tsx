@@ -22,7 +22,7 @@ export function AuroraText({
   return (
     <MotionComponent
       className={cn(
-        "relative inline-flex overflow-hidden bg-white dark:bg-black",
+        "relative inline-flex overflow-hidden bg-background",
         className
       )}
       {...props}

@@ -1,12 +1,10 @@
-# Portfolio
+# Steve McKinnon CV
 
 Built with next.js, [shadcn/ui](https://ui.shadcn.com/), and [magic ui](https://magicui.design/), deployed on Vercel.
 
 # Features
 
-- Setup only takes a few minutes by editing the [single config file](./src/data/resume.tsx)
-- Built using Next.js 14, React, Typescript, Shadcn/UI, TailwindCSS, Framer Motion, Magic UI
-- Includes a blog
+- Built using Next.js 15, React 19, Typescript, Shadcn/UI, TailwindCSS 4, Framer Motion, Magic UI
 - Responsive for different devices
 - Optimized for Next.js and Vercel
 
@@ -23,8 +21,6 @@ Built with next.js, [shadcn/ui](https://ui.shadcn.com/), and [magic ui](https://
    ```bash
    pnpm dev
    ```
-
-3. Open the [Config file](./src/data/resume.tsx) and make changes
 
 TODO: Add testing framework.
 

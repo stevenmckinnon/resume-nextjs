@@ -7,6 +7,7 @@ import type { Metadata } from "next";
 import { Rubik } from "next/font/google";
 import { Toaster } from "@/components/ui/toaster";
 import { ScrollProgress } from "@/components/magicui/scroll-progress";
+import { Analytics } from "@vercel/analytics/next";
 
 import "./globals.css";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
@@ -113,6 +114,7 @@ export default function RootLayout({
             <Toaster />
           </TooltipProvider>
         </ThemeProvider>
+        <Analytics />
       </body>
     </html>
   );

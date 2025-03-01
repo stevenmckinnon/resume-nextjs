@@ -92,33 +92,35 @@ const Page = () => {
       <section id="contact">
         <div className="mx-auto w-full max-w-2xl space-y-8">
           <div className="flex-col flex flex-1 space-y-1.5">
-            <BlurFade delay={BLUR_FADE_DELAY}>
-              <h1 className="text-3xl font-bold tracking-tighter sm:text-5xl xl:text-6xl/none">
+            <BlurFade delay={BLUR_FADE_DELAY * 2}>
+              <h2 className="text-2xl font-bold tracking-tighter sm:text-4xl xl:text-5xl/none">
                 Contact Me
-              </h1>
+              </h2>
             </BlurFade>
             <BlurFadeText
-              className="md:text-xl"
-              delay={BLUR_FADE_DELAY}
+              className="prose max-w-full text-pretty font-sans text-sm text-muted-foreground dark:prose-invert"
+              delay={BLUR_FADE_DELAY * 3}
               text="Drop me a message and I'll get back to you as soon as possible."
             />
           </div>
           <Form {...form}>
-            <BlurFade delay={BLUR_FADE_DELAY * 2}>
+            <BlurFade delay={BLUR_FADE_DELAY * 4}>
               <form
                 onSubmit={form.handleSubmit(onSubmit)}
                 className="space-y-4"
+                noValidate
               >
                 <FormField
                   control={form.control}
                   name="name"
                   render={({ field }) => (
                     <FormItem>
-                      <FormLabel>Name</FormLabel>
+                      <FormLabel required>Name</FormLabel>
                       <FormControl>
                         <Input
                           autoComplete="name"
                           placeholder="Your name"
+                          required
                           {...field}
                         />
                       </FormControl>
@@ -131,12 +133,13 @@ const Page = () => {
                   name="email"
                   render={({ field }) => (
                     <FormItem>
-                      <FormLabel>Email</FormLabel>
+                      <FormLabel required>Email</FormLabel>
                       <FormControl>
                         <Input
                           type="email"
                           autoComplete="email"
                           placeholder="Your email"
+                          required
                           {...field}
                         />
                       </FormControl>
@@ -149,9 +152,9 @@ const Page = () => {
                   name="subject"
                   render={({ field }) => (
                     <FormItem>
-                      <FormLabel>Subject</FormLabel>
+                      <FormLabel required>Subject</FormLabel>
                       <FormControl>
-                        <Input placeholder="Subject" {...field} />
+                        <Input placeholder="Subject" required {...field} />
                       </FormControl>
                       <FormMessage />
                     </FormItem>
@@ -162,9 +165,13 @@ const Page = () => {
                   name="message"
                   render={({ field }) => (
                     <FormItem>
-                      <FormLabel>Message</FormLabel>
+                      <FormLabel required>Message</FormLabel>
                       <FormControl>
-                        <Textarea placeholder="Your message" {...field} />
+                        <Textarea
+                          placeholder="Your message"
+                          required
+                          {...field}
+                        />
                       </FormControl>
                       <FormMessage />
                     </FormItem>

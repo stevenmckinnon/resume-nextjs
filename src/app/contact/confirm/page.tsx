@@ -25,16 +25,16 @@ const Page = () => {
               delay={BLUR_FADE_DELAY * 2}
               className="flex flex-col gap-2 text-center"
             >
-              <h1 className="relative text-3xl font-bold tracking-tighter sm:text-5xl xl:text-6xl/none">
+              <h2 className="relative text-2xl font-bold tracking-tighter sm:text-4xl xl:text-5xl/none">
                 Message sent
-              </h1>
-              <p className="text-lg">
+              </h2>
+              <p className="prose max-w-full text-pretty font-sans text-sm text-muted-foreground dark:prose-invert">
                 Thank you for getting in touch. I'll get back to you as soon as
                 possible!
               </p>
             </BlurFade>
             <BlurFade delay={BLUR_FADE_DELAY * 3}>
-              <Button asChild className="mt-4">
+              <Button asChild className="mt-6">
                 <Link href="/">Go back to home</Link>
               </Button>
             </BlurFade>

@@ -10,7 +10,7 @@ export const DATA: Resume = {
   location: "Glasgow, Scotland",
   locationLink: "https://www.google.com/maps/place/glasgow",
   description:
-    "I'm a Glasgow based front end developer creating modern web apps.\nLet's start scrolling and learn more about me.",
+    "I'm a Glasgow based frontend developer creating modern web apps.",
   summary: `I am a highly focused, enthusiastic software developer with over ${calculateYearsOfExperience()}  years experience. Strong team working and communication skills; including a high level of comfort when it comes to working with, and understanding business and technical requirements from end users.`,
   avatarUrl: "/me.jpg",
   skills: [

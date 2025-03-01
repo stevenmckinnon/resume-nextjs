@@ -1,50 +1,18 @@
 import Link from "next/link";
 import Markdown from "react-markdown";
 
-import { AuroraText } from "@/components/magicui/aurora-text";
 import BlurFade from "@/components/magicui/blur-fade";
-import BlurFadeText from "@/components/magicui/blur-fade-text";
 import { RainbowButton } from "@/components/magicui/rainbow-button";
 import { ResumeCard } from "@/components/resume-card";
-import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { Badge } from "@/components/ui/badge";
+import { Button } from "@/components/ui/button";
 import { DATA } from "@/data/resume";
-
-const BLUR_FADE_DELAY = 0.04;
+import { Download } from "lucide-react";
+import { BLUR_FADE_DELAY } from "@/lib/utils";
 
 export default function Page() {
   return (
-    <main className="flex flex-col h-full space-y-10">
-      <section id="hero">
-        <div className="mx-auto w-full max-w-2xl space-y-8">
-          <div className="gap-2 flex justify-between">
-            <div className="flex-col flex flex-1 space-y-1.5">
-              <BlurFade delay={BLUR_FADE_DELAY}>
-                <h1 className="flex items-center text-3xl font-bold tracking-tighter sm:text-5xl xl:text-6xl/none">
-                  Hi, I&apos;m&nbsp;
-                  <AuroraText className="pr-[1px] pl-[1px]">
-                    {DATA.name.split(" ")[0]}
-                  </AuroraText>{" "}
-                  <span className="ml-2 sm:ml-2.5 text-xl sm:text-3xl xl:text-4xl/none">
-                    👋
-                  </span>
-                </h1>
-              </BlurFade>
-              <BlurFadeText
-                className="max-w-[600px] md:text-xl"
-                delay={BLUR_FADE_DELAY}
-                text={DATA.description}
-              />
-            </div>
-            <BlurFade delay={BLUR_FADE_DELAY}>
-              <Avatar className="size-28 border">
-                <AvatarImage alt={DATA.name} src={DATA.avatarUrl} />
-                <AvatarFallback>{DATA.initials}</AvatarFallback>
-              </Avatar>
-            </BlurFade>
-          </div>
-        </div>
-      </section>
+    <>
       <section id="location">
         <BlurFade delay={BLUR_FADE_DELAY * 3}>
           <h2 className="text-xl font-bold">Location</h2>
@@ -82,6 +50,7 @@ export default function Page() {
           </div>
         </div>
       </section>
+
       <section id="work">
         <div className="flex min-h-0 flex-col gap-y-3">
           <BlurFade delay={BLUR_FADE_DELAY * 8}>
@@ -154,6 +123,32 @@ export default function Page() {
           ))}
         </div>
       </section>
+      <section id="download-cv">
+        <div className="flex min-h-0 flex-col gap-y-3">
+          <BlurFade delay={BLUR_FADE_DELAY * 7.8}>
+            <div className="bg-muted/50 rounded-lg p-6 flex flex-col md:flex-row items-center justify-between gap-4">
+              <div className="space-y-2 text-center md:text-left">
+                <h3 className="text-lg font-medium">Download my full CV</h3>
+                <p className="text-sm text-muted-foreground max-w-md">
+                  Want a complete overview of my experience and qualifications?
+                  Download my detailed CV in PDF format.
+                </p>
+              </div>
+              <Button asChild className="gap-2 min-w-36">
+                <Link
+                  href="/cv.pdf"
+                  target="_blank"
+                  download="Steve McKinnon CV.pdf"
+                >
+                  <Download className="size-4" />
+                  Download CV
+                </Link>
+              </Button>
+            </div>
+          </BlurFade>
+        </div>
+      </section>
+
       <section id="contact">
         <div className="grid items-center justify-center gap-4 px-4 text-center md:px-6 w-full py-12">
           <BlurFade delay={BLUR_FADE_DELAY * 12}>
@@ -169,6 +164,6 @@ export default function Page() {
           </BlurFade>
         </div>
       </section>
-    </main>
+    </>
   );
 }

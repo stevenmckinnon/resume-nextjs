@@ -46,3 +46,5 @@ export function calculateYearsOfExperience(): number {
   // robust version below for that.
   return Math.floor(timeDifference / (1000 * 60 * 60 * 24 * 365.25)); // Accounts for leap years
 }
+
+export const BLUR_FADE_DELAY = 0.04;

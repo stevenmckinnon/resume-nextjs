@@ -2,17 +2,22 @@ import Navbar from "@/components/navbar";
 import { ThemeProvider } from "@/components/theme-provider";
 import { TooltipProvider } from "@/components/ui/tooltip";
 import { DATA } from "@/data/resume";
-import { cn } from "@/lib/utils";
+import { BLUR_FADE_DELAY, cn } from "@/lib/utils";
 import type { Metadata } from "next";
-import { Inter as FontSans } from "next/font/google";
+import { Rubik } from "next/font/google";
 import { Toaster } from "@/components/ui/toaster";
 import { ScrollProgress } from "@/components/magicui/scroll-progress";
 
 import "./globals.css";
+import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
+import BlurFade from "@/components/magicui/blur-fade";
+import BlurFadeText from "@/components/magicui/blur-fade-text";
+import { AuroraText } from "@/components/magicui/aurora-text";
 
-const fontSans = FontSans({
+const fontSans = Rubik({
   subsets: ["latin"],
   variable: "--font-sans",
+  display: "swap",
 });
 
 export const metadata: Metadata = {
@@ -71,7 +76,39 @@ export default function RootLayout({
         <ThemeProvider enableSystem attribute="class" defaultTheme="light">
           <TooltipProvider delayDuration={0}>
             <ScrollProgress className="top-0" />
-            {children}
+            <main className="flex flex-col h-full space-y-10">
+              <section id="hero">
+                <div className="mx-auto w-full max-w-2xl space-y-8">
+                  <div className="gap-2 flex justify-between">
+                    <div className="flex-col flex flex-1 space-y-1.5">
+                      <BlurFade delay={BLUR_FADE_DELAY}>
+                        <h1 className="flex items-center text-3xl font-bold tracking-tighter sm:text-5xl xl:text-6xl/none">
+                          Hi, I&apos;m&nbsp;
+                          <AuroraText className="pr-[1px] pl-[1px]">
+                            {DATA.name.split(" ")[0]}
+                          </AuroraText>{" "}
+                          <span className="ml-2 sm:ml-2.5 text-xl sm:text-3xl xl:text-4xl/none">
+                            👋
+                          </span>
+                        </h1>
+                      </BlurFade>
+                      <BlurFadeText
+                        className="max-w-[600px] md:text-xl"
+                        delay={BLUR_FADE_DELAY}
+                        text={DATA.description}
+                      />
+                    </div>
+                    <BlurFade delay={BLUR_FADE_DELAY}>
+                      <Avatar className="size-28 border">
+                        <AvatarImage alt={DATA.name} src={DATA.avatarUrl} />
+                        <AvatarFallback>{DATA.initials}</AvatarFallback>
+                      </Avatar>
+                    </BlurFade>
+                  </div>
+                </div>
+              </section>
+              {children}
+            </main>
             <Navbar />
             <Toaster />
           </TooltipProvider>

@@ -70,7 +70,7 @@ export default function RootLayout({
       >
         <ThemeProvider enableSystem attribute="class" defaultTheme="light">
           <TooltipProvider delayDuration={0}>
-            <ScrollProgress className="top-[0]" />
+            <ScrollProgress className="top-0" />
             {children}
             <Navbar />
             <Toaster />

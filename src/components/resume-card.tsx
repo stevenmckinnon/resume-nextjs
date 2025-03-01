@@ -70,7 +70,7 @@ export const ResumeCard = ({
             <AvatarFallback>{altText[0]}</AvatarFallback>
           </Avatar>
         </div>
-        <div className="flex-grow ml-4 items-center flex-col group">
+        <div className="grow ml-4 items-center flex-col group">
           <CardHeader>
             <div className="flex flex-col-reverse items-start gap-x-2 text-base sm:flex-row sm:items-center sm:justify-between">
               <h3 className="inline-flex items-center justify-center font-semibold leading-none text-xs sm:text-sm">

@@ -73,7 +73,7 @@ export default function RootLayout({
           fontSans.variable
         )}
       >
-        <ThemeProvider enableSystem attribute="class" defaultTheme="light">
+        <ThemeProvider enableSystem attribute="class" defaultTheme="dark">
           <TooltipProvider delayDuration={0}>
             <ScrollProgress className="top-0" />
             <main className="flex flex-col h-full space-y-10">

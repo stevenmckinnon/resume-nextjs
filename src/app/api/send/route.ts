@@ -13,7 +13,7 @@ export async function POST(request: Request) {
       from: `${name} <noreply@stevenmckinnon.co.uk>`,
       to: [DATA.contact.email],
       subject: subject,
-      react: EmailTemplate({ message, name, email, subject }) as ReactElement,
+      react: EmailTemplate({ message, name, email, subject }) as ReactElement<any>,
     });
 
     if (error) {

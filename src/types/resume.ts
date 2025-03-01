@@ -1,5 +1,7 @@
 import { IconProps } from "@/components/icons";
 
+import type { JSX } from "react";
+
 export type SocialLink = {
   name: string;
   url: string;

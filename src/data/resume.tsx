@@ -11,7 +11,9 @@ export const DATA: Resume = {
   locationLink: "https://www.google.com/maps/place/glasgow",
   description:
     "I'm a Glasgow based frontend developer creating modern web apps.",
-  summary: `I am a highly focused, enthusiastic software developer with over ${calculateYearsOfExperience()}  years experience. Strong team working and communication skills; including a high level of comfort when it comes to working with, and understanding business and technical requirements from end users.`,
+  summary: `I am a highly focused, enthusiastic software developer with over ${calculateYearsOfExperience(
+    "2014-06-30"
+  )}  years experience. Strong team working and communication skills; including a high level of comfort when it comes to working with, and understanding business and technical requirements from end users.`,
   avatarUrl: "/me.jpg",
   skills: [
     {
@@ -23,10 +25,10 @@ export const DATA: Resume = {
       icon: Icons.nextjs,
     },
     {
-      name: "Typescript",
+      name: "TypeScript",
       icon: Icons.typescript,
     },
-    { name: "Javascript", icon: Icons.javascript },
+    { name: "JavaScript", icon: Icons.javascript },
     { name: "HTML", icon: Icons.html },
     { name: "CSS/SCSS", icon: Icons.sass },
     { name: "TailwindCSS", icon: Icons.tailwindcss },

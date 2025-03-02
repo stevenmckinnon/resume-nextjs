@@ -36,15 +36,11 @@ export function formatDate(date: string) {
   }
 }
 
-export function calculateYearsOfExperience(): number {
-  const startDate = new Date("2014-06-01");
+export function calculateYearsOfExperience(date: string): number {
+  const startDate = new Date(date);
   const currentDate = new Date();
   const timeDifference = currentDate.getTime() - startDate.getTime();
-
-  // Calculate the difference in years.  Note that this doesn't account for
-  // whether the person has had their birthday yet this year.  See the more
-  // robust version below for that.
-  return Math.floor(timeDifference / (1000 * 60 * 60 * 24 * 365.25)); // Accounts for leap years
+  return Math.floor(timeDifference / (1000 * 60 * 60 * 24 * 365.25));
 }
 
 export const BLUR_FADE_DELAY = 0.04;

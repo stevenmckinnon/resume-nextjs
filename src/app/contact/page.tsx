@@ -21,12 +21,26 @@ import BlurFade from "@/components/magicui/blur-fade";
 import BlurFadeText from "@/components/magicui/blur-fade-text";
 import { useToast } from "@/hooks/use-toast";
 import { MailOpen, Loader2 } from "lucide-react";
+import { cn } from "@/lib/utils";
 
 const schema = z.object({
-  name: z.string().min(1, "Name is required"),
-  email: z.string().email("Invalid email address"),
-  subject: z.string().min(1, "Subject is required"),
-  message: z.string().min(1, "Message is required"),
+  name: z
+    .string()
+    .min(2, "Name must be at least 2 characters")
+    .max(50, "Name must be less than 50 characters"),
+  email: z
+    .string()
+    .email("Please enter a valid email address")
+    .min(5, "Email must be at least 5 characters")
+    .max(100, "Email must be less than 100 characters"),
+  subject: z
+    .string()
+    .min(3, "Subject must be at least 3 characters")
+    .max(100, "Subject must be less than 100 characters"),
+  message: z
+    .string()
+    .min(10, "Message must be at least 10 characters")
+    .max(1000, "Message must be less than 1000 characters"),
 });
 
 export type ContactFormData = z.infer<typeof schema>;
@@ -167,11 +181,24 @@ const Page = () => {
                     <FormItem>
                       <FormLabel required>Message</FormLabel>
                       <FormControl>
-                        <Textarea
-                          placeholder="Your message"
-                          required
-                          {...field}
-                        />
+                        <div className="relative">
+                          <Textarea
+                            placeholder="Your message"
+                            required
+                            maxLength={1000}
+                            {...field}
+                          />
+                          <span
+                            className={cn(
+                              "absolute bottom-2 right-2 text-xs",
+                              field.value.length > 900
+                                ? "text-warning"
+                                : "text-muted-foreground"
+                            )}
+                          >
+                            {field.value.length}/1000
+                          </span>
+                        </div>
                       </FormControl>
                       <FormMessage />
                     </FormItem>

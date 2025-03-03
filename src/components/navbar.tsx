@@ -53,7 +53,7 @@ export default function Navbar() {
                     )}
                   >
                     <social.icon className="size-4" />
-                    <span className="text-xs">{name}</span>
+                    <span className="sr-only">{name}</span>
                   </Link>
                 </TooltipTrigger>
                 <TooltipContent>

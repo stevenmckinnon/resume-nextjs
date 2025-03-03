@@ -29,7 +29,7 @@ export default function Navbar() {
                   )}
                 >
                   <item.icon className="size-4" />
-                  <span className="text-xs">{item.label}</span>
+                  <span className="sr-only">{item.label}</span>
                 </Link>
               </TooltipTrigger>
               <TooltipContent>

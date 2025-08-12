@@ -83,7 +83,7 @@ export default function RootLayout({
                   <div className="gap-2 flex justify-between">
                     <div className="flex-col flex flex-1 space-y-1.5">
                       <BlurFade delay={BLUR_FADE_DELAY}>
-                        <h1 className="flex items-center text-3xl font-bold tracking-tighter sm:text-5xl xl:text-6xl/none">
+                        <h1 className="flex items-center text-3xl sm:text-5xl xl:text-6xl/none font-nok">
                           Hi, I&apos;m&nbsp;
                           <AuroraText className="pr-[1px] pl-[1px]">
                             {DATA.name.split(" ")[0]}

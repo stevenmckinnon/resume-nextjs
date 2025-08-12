@@ -1,9 +1,17 @@
+@font-face {
+  font-family: 'Nok';
+  src: url('/fonts/nok.otf') format('opentype');
+  font-weight: normal;
+  font-style: normal;
+  font-display: swap;
+}
+
 @import "tailwindcss";
 
 @custom-variant dark (&:is(.dark *));
 
 @theme {
-  --font-sans: var(--font-sans), ui-sans-serif, system-ui, sans-serif,
+  --font-sans: var(--font-sans), 'Nok', ui-sans-serif, system-ui, sans-serif,
     "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
 
   --color-border: hsl(var(--border));
@@ -338,4 +346,9 @@ code[data-line-numbers-max-digits="2"] > [data-line]::before {
 
 code[data-line-numbers-max-digits="3"] > [data-line]::before {
   width: 3rem;
+}
+
+/* Custom font classes */
+.font-nok {
+  font-family: 'Nok', ui-sans-serif, system-ui, sans-serif;
 }

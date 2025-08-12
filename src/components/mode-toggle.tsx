@@ -15,7 +15,7 @@ export const ModeToggle = forwardRef<HTMLButtonElement>((_, ref) => {
       className={cn(
         buttonVariants({ variant: "ghost", size: "icon" }),
         "size-12",
-        "rounded-full bg-transparent border border-white/10 hover:bg-white/10 hover:border-white/20 transition-all duration-300 backdrop-blur-sm dark:border-gray-700/10 dark:hover:bg-gray-800/10 dark:hover:border-gray-700/20"
+        "rounded-full bg-transparent hover:border border-white/10 hover:bg-white/10 hover:border-white/20 transition-all duration-300 hover:backdrop-blur-sm dark:border-gray-700/10 dark:hover:bg-gray-800/10 dark:hover:border-gray-700/20"
       )}
       onClick={() => setTheme(theme === "dark" ? "light" : "dark")}
     >

@@ -157,7 +157,7 @@ In close collaboration with management, product, and design teams, I consistentl
       href: "https://jpmorgan.com",
       badges: [],
       location: "Glasgow, Scotland",
-      title: "Frontend Developer / QA Engineer",
+      title: "Frontend Developer / Quality Engineer",
       logoUrl: "/jpm.png",
       start: "June 2014",
       end: "November 2016",

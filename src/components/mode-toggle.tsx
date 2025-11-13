@@ -5,6 +5,7 @@ import { cn } from "@/lib/utils";
 import { MoonIcon, SunIcon } from "@radix-ui/react-icons";
 import { useTheme } from "next-themes";
 import { forwardRef, useCallback } from "react";
+import { Tooltip, TooltipTrigger, TooltipContent } from "./ui/tooltip";
 
 // Keep the element/UI from ModeToggle, but adopt the animated transition logic
 // from theme-switch (inject temporary CSS and clean it up after).
@@ -42,7 +43,7 @@ export const ModeToggle = forwardRef<HTMLButtonElement>((_, ref) => {
 
     // If View Transitions API is available, wrap the update
     if ("startViewTransition" in document) {
-      (document as any).startViewTransition(() => {
+      document.startViewTransition(() => {
         performToggle();
       });
     } else {
@@ -57,19 +58,25 @@ export const ModeToggle = forwardRef<HTMLButtonElement>((_, ref) => {
   }, [setTheme, theme]);
 
   return (
-    <button
-      ref={ref}
-      className={cn(
-        buttonVariants({ variant: "ghost", size: "icon" }),
-        "size-12",
-        "rounded-full bg-transparent hover:border border-white/10 hover:bg-white/10 hover:border-white/20 transition-all duration-300 hover:backdrop-blur-sm dark:border-gray-700/10 dark:hover:bg-gray-800/10 dark:hover:border-gray-700/20"
-      )}
-      onClick={handleClick}
-    >
-      <SunIcon className="h-[1.2rem] w-[1.2rem] text-neutral-800 dark:hidden dark:text-neutral-200" />
-      <MoonIcon className="hidden h-[1.2rem] w-[1.2rem] text-neutral-800 dark:block dark:text-neutral-200" />
-      <span className="sr-only">Theme switch</span>
-    </button>
+    <Tooltip>
+      <TooltipTrigger asChild>
+        <button
+          ref={ref}
+          className={cn(
+            buttonVariants({ variant: "ghost", size: "icon" }),
+            "size-12 rounded-full bg-transparent transition-colors duration-300 hover:bg-muted/80"
+          )}
+          onClick={handleClick}
+        >
+          <SunIcon className="size-4 dark:hidden " />
+          <MoonIcon className="size-4 hidden dark:block" />
+          <span className="sr-only">Theme switch</span>
+        </button>
+      </TooltipTrigger>
+      <TooltipContent>
+        <p>Toggle theme</p>
+      </TooltipContent>
+    </Tooltip>
   );
 });
 

@@ -1,7 +1,7 @@
 import { Icons } from "@/components/icons";
 import { calculateYearsOfExperience } from "@/lib/utils";
 import type { Resume } from "@/types/resume";
-import { HomeIcon } from "lucide-react";
+import { HomeIcon, FileText, Building2 } from "lucide-react";
 
 export const DATA: Resume = {
   name: "Steve McKinnon",
@@ -36,7 +36,11 @@ export const DATA: Resume = {
     { name: "Storybook", icon: Icons.storybook },
     { name: "Figma", icon: Icons.figma },
   ],
-  navbar: [{ href: "/", icon: HomeIcon, label: "Home" }],
+  navbar: [
+    { href: "/", icon: HomeIcon, label: "Home" },
+    { href: "/invoices", icon: FileText, label: "Invoices" },
+    { href: "/clients", icon: Building2, label: "Clients" },
+  ],
   contact: {
     email: "hello@stevenmckinnon.co.uk",
     social: {
@@ -201,6 +205,32 @@ Development of a comprehensive, automated end-to-end test suite. Leveraging the 
       logoUrl: "/me.jpg",
       start: "January 2016",
       defaultExpanded: false,
+    },
+  ],
+  projects: [
+    {
+      name: "Caley",
+      description: `A modern invoice management application built with Next.js, Prisma, and Better Auth. Features include authentication with email/password and password reset, email notifications via Resend, invoice creation and management, dashboard with analytics, and a modern UI with dark mode support.`,
+      website: "https://caley.app",
+      github: "https://github.com/stevenmckinnon/invoice-app",
+      defaultExpanded: true,
+      icon: "receipt",
+    },
+    {
+      name: "Photography Portfolio",
+      description: `A beautiful photography portfolio website built with Next.js, shadcn/ui, and Magic UI. Features include a blog, responsive design, image optimization with Cloudinary, and a modern UI optimized for Next.js and Vercel.`,
+      website: "https://stevenmckinnon.co.uk",
+      github: "https://github.com/stevenmckinnon/photography",
+      defaultExpanded: true,
+      icon: "camera",
+    },
+    {
+      name: "Log Dumper",
+      description: `A utility package for dumping logs in Node.js applications. Published on npm, this package provides a simple and efficient way to handle log output in development and production environments.`,
+      website: "https://www.npmjs.com/package/@stevenmckinnon/log-dumper",
+      github: "https://github.com/stevenmckinnon/log-dumper",
+      defaultExpanded: true,
+      icon: "package",
     },
   ],
 } as const;

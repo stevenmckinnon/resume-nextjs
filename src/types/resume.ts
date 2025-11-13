@@ -56,6 +56,16 @@ export type Skill = {
   icon?: React.ComponentType<IconProps>;
 };
 
+export type Project = {
+  name: string;
+  description: string;
+  website?: string;
+  github?: string;
+  defaultExpanded: boolean;
+  logoUrl?: string;
+  icon: string;
+};
+
 export type Resume = {
   name: string;
   initials: string;
@@ -71,4 +81,5 @@ export type Resume = {
   work: WorkExperience[];
   education: EducationItem[];
   otherWork: WorkExperience[];
+  projects: Project[];
 };

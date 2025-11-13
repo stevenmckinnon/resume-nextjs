@@ -3,6 +3,7 @@ import Markdown from "react-markdown";
 
 import BlurFade from "@/components/magicui/blur-fade";
 import { RainbowButton } from "@/components/magicui/rainbow-button";
+import { ProjectCard } from "@/components/project-card";
 import { ResumeCard } from "@/components/resume-card";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
@@ -100,15 +101,40 @@ export default function Page() {
           ))}
         </div>
       </section>
+      <section id="projects">
+        <div className="flex min-h-0 flex-col gap-y-3">
+          <BlurFade delay={BLUR_FADE_DELAY * 11}>
+            <h2 className="text-xl font-bold">Projects</h2>
+          </BlurFade>
+          {DATA.projects?.map((project, id) => (
+            <BlurFade
+              key={project.name}
+              delay={BLUR_FADE_DELAY * 12 + id * 0.05}
+            >
+              <ProjectCard
+                logoUrl={project.logoUrl}
+                altText={project.name}
+                title={project.name}
+                description={project.description}
+                website={project.website}
+                github={project.github}
+                defaultExpanded={project.defaultExpanded}
+                index={id}
+                icon={project.icon}
+              />
+            </BlurFade>
+          ))}
+        </div>
+      </section>
       <section id="other-work">
         <div className="flex min-h-0 flex-col gap-y-3">
-          <BlurFade delay={BLUR_FADE_DELAY * 9}>
+          <BlurFade delay={BLUR_FADE_DELAY * 13}>
             <h2 className="text-xl font-bold">Other Work</h2>
           </BlurFade>
           {DATA.otherWork.map((work, id) => (
             <BlurFade
               key={`${work.company}-${work.start}`}
-              delay={BLUR_FADE_DELAY * 10 + id * 0.05}
+              delay={BLUR_FADE_DELAY * 14 + id * 0.05}
             >
               <ResumeCard
                 logoUrl={work.logoUrl}
@@ -151,7 +177,7 @@ export default function Page() {
 
       <section id="contact">
         <div className="grid items-center justify-center gap-4 px-4 text-center md:px-6 w-full py-12">
-          <BlurFade delay={BLUR_FADE_DELAY * 12}>
+          <BlurFade delay={BLUR_FADE_DELAY * 15}>
             <div className="space-y-3">
               <h2 className="text-2xl font-bold tracking-tighter sm:text-4xl">
                 Get in Touch

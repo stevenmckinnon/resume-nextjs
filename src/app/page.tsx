@@ -162,7 +162,7 @@ export default function Page() {
                     qualifications? Download my detailed CV in PDF format.
                   </p>
                 </div>
-                <Button asChild className="gap-2 min-w-36">
+                <Button asChild className="gap-2 min-w-36" variant="secondary">
                   <Link
                     href="/cv.pdf"
                     target="_blank"

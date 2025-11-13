@@ -1,4 +1,13 @@
-import { GlobeIcon, MailIcon, CameraIcon } from "lucide-react";
+import {
+  Camera,
+  File,
+  Github,
+  Linkedin,
+  Mail,
+  Twitter,
+  type LucideIcon,
+  Link,
+} from "lucide-react";
 
 export type IconProps = React.HTMLAttributes<SVGElement>;
 
@@ -176,5 +185,20 @@ export const Icons = {
         d="M110 64.5c0 11.9-9.6 21.5-21.5 21.5S67 76.4 67 64.5 76.6 43 88.5 43 110 52.6 110 64.5zm0 0"
       ></path>
     </svg>
+  ),
+  link: (props: IconProps) => (
+    <svg
+      xmlns="http://www.w3.org/2000/svg"
+      viewBox="0 0 24 24"
+      fill="none"
+      stroke="currentColor"
+      strokeWidth="2"
+      strokeLinecap="round"
+      strokeLinejoin="round"
+      className="lucide lucide-link"
+      dangerouslySetInnerHTML={{
+        __html: `<path d="M10 13a5 5 0 007.54.54l3-3a5 5 0 00-7-7l-3 3a5 5 0 00-7.54.54" /><path d="M14 11a5 5 0 00-7.54-.54l-3 3a5 5 0 007 7l3-3a5 5 0 007.54-.54" />`,
+      }}
+    />
   ),
 };

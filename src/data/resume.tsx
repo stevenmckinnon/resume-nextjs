@@ -1,7 +1,7 @@
 import { Icons } from "@/components/icons";
 import { calculateYearsOfExperience } from "@/lib/utils";
 import type { Resume } from "@/types/resume";
-import { HomeIcon, FileText, Building2 } from "lucide-react";
+import { HomeIcon, FileText, Building2, Link } from "lucide-react";
 
 export const DATA: Resume = {
   name: "Steve McKinnon",
@@ -213,6 +213,13 @@ Development of a comprehensive, automated end-to-end test suite. Leveraging the 
       github: "https://github.com/stevenmckinnon/photography",
       defaultExpanded: true,
       icon: "camera",
+    },
+    {
+      name: "Biosite",
+      description: `A customizable link-in-bio tool built with Next.js and Tailwind CSS.`,
+      website: "https://www.stevemck.link",
+      github: "https://github.com/stevenmckinnon/biosite",
+      icon: "link",
     },
     {
       name: "Log Dumper",

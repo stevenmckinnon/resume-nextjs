@@ -36,48 +36,44 @@ const BlurFadeText = ({
   if (animateByCharacter) {
     return (
       <div className="flex">
-        <AnimatePresence>
-          {characters.map((char, i) => (
-            <motion.span
-              key={i}
-              initial="hidden"
-              animate="visible"
-              exit="hidden"
-              variants={combinedVariants}
-              transition={{
-                yoyo: Infinity,
-                delay: delay + i * characterDelay,
-                ease: "easeOut",
-              }}
-              className={cn("inline-block", className)}
-              style={{ width: char.trim() === "" ? "0.2em" : "auto" }}
-            >
-              {char}
-            </motion.span>
-          ))}
-        </AnimatePresence>
+        {characters.map((char, i) => (
+          <motion.span
+            key={i}
+            initial="hidden"
+            animate="visible"
+            exit="hidden"
+            variants={combinedVariants}
+            transition={{
+              yoyo: Infinity,
+              delay: delay + i * characterDelay,
+              ease: "easeOut",
+            }}
+            className={cn("inline-block", className)}
+            style={{ width: char.trim() === "" ? "0.2em" : "auto" }}
+          >
+            {char}
+          </motion.span>
+        ))}
       </div>
     );
   }
 
   return (
     <div className="flex">
-      <AnimatePresence>
-        <motion.span
-          initial="hidden"
-          animate="visible"
-          exit="hidden"
-          variants={combinedVariants}
-          transition={{
-            yoyo: Infinity,
-            delay,
-            ease: "easeOut",
-          }}
-          className={cn("inline-block", className)}
-        >
-          {text}
-        </motion.span>
-      </AnimatePresence>
+      <motion.span
+        initial="hidden"
+        animate="visible"
+        exit="hidden"
+        variants={combinedVariants}
+        transition={{
+          yoyo: Infinity,
+          delay,
+          ease: "easeOut",
+        }}
+        className={cn("inline-block", className)}
+      >
+        {text}
+      </motion.span>
     </div>
   );
 };

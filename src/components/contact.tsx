@@ -1,11 +1,6 @@
 "use client";
 
-import { useForm } from "react-hook-form";
-import { zodResolver } from "@hookform/resolvers/zod";
-import * as z from "zod";
-import { useState } from "react";
-import { useRouter } from "next/navigation";
-
+import BlurFade from "@/components/magicui/blur-fade";
 import { Button } from "@/components/ui/button";
 import {
   Form,
@@ -17,11 +12,14 @@ import {
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
-import BlurFade from "@/components/magicui/blur-fade";
-import BlurFadeText from "@/components/magicui/blur-fade-text";
 import { useToast } from "@/hooks/use-toast";
-import { MailOpen, Loader2 } from "lucide-react";
 import { cn } from "@/lib/utils";
+import { zodResolver } from "@hookform/resolvers/zod";
+import { BadgeCheck, Loader2, MailOpen } from "lucide-react";
+import { useEffect, useRef, useState } from "react";
+import { useForm } from "react-hook-form";
+import * as z from "zod";
+import { Confetti, type ConfettiRef } from "./magicui/confetti";
 
 const schema = z.object({
   name: z
@@ -47,12 +45,11 @@ export type ContactFormData = z.infer<typeof schema>;
 
 const BLUR_FADE_DELAY = 0.04;
 
-const Page = () => {
-  const router = useRouter();
-
+export const Contact = () => {
   const { toast } = useToast();
-
   const [loading, setLoading] = useState(false);
+  const [submitted, setSubmitted] = useState(false);
+  const confettiRef = useRef<ConfettiRef>(null);
 
   const form = useForm<ContactFormData>({
     resolver: zodResolver(schema),
@@ -64,25 +61,26 @@ const Page = () => {
     },
   });
 
+  useEffect(() => {
+    if (submitted) {
+      confettiRef.current?.fire({});
+    }
+  }, [submitted]);
+
   const onSubmit = async (formData: ContactFormData) => {
     try {
-      setLoading(true); // Set loading to true when starting the async operation
+      setLoading(true);
 
       const response = await fetch("/api/send", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
         },
-        body: JSON.stringify({
-          name: formData.name,
-          email: formData.email,
-          subject: formData.subject,
-          message: formData.message,
-        }),
+        body: JSON.stringify(formData),
       });
 
       if (response.ok) {
-        router.push("/contact/confirm");
+        setSubmitted(true);
       } else {
         toast({
           title: "Error sending email:",
@@ -97,25 +95,50 @@ const Page = () => {
         variant: "destructive",
       });
     } finally {
-      setLoading(false); // Set loading back to false after the async operation completes
+      setLoading(false);
     }
   };
 
+  if (submitted) {
+    return (
+      <section
+        id="contact"
+        className="relative flex h-96 w-full flex-col items-center justify-center overflow-hidden"
+      >
+        <div className="relative z-10 flex flex-col items-center gap-4 text-center">
+          <BadgeCheck className="size-16 text-green-500" />
+          <h2 className="relative text-2xl font-bold tracking-tighter sm:text-4xl xl:text-5xl/none">
+            Message sent
+          </h2>
+          <p className="prose max-w-full text-pretty font-sans text-sm text-muted-foreground dark:prose-invert">
+            Thank you for getting in touch. I&apos;ll get back to you as soon as
+            possible!
+          </p>
+        </div>
+        <Confetti
+          ref={confettiRef}
+          className="absolute left-0 top-0 z-0 size-full"
+        />
+      </section>
+    );
+  }
+
   return (
-    <main className="flex flex-col h-full space-y-10">
-      <section id="contact">
+    <section id="contact" className="py-12">
+      <div className="container mx-auto px-6">
         <div className="mx-auto w-full max-w-2xl space-y-8">
           <div className="flex-col flex flex-1 space-y-1.5">
             <BlurFade delay={BLUR_FADE_DELAY * 2}>
               <h2 className="text-2xl font-bold tracking-tighter sm:text-4xl xl:text-5xl/none">
-                Contact Me
+                Get in Touch
               </h2>
             </BlurFade>
-            <BlurFadeText
-              className="prose max-w-full text-pretty font-sans text-sm text-muted-foreground dark:prose-invert"
-              delay={BLUR_FADE_DELAY * 3}
-              text="Drop me a message and I'll get back to you as soon as possible."
-            />
+            <BlurFade delay={BLUR_FADE_DELAY * 3}>
+              <p className="prose max-w-full text-pretty font-sans text-sm text-muted-foreground dark:prose-invert">
+                Drop me a message and I&apos;ll get back to you as soon as
+                possible.
+              </p>
+            </BlurFade>
           </div>
           <Form {...form}>
             <BlurFade delay={BLUR_FADE_DELAY * 4}>
@@ -124,43 +147,45 @@ const Page = () => {
                 className="space-y-4"
                 noValidate
               >
-                <FormField
-                  control={form.control}
-                  name="name"
-                  render={({ field }) => (
-                    <FormItem>
-                      <FormLabel required>Name</FormLabel>
-                      <FormControl>
-                        <Input
-                          autoComplete="name"
-                          placeholder="Your name"
-                          required
-                          {...field}
-                        />
-                      </FormControl>
-                      <FormMessage />
-                    </FormItem>
-                  )}
-                />
-                <FormField
-                  control={form.control}
-                  name="email"
-                  render={({ field }) => (
-                    <FormItem>
-                      <FormLabel required>Email</FormLabel>
-                      <FormControl>
-                        <Input
-                          type="email"
-                          autoComplete="email"
-                          placeholder="Your email"
-                          required
-                          {...field}
-                        />
-                      </FormControl>
-                      <FormMessage />
-                    </FormItem>
-                  )}
-                />
+                <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
+                  <FormField
+                    control={form.control}
+                    name="name"
+                    render={({ field }) => (
+                      <FormItem>
+                        <FormLabel required>Name</FormLabel>
+                        <FormControl>
+                          <Input
+                            autoComplete="name"
+                            placeholder="Your name"
+                            required
+                            {...field}
+                          />
+                        </FormControl>
+                        <FormMessage />
+                      </FormItem>
+                    )}
+                  />
+                  <FormField
+                    control={form.control}
+                    name="email"
+                    render={({ field }) => (
+                      <FormItem>
+                        <FormLabel required>Email</FormLabel>
+                        <FormControl>
+                          <Input
+                            type="email"
+                            autoComplete="email"
+                            placeholder="Your email"
+                            required
+                            {...field}
+                          />
+                        </FormControl>
+                        <FormMessage />
+                      </FormItem>
+                    )}
+                  />
+                </div>
                 <FormField
                   control={form.control}
                   name="subject"
@@ -205,7 +230,7 @@ const Page = () => {
                   )}
                 />
 
-                <Button type="submit" disabled={loading}>
+                <Button type="submit" disabled={loading} className="gap-2">
                   {loading ? (
                     <Loader2 className="animate-spin" />
                   ) : (
@@ -217,9 +242,7 @@ const Page = () => {
             </BlurFade>
           </Form>
         </div>
-      </section>
-    </main>
+      </div>
+    </section>
   );
 };
-
-export default Page;

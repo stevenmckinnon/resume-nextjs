@@ -59,11 +59,11 @@ export type Skill = {
 export type Project = {
   name: string;
   description: string;
-  website?: string;
-  github?: string;
+  website: string;
+  github: string;
   defaultExpanded: boolean;
   logoUrl?: string;
-  icon: string;
+  icon?: string;
 };
 
 export type Resume = {

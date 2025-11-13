@@ -36,11 +36,7 @@ export const DATA: Resume = {
     { name: "Storybook", icon: Icons.storybook },
     { name: "Figma", icon: Icons.figma },
   ],
-  navbar: [
-    { href: "/", icon: HomeIcon, label: "Home" },
-    { href: "/invoices", icon: FileText, label: "Invoices" },
-    { href: "/clients", icon: Building2, label: "Clients" },
-  ],
+  navbar: [{ href: "/", icon: HomeIcon, label: "Home" }],
   contact: {
     email: "hello@stevenmckinnon.co.uk",
     social: {
@@ -74,12 +70,6 @@ export const DATA: Resume = {
         url: "mailto:hello@stevenmckinnon.co.uk",
         icon: Icons.email,
         navbar: false,
-      },
-      Photography: {
-        name: "Photography",
-        url: "https://stevenmckinnon.co.uk",
-        icon: Icons.camera,
-        navbar: true,
       },
     },
   },
@@ -214,7 +204,7 @@ Development of a comprehensive, automated end-to-end test suite. Leveraging the 
       website: "https://caley.app",
       github: "https://github.com/stevenmckinnon/invoice-app",
       defaultExpanded: true,
-      icon: "receipt",
+      logoUrl: "/caley-logo.svg",
     },
     {
       name: "Photography Portfolio",

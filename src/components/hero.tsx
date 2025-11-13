@@ -17,7 +17,7 @@ export const Hero = () => {
   );
 
   return (
-    <section id="hero" className="relative flex min-h-screen items-center">
+    <section id="hero" className="relative flex min-h-dvh items-center">
       <Particles
         className="absolute inset-0"
         quantity={100}

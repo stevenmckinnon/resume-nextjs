@@ -220,6 +220,7 @@ Development of a comprehensive, automated end-to-end test suite. Leveraging the 
       website: "https://www.stevemck.link",
       github: "https://github.com/stevenmckinnon/biosite",
       icon: "link",
+      defaultExpanded: true,
     },
     {
       name: "Log Dumper",

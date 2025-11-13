@@ -103,7 +103,7 @@ export const Contact = () => {
     return (
       <section
         id="contact"
-        className="relative flex h-96 w-full flex-col items-center justify-center overflow-hidden"
+        className="relative flex w-full flex-col items-center justify-center overflow-hidden"
       >
         <div className="relative z-10 flex flex-col items-center gap-4 text-center">
           <BadgeCheck className="size-16 text-green-500" />
@@ -125,7 +125,7 @@ export const Contact = () => {
 
   return (
     <section id="contact" className="py-12">
-      <div className="container mx-auto px-6">
+      <div>
         <div className="mx-auto w-full max-w-2xl space-y-8">
           <div className="flex-col flex flex-1 space-y-1.5">
             <BlurFade delay={BLUR_FADE_DELAY * 2}>

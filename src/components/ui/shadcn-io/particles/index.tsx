@@ -3,6 +3,7 @@
 import React from "react";
 import { useEffect, useRef, useState } from "react";
 import { cn } from "@/lib/utils";
+import useBreakpoints from "@/hooks/useBreakpoints";
 
 interface MousePosition {
   x: number;
@@ -78,6 +79,7 @@ export const Particles: React.FC<ParticlesProps> = ({
   const mouse = useRef<{ x: number; y: number }>({ x: 0, y: 0 });
   const canvasSize = useRef<{ w: number; h: number }>({ w: 0, h: 0 });
   const dpr = typeof window !== "undefined" ? window.devicePixelRatio : 1;
+  const { isAboveMd } = useBreakpoints("md");
 
   useEffect(() => {
     if (canvasRef.current) {
@@ -93,8 +95,10 @@ export const Particles: React.FC<ParticlesProps> = ({
   }, [color]);
 
   useEffect(() => {
-    onMouseMove();
-  }, [mousePosition.x, mousePosition.y]);
+    if (isAboveMd) {
+      onMouseMove();
+    }
+  }, [mousePosition.x, mousePosition.y, isAboveMd]);
 
   useEffect(() => {
     initCanvas();

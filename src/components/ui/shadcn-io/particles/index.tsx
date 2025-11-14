@@ -15,8 +15,13 @@ function useMousePosition(): MousePosition {
     x: 0,
     y: 0,
   });
+  const { isAboveMd } = useBreakpoints("md");
 
   useEffect(() => {
+    if (!isAboveMd) {
+      return;
+    }
+
     const handleMouseMove = (event: MouseEvent) => {
       setMousePosition({ x: event.clientX, y: event.clientY });
     };
@@ -26,7 +31,7 @@ function useMousePosition(): MousePosition {
     return () => {
       window.removeEventListener("mousemove", handleMouseMove);
     };
-  }, []);
+  }, [isAboveMd]);
 
   return mousePosition;
 }
@@ -97,6 +102,9 @@ export const Particles: React.FC<ParticlesProps> = ({
   useEffect(() => {
     if (isAboveMd) {
       onMouseMove();
+    } else {
+      mouse.current.x = 0;
+      mouse.current.y = 0;
     }
   }, [mousePosition.x, mousePosition.y, isAboveMd]);
 

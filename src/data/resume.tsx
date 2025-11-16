@@ -200,7 +200,7 @@ Development of a comprehensive, automated end-to-end test suite. Leveraging the 
   projects: [
     {
       name: "Caley",
-      description: `A modern invoice management application built with Next.js, Prisma, and Better Auth. Features include authentication with email/password and password reset, email notifications via Resend, invoice creation and management, a dashboard with analytics, and a modern UI with dark mode support.`,
+      description: `A modern invoice management application built with Next.js, Prisma, and Better Auth. Features include authentication with email/password and password reset, email notifications via Resend, invoice creation and management, a dashboard with analytics, and a modern UI.`,
       website: "https://caley.app",
       github: "https://github.com/stevenmckinnon/invoice-app",
       defaultExpanded: true,
@@ -218,7 +218,7 @@ Development of a comprehensive, automated end-to-end test suite. Leveraging the 
     },
     {
       name: "Photography Portfolio",
-      description: `A beautiful photography portfolio website built with Next.js, shadcn/ui, and Magic UI. Features include a blog, responsive design, image optimization with Cloudinary, and a modern UI optimized for Next.js and Vercel.`,
+      description: `A beautiful photography portfolio website built with Next.js, Tailwind CSS, and shadcn/ui. Features include a responsive design, image optimization with Cloudinary, and a modern UI optimized for Next.js and Vercel.`,
       website: "https://stevenmckinnon.co.uk",
       github: "https://github.com/stevenmckinnon/photography",
       defaultExpanded: true,

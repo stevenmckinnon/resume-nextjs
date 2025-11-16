@@ -61,9 +61,14 @@ export const ProjectCard = ({
         </div>
       </CardContent>
       <CardFooter>
-        <div className="flex items-center gap-2">
+        <div className="flex w-full justify-between gap-2">
           {website && (
-            <Button variant="outline" size="sm" className="gap-2" asChild>
+            <Button
+              variant="outline"
+              size="sm"
+              className="gap-2 w-full"
+              asChild
+            >
               <Link href={website} target="_blank" rel="noopener noreferrer">
                 <ExternalLinkIcon className="size-4" />
                 View Website
@@ -71,7 +76,12 @@ export const ProjectCard = ({
             </Button>
           )}
           {github && (
-            <Button variant="outline" size="sm" className="gap-2" asChild>
+            <Button
+              variant="outline"
+              size="sm"
+              className="gap-2 w-full"
+              asChild
+            >
               <Link href={github} target="_blank" rel="noopener noreferrer">
                 <GitHubLogoIcon className="size-4" />
                 View Source

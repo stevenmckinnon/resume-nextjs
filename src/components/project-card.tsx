@@ -1,41 +1,25 @@
 "use client";
-import { Card, CardContent } from "@/components/ui/card";
+import { Button } from "@/components/ui/button";
 import {
-  ExternalLinkIcon,
-  Github,
-  Receipt,
-  Camera,
-  Package,
-  Link as LinkIcon,
-  type LucideIcon,
-} from "lucide-react";
-import Link from "next/link";
-import { buttonVariants } from "@/components/ui/button";
-import { cn } from "@/lib/utils";
+  Card,
+  CardContent,
+  CardFooter,
+  CardHeader,
+  CardTitle,
+} from "@/components/ui/card";
+import { iconMap } from "@/types/resume";
+import { GitHubLogoIcon } from "@radix-ui/react-icons";
+import { ExternalLinkIcon } from "lucide-react";
 import Image from "next/image";
-
-const iconMap: Record<string, LucideIcon> = {
-  receipt: Receipt,
-  camera: Camera,
-  package: Package,
-  link: LinkIcon,
-};
-
-const gradients = [
-  "from-emerald-500 to-cyan-500",
-  "from-sky-500 to-indigo-500",
-  "from-violet-500 to-fuchsia-500",
-  "from-amber-500 to-orange-500",
-];
+import Link from "next/link";
 
 interface ProjectCardProps {
   title: string;
   description?: string;
-  website?: string;
-  github?: string;
-  icon?: string;
-  index: number;
-  logoUrl?: string;
+  website: string;
+  github: string;
+  tags: (keyof typeof iconMap)[];
+  image?: string;
 }
 
 export const ProjectCard = ({
@@ -43,69 +27,59 @@ export const ProjectCard = ({
   description,
   website,
   github,
-  icon,
-  index,
-  logoUrl,
+  tags,
+  image,
 }: ProjectCardProps) => {
-  const IconComponent = icon ? iconMap[icon] : null;
-  const gradient = gradients[index % gradients.length];
-
   return (
-    <Card className="flex h-full flex-col overflow-hidden">
-      <div
-        className={cn(
-          "relative flex h-35 items-start justify-start p-4 bg-linear-to-br",
-          gradient
-        )}
-      >
-        {logoUrl && (
+    <Card className="flex h-full flex-col overflow-hidden p-0">
+      {image && (
+        <Link href={website} target="_blank" rel="noopener noreferrer">
           <Image
-            src={logoUrl}
+            src={image}
             alt={title}
-            width={100}
-            height={100}
-            className="size-12"
+            width={512}
+            height={512}
+            className="w-full h-[200px] object-cover"
           />
-        )}
-        {IconComponent && <IconComponent className="size-12 text-white/80" />}
-        <div className="absolute inset-0 bg-linear-to-t from-black/60 to-transparent" />
-        <div className="absolute bottom-0 left-0 p-4">
-          <h3 className="font-semibold text-lg text-white">{title}</h3>
-        </div>
-      </div>
-      <CardContent className="flex grow flex-col justify-between p-4">
+        </Link>
+      )}
+      <CardHeader>
+        <CardTitle>{title}</CardTitle>
+      </CardHeader>
+      <CardContent className="flex grow flex-col justify-between">
         {description && (
           <p className="grow text-sm/normal text-muted-foreground">
             {description}
           </p>
         )}
         <div className="mt-4 flex items-center gap-2">
-          {website && (
-            <Link
-              href={website}
-              className={cn(
-                buttonVariants({ variant: "outline", size: "sm" }),
-                "gap-2"
-              )}
-            >
-              <ExternalLinkIcon className="size-4" />
-              Visit
-            </Link>
-          )}
-          {github && (
-            <Link
-              href={github}
-              className={cn(
-                buttonVariants({ variant: "outline", size: "sm" }),
-                "gap-2"
-              )}
-            >
-              <Github className="size-4" />
-              GitHub
-            </Link>
-          )}
+          {tags?.map((tag) => {
+            const Icon = iconMap[tag];
+            if (!Icon) return null;
+            return <Icon key={tag} className="size-4 text-muted-foreground" />;
+          })}
         </div>
       </CardContent>
+      <CardFooter>
+        <div className="flex items-center gap-2">
+          {website && (
+            <Button variant="outline" size="sm" className="gap-2" asChild>
+              <Link href={website} target="_blank" rel="noopener noreferrer">
+                <ExternalLinkIcon className="size-4" />
+                View Website
+              </Link>
+            </Button>
+          )}
+          {github && (
+            <Button variant="outline" size="sm" className="gap-2" asChild>
+              <Link href={github} target="_blank" rel="noopener noreferrer">
+                <GitHubLogoIcon className="size-4" />
+                View Source
+              </Link>
+            </Button>
+          )}
+        </div>
+      </CardFooter>
     </Card>
   );
 };

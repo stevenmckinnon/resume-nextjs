@@ -1,6 +1,31 @@
 import { IconProps } from "@/components/icons";
+import {
+  SiNextdotjs,
+  SiReact,
+  SiJavascript,
+  SiTypescript,
+  SiTailwindcss,
+  SiBetterauth,
+  SiCloudinary,
+  SiPostgresql,
+  SiVercel,
+  SiShadcnui,
+} from "@icons-pack/react-simple-icons";
 
 import type { JSX } from "react";
+
+export const iconMap = {
+  nextjs: SiNextdotjs,
+  react: SiReact,
+  javascript: SiJavascript,
+  typescript: SiTypescript,
+  tailwindcss: SiTailwindcss,
+  betterauth: SiBetterauth,
+  cloudinary: SiCloudinary,
+  postgresql: SiPostgresql,
+  vercel: SiVercel,
+  shadcn: SiShadcnui,
+} as const;
 
 export type SocialLink = {
   name: string;
@@ -64,6 +89,8 @@ export type Project = {
   defaultExpanded: boolean;
   logoUrl?: string;
   icon?: string;
+  tags?: (keyof typeof iconMap)[];
+  image?: string;
 };
 
 export type Resume = {

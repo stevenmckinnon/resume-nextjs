@@ -1,7 +1,7 @@
 import { Icons } from "@/components/icons";
 import { calculateYearsOfExperience } from "@/lib/utils";
 import type { Resume } from "@/types/resume";
-import { HomeIcon, FileText, Building2, Link } from "lucide-react";
+import { HomeIcon } from "lucide-react";
 
 export const DATA: Resume = {
   name: "Steve McKinnon",
@@ -200,11 +200,21 @@ Development of a comprehensive, automated end-to-end test suite. Leveraging the 
   projects: [
     {
       name: "Caley",
-      description: `A modern invoice management application built with Next.js, Prisma, and Better Auth. Features include authentication with email/password and password reset, email notifications via Resend, invoice creation and management, dashboard with analytics, and a modern UI with dark mode support.`,
+      description: `A modern invoice management application built with Next.js, Prisma, and Better Auth. Features include authentication with email/password and password reset, email notifications via Resend, invoice creation and management, a dashboard with analytics, and a modern UI with dark mode support.`,
       website: "https://caley.app",
       github: "https://github.com/stevenmckinnon/invoice-app",
       defaultExpanded: true,
       logoUrl: "/caley-logo.svg",
+      tags: [
+        "nextjs",
+        "typescript",
+        "tailwindcss",
+        "betterauth",
+        "postgresql",
+        "vercel",
+        "shadcn",
+      ],
+      image: "/caley-demo.png",
     },
     {
       name: "Photography Portfolio",
@@ -212,15 +222,24 @@ Development of a comprehensive, automated end-to-end test suite. Leveraging the 
       website: "https://stevenmckinnon.co.uk",
       github: "https://github.com/stevenmckinnon/photography",
       defaultExpanded: true,
-      icon: "camera",
+      tags: [
+        "nextjs",
+        "typescript",
+        "tailwindcss",
+        "cloudinary",
+        "vercel",
+        "shadcn",
+      ],
+      image: "/photography-demo.png",
     },
     {
       name: "Biosite",
       description: `A customizable link-in-bio tool built with Next.js and Tailwind CSS.`,
       website: "https://www.stevemck.link",
       github: "https://github.com/stevenmckinnon/biosite",
-      icon: "link",
       defaultExpanded: true,
+      tags: ["nextjs", "typescript", "tailwindcss", "vercel", "shadcn"],
+      image: "/biosite-demo.png",
     },
     {
       name: "Log Dumper",
@@ -228,7 +247,8 @@ Development of a comprehensive, automated end-to-end test suite. Leveraging the 
       website: "https://www.npmjs.com/package/@stevenmckinnon/log-dumper",
       github: "https://github.com/stevenmckinnon/log-dumper",
       defaultExpanded: true,
-      icon: "package",
+      tags: ["typescript"],
+      image: "/logdumper-demo.png",
     },
   ],
 } as const;

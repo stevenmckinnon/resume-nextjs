@@ -120,9 +120,8 @@ export default function Page() {
                     description={project.description}
                     website={project.website}
                     github={project.github}
-                    icon={project.icon}
-                    logoUrl={project.logoUrl}
-                    index={id}
+                    tags={project.tags ?? []}
+                    image={project.image}
                   />
                 </BlurFade>
               ))}

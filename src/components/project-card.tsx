@@ -39,7 +39,7 @@ export const ProjectCard = ({
             alt={title}
             width={512}
             height={512}
-            className="w-full h-[200px] object-cover"
+            className="w-full aspect-16/10 object-cover"
           />
         </Link>
       )}

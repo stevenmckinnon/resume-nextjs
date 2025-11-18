@@ -31,15 +31,15 @@ export const ProjectCard = ({
   image,
 }: ProjectCardProps) => {
   return (
-    <Card className="flex h-full flex-col overflow-hidden p-0">
+    <Card className="flex h-full flex-col overflow-hidden p-0 transition-all duration-300 hover:shadow-lg hover:-translate-y-1 border hover:border-primary/20">
       {image && (
-        <Link href={website} target="_blank" rel="noopener noreferrer">
+        <Link href={website} target="_blank" rel="noopener noreferrer" className="block cursor-pointer overflow-hidden">
           <Image
             src={image}
             alt={title}
             width={512}
             height={512}
-            className="w-full aspect-16/10 object-cover"
+            className="w-full aspect-16/10 object-cover transition-transform duration-500 hover:scale-105"
           />
         </Link>
       )}

@@ -11,9 +11,9 @@ export const DATA: Resume = {
   locationLink: "https://www.google.com/maps/place/glasgow",
   description:
     "I'm a Glasgow based frontend developer creating modern web apps.",
-  summary: `I am a highly focused, enthusiastic software developer with over ${calculateYearsOfExperience(
+  summary: `Highly focused and enthusiastic software developer with over ${calculateYearsOfExperience(
     "2014-06-30"
-  )}  years experience. Strong team working and communication skills; including a high level of comfort when it comes to working with, and understanding business and technical requirements from end users.`,
+  )} years of experience. Expert in building scalable web applications, leading technical teams, and translating complex business requirements into robust technical solutions. Passionate about user experience and modern frontend architectures.`,
   avatarUrl: "/me.jpg",
   skills: [
     {
@@ -83,11 +83,7 @@ export const DATA: Resume = {
       title: "Lead Frontend Developer",
       logoUrl: "/jpm.png",
       start: "February 2024",
-      description: `As the lead developer, I manage a team of eight developers, overseeing the design and implementation of robust UI libraries featuring reusable components, design patterns, and business intelligence tools. I play a pivotal role in creating application scaffolds that enable teams to rapidly set up new applications while adhering to consistent patterns, streamlining the development process across the organisation.
-
-In addition to my development responsibilities, I serve as one of the leads for the firm’s Risk Technology space, driving innovation and best practices in UI development. I am also actively engaged in managing client relationships, mentoring team members, and promoting "sensible defaults" to ensure scalable and efficient application development. 
-
-My role combines technical expertise, strategic leadership, and a commitment to fostering both individual and team growth.`,
+      description: `Manage a team of eight developers, architecting robust UI libraries and business intelligence tools. Drive innovation in the Risk Technology space, establishing application scaffolds and 'sensible defaults' that streamline development across the organization. Mentor team members and lead client engagement to ensure scalable, efficient delivery.`,
     },
     {
       company: "&Open",
@@ -98,9 +94,7 @@ My role combines technical expertise, strategic leadership, and a commitment to 
       logoUrl: "/andopen.png",
       start: "March 2022",
       end: "February 2024",
-      description: `Contributing to the development of a multi-tenant corporate gifting platform, I have helped enable companies to seamlessly deliver tailored and curated gifts to employees, clients, and other stakeholders. Employing React and TypeScript, I have participated in crafting a responsive, accessible, and secure application through the creation of a well-tested and documented custom component library, hooks, and functions. The platform showcases a versatile gift recipient interface, and personalised emails that adapt to each client's branding, fostering trust among recipients and emphasising the gifts' origins. 
-
-In close collaboration with management, product, and design teams, I consistently strive to surpass client needs and expectations. As a proactive team member, I have confidently led initiatives, mentored colleagues, and contributed to shaping the company's strategic direction.`,
+      description: `Led frontend development for a multi-tenant corporate gifting platform, enabling seamless delivery to global clients. Architected a custom, accessible component library and comprehensive testing suite using React and TypeScript. Collaborated cross-functionally to shape product strategy, delivering personalized user experiences that strengthened client brand trust.`,
     },
     {
       company: "Evotix",
@@ -111,7 +105,7 @@ In close collaboration with management, product, and design teams, I consistentl
       logoUrl: "/evotix.png",
       start: "January 2021",
       end: "March 2022",
-      description: `Worked on the next generation of the company’s health and safety application. Using React/TypeScript to build a responsive, modern and secure application. This involved building a component library to transform JSON into complex forms using a bespoke renderer, which can be used by the client to create custom forms, with strong considerations to accessibility, language and simplicity. Working alongside the product and UX teams to meet customer needs and expectations.`,
+      description: `Engineered the next-generation health and safety application using React and TypeScript. Built a bespoke rendering engine to transform JSON into complex, accessible forms, significantly enhancing user customization capabilities. Partnered with product and UX teams to deliver a modern, secure, and responsive application.`,
     },
     {
       company: "JP Morgan Chase",
@@ -122,7 +116,7 @@ In close collaboration with management, product, and design teams, I consistentl
       logoUrl: "/jpm.png",
       start: "May 2019",
       end: "December 2020",
-      description: `Building an Electron based desktop platform for Windows, which is used by multiple development teams and end users across the firm. Using Typescript, React and Redux and OpenFin to power the platform, which offers advanced layout capabilities, and client-side interoperability.`,
+      description: `Developed a high-performance Electron-based desktop platform for Windows, serving users firm-wide. Leveraged TypeScript, React, Redux, and OpenFin to deliver advanced layout capabilities and seamless client-side interoperability.`,
     },
     {
       company: "JP Morgan Chase",
@@ -133,7 +127,7 @@ In close collaboration with management, product, and design teams, I consistentl
       logoUrl: "/jpm.png",
       start: "June 2018",
       end: "May 2019",
-      description: `Worked to build a modern and responsive GraphQL playground, and an aggregated company news application, with the end-user in mind. I also worked with the UX team to host usability sessions to determine end-user’s expectations and needs. Building React component library for other development teams in the firm to use. Training team members up on front end technologies.`,
+      description: `Built a modern GraphQL playground and aggregated news application, conducting usability sessions to refine the user experience. Developed a shared React component library and trained team members on modern frontend technologies.`,
     },
     {
       company: "JP Morgan Chase",
@@ -144,7 +138,7 @@ In close collaboration with management, product, and design teams, I consistentl
       logoUrl: "/jpm.png",
       start: "November 2016",
       end: "June 2018",
-      description: `Full stack developer with other responsibilities including: discussing business requirements with end users on a global scale, making design decisions for the project, handling deployments and maintaining stability of application environments, and working with, and managing Scrum and agile methodologies. Training new team members.`,
+      description: `Full stack development with a focus on global business requirements and system architecture. Managed deployments, maintained environment stability, and led Agile ceremonies. Mentored junior developers and drove adoption of best practices.`,
     },
     {
       company: "JP Morgan Chase",
@@ -155,14 +149,12 @@ In close collaboration with management, product, and design teams, I consistentl
       logoUrl: "/jpm.png",
       start: "June 2014",
       end: "November 2016",
-      description: `Key point of contact for designing — utilising wireframes and proof of concepts — and implementing the application front end to meet end user needs. 
-      
-Development of a comprehensive, automated end-to-end test suite. Leveraging the power of Selenium and embracing BDD principles.`,
+      description: `Designed and implemented application frontends based on wireframes and user needs. Developed a comprehensive, automated end-to-end test suite using Selenium and BDD principles to ensure software quality.`,
     },
   ],
   education: [
     {
-      school: "Glasgow Caledonian Univeristy",
+      school: "Glasgow Caledonian University",
       href: "https://www.gcu.ac.uk/",
       degree: "BSc (Honours)",
       logoUrl: "/gcu.png",
@@ -200,7 +192,7 @@ Development of a comprehensive, automated end-to-end test suite. Leveraging the 
   projects: [
     {
       name: "Caley",
-      description: `A modern invoice management application built with Next.js, Prisma, and Better Auth. Features include authentication with email/password and password reset, email notifications via Resend, invoice creation and management, a dashboard with analytics, and a modern UI.`,
+      description: `A comprehensive invoice management solution engineered with Next.js, Prisma, and Better Auth. Features secure authentication, automated email notifications via Resend, and real-time analytics, wrapped in a polished, modern UI.`,
       website: "https://caley.app",
       github: "https://github.com/stevenmckinnon/invoice-app",
       defaultExpanded: true,
@@ -218,7 +210,7 @@ Development of a comprehensive, automated end-to-end test suite. Leveraging the 
     },
     {
       name: "Photography Portfolio",
-      description: `A beautiful photography portfolio website built with Next.js, Tailwind CSS, and shadcn/ui. Features include a responsive design, image optimization with Cloudinary, and a modern UI optimized for Next.js and Vercel.`,
+      description: `A high-performance portfolio site showcasing photography work. Built with Next.js and Tailwind CSS, utilizing Cloudinary for optimized image delivery and shadcn/ui for a refined aesthetic.`,
       website: "https://stevenmckinnon.co.uk",
       github: "https://github.com/stevenmckinnon/photography",
       defaultExpanded: true,
@@ -234,7 +226,7 @@ Development of a comprehensive, automated end-to-end test suite. Leveraging the 
     },
     {
       name: "Biosite",
-      description: `A customizable link-in-bio tool built with Next.js and Tailwind CSS.`,
+      description: `A customizable, open-source link-in-bio tool built with Next.js. Offers a lightweight, performance-focused alternative to commercial services.`,
       website: "https://www.stevemck.link",
       github: "https://github.com/stevenmckinnon/biosite",
       defaultExpanded: true,
@@ -243,7 +235,7 @@ Development of a comprehensive, automated end-to-end test suite. Leveraging the 
     },
     {
       name: "Log Dumper",
-      description: `A utility package for dumping logs in Node.js applications. Published on npm, this package provides a simple and efficient way to handle log output in development and production environments.`,
+      description: `A specialized Node.js utility for efficient log management in development and production. Published on npm to streamline debugging workflows.`,
       website: "https://www.npmjs.com/package/@stevenmckinnon/log-dumper",
       github: "https://github.com/stevenmckinnon/log-dumper",
       defaultExpanded: true,

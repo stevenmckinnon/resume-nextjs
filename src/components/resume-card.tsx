@@ -1,7 +1,6 @@
 "use client";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { Badge } from "@/components/ui/badge";
-import { Card, CardHeader } from "@/components/ui/card";
 import { cn } from "@/lib/utils";
 import { motion } from "framer-motion";
 import { ChevronRightIcon } from "lucide-react";
@@ -43,9 +42,14 @@ export const ResumeCard = ({
   return (
     <div
       onClick={handleClick}
-      className="rounded-lg border bg-card text-card-foreground shadow-sm p-4 space-y-4 cursor-pointer"
+      className={cn(
+        "rounded-lg border bg-card text-card-foreground shadow-sm p-4 space-y-4 cursor-pointer transition-all duration-300 hover:shadow-md",
+        isExpanded
+          ? "scale-[1.01] shadow-md border-primary/50 bg-accent/5"
+          : "hover:bg-accent/50"
+      )}
     >
-      <div className="flex items-center space-x-4 !mb-0">
+      <div className="flex items-center space-x-4 mb-0!">
         <Avatar className="border size-12 bg-muted-background dark:bg-foreground">
           <AvatarImage src={logoUrl} alt={altText} className="object-cover" />
           <AvatarFallback>{altText[0]}</AvatarFallback>

@@ -43,10 +43,8 @@ export const ResumeCard = ({
     <div
       onClick={handleClick}
       className={cn(
-        "rounded-lg border bg-card text-card-foreground shadow-sm p-4 space-y-4 cursor-pointer transition-all duration-300 hover:shadow-md",
-        isExpanded
-          ? "scale-[1.01] shadow-md border-primary/50 bg-accent/5"
-          : "hover:bg-accent/50"
+        "rounded-lg border border-primary/50 bg-accent/5 text-card-foreground shadow-sm p-4 space-y-4 cursor-pointer transition-all duration-300 hover:shadow-md",
+        isExpanded ? "scale-[1.01] shadow-md bg-card" : "hover:bg-accent/50"
       )}
     >
       <div className="flex items-center space-x-4 mb-0!">

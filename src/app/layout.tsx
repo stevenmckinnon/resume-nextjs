@@ -72,7 +72,7 @@ export default function RootLayout({
       >
         <ThemeProvider enableSystem attribute="class" defaultTheme="dark">
           <TooltipProvider delayDuration={0}>
-            <div className="fixed inset-0 -z-10 h-full w-full bg-background bg-[radial-gradient(#e5e7eb_1px,transparent_1px)] bg-size-[16px_16px] dark:bg-[radial-gradient(#ffffff22_1px,transparent_1px)] mask-[radial-gradient(ellipse_50%_50%_at_50%_50%,#000_70%,transparent_100%)]" />
+            <div className="fixed inset-0 -z-10 h-full w-full bg-background md:bg-[radial-gradient(#e5e7eb_1px,transparent_1px)] bg-size-[16px_16px] dark:bg-[radial-gradient(#ffffff22_1px,transparent_1px)] md:mask-[radial-gradient(ellipse_50%_50%_at_50%_50%,#000_70%,transparent_100%)]" />
             <ScrollProgress className="top-0" />
             <main id="content" className="flex flex-col h-full space-y-10">
               {children}

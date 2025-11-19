@@ -1,3 +1,5 @@
+/* eslint-disable react-hooks/exhaustive-deps */
+
 "use client";
 
 import React from "react";
@@ -10,7 +12,7 @@ interface MousePosition {
   y: number;
 }
 
-function useMousePosition(): MousePosition {
+const useMousePosition = (): MousePosition => {
   const [mousePosition, setMousePosition] = useState<MousePosition>({
     x: 0,
     y: 0,
@@ -18,7 +20,38 @@ function useMousePosition(): MousePosition {
   const { isAboveMd } = useBreakpoints("md");
 
   useEffect(() => {
-    if (!isAboveMd) {
+    if (!isAboveMd || typeof window === "undefined") {
+      setMousePosition((prev) =>
+        prev.x === 0 && prev.y === 0 ? prev : { x: 0, y: 0 }
+      );
+      return;
+    }
+
+    const supportsPointerEvents = "PointerEvent" in window;
+
+    if (supportsPointerEvents) {
+      const handlePointerMove = (event: PointerEvent) => {
+        if (event.pointerType !== "mouse") {
+          return;
+        }
+        setMousePosition({ x: event.clientX, y: event.clientY });
+      };
+
+      window.addEventListener("pointermove", handlePointerMove);
+
+      return () => {
+        window.removeEventListener("pointermove", handlePointerMove);
+      };
+    }
+
+    const hasTouchInput =
+      "ontouchstart" in window ||
+      (typeof navigator !== "undefined" && navigator.maxTouchPoints > 0);
+
+    if (hasTouchInput) {
+      setMousePosition((prev) =>
+        prev.x === 0 && prev.y === 0 ? prev : { x: 0, y: 0 }
+      );
       return;
     }
 
@@ -34,7 +67,7 @@ function useMousePosition(): MousePosition {
   }, [isAboveMd]);
 
   return mousePosition;
-}
+};
 
 export interface ParticlesProps {
   className?: string;
@@ -102,9 +135,6 @@ export const Particles: React.FC<ParticlesProps> = ({
   useEffect(() => {
     if (isAboveMd) {
       onMouseMove();
-    } else {
-      mouse.current.x = 0;
-      mouse.current.y = 0;
     }
   }, [mousePosition.x, mousePosition.y, isAboveMd]);
 

@@ -8,7 +8,7 @@ import { BLUR_FADE_DELAY } from "@/lib/utils";
 import { useTheme } from "next-themes";
 import Image from "next/image";
 import Link from "next/link";
-import { Particles } from "./ui/shadcn-io/particles";
+import { Particles } from "@/components/magicui/particles";
 
 export const Hero = () => {
   const { theme } = useTheme();
@@ -21,8 +21,6 @@ export const Hero = () => {
       <Particles
         className="absolute inset-0"
         quantity={100}
-        ease={80}
-        staticity={50}
         color={theme === "dark" ? "#ffffff" : "#000000"}
         size={0.8}
       />

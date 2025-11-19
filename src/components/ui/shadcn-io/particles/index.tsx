@@ -119,7 +119,8 @@ export const Particles: React.FC<ParticlesProps> = ({
   const mouse = useRef<{ x: number; y: number }>({ x: 0, y: 0 });
   const canvasSize = useRef<{ w: number; h: number }>({ w: 0, h: 0 });
   const dpr = typeof window !== "undefined" ? window.devicePixelRatio : 1;
-  const enableParticles = isAboveMd && !hasTouchInput;
+  const allowPointerMagnetism = isAboveMd && !hasTouchInput;
+  const allowAnimation = !hasTouchInput;
   const animationFrameId = useRef<number | null>(null);
   const shouldAnimate = useRef(false);
   const resetMouse = () => {
@@ -169,45 +170,45 @@ export const Particles: React.FC<ParticlesProps> = ({
   }, []);
 
   useEffect(() => {
-    if (!enableParticles) {
-      shouldAnimate.current = false;
-      stopAnimation();
-      clearContext();
-      circles.current.length = 0;
-      resetMouse();
-      return;
-    }
-
     if (canvasRef.current) {
       context.current = canvasRef.current.getContext("2d");
     }
 
-    shouldAnimate.current = true;
     initCanvas();
-    animate();
     window.addEventListener("resize", initCanvas);
 
     return () => {
-      shouldAnimate.current = false;
       window.removeEventListener("resize", initCanvas);
-      stopAnimation();
     };
-  }, [color, enableParticles]);
+  }, [color, quantity, size]);
 
   useEffect(() => {
-    if (enableParticles) {
+    if (!allowAnimation) {
+      shouldAnimate.current = false;
+      stopAnimation();
+      return;
+    }
+
+    shouldAnimate.current = true;
+    animationFrameId.current = window.requestAnimationFrame(animate);
+
+    return () => {
+      shouldAnimate.current = false;
+      stopAnimation();
+    };
+  }, [allowAnimation, color, quantity, size, vx, vy, staticity, ease]);
+
+  useEffect(() => {
+    if (allowPointerMagnetism) {
       onMouseMove();
     } else {
       resetMouse();
     }
-  }, [mousePosition.x, mousePosition.y, enableParticles]);
+  }, [mousePosition.x, mousePosition.y, allowPointerMagnetism]);
 
   useEffect(() => {
-    if (!enableParticles) {
-      return;
-    }
     initCanvas();
-  }, [enableParticles, refresh]);
+  }, [refresh]);
 
   const initCanvas = () => {
     resizeCanvas();
@@ -215,7 +216,7 @@ export const Particles: React.FC<ParticlesProps> = ({
   };
 
   const onMouseMove = () => {
-    if (!enableParticles) {
+    if (!allowPointerMagnetism) {
       return;
     }
 

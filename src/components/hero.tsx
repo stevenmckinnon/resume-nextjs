@@ -9,9 +9,11 @@ import { useTheme } from "next-themes";
 import Image from "next/image";
 import Link from "next/link";
 import { Particles } from "@/components/magicui/particles";
+import useBreakpoints from "@/hooks/useBreakpoints";
 
 export const Hero = () => {
   const { theme } = useTheme();
+  const { isAboveMd } = useBreakpoints("md");
   const socials = Object.values(DATA.contact.social).filter(
     (social) => social.navbar
   );
@@ -20,7 +22,7 @@ export const Hero = () => {
     <section id="hero" className="relative flex min-h-dvh items-center">
       <Particles
         className="absolute inset-0"
-        quantity={100}
+        quantity={isAboveMd ? 100 : 50}
         color={theme === "dark" ? "#ffffff" : "#000000"}
         size={0.8}
       />

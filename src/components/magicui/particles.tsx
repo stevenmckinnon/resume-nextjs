@@ -64,7 +64,6 @@ export const Particles = ({
 
   const resizeCanvas = useCallback(() => {
     if (canvasContainerRef.current && canvasRef.current && context.current) {
-      circles.current.length = 0;
       canvasSize.current.w = canvasContainerRef.current.offsetWidth;
       canvasSize.current.h = canvasContainerRef.current.offsetHeight;
       canvasRef.current.width = canvasSize.current.w * dpr;
@@ -131,6 +130,7 @@ export const Particles = ({
   }, []);
 
   const drawParticles = useCallback(() => {
+    circles.current.length = 0;
     clearContext();
     const particleCount = quantity;
     for (let i = 0; i < particleCount; i++) {
@@ -209,16 +209,17 @@ export const Particles = ({
     };
 
     animate();
-    window.addEventListener("resize", initCanvas);
+    window.addEventListener("resize", resizeCanvas);
 
     return () => {
-      window.removeEventListener("resize", initCanvas);
+      window.removeEventListener("resize", resizeCanvas);
       if (animationFrameId.current) {
         cancelAnimationFrame(animationFrameId.current);
       }
     };
   }, [
     initCanvas,
+    resizeCanvas,
     vx,
     vy,
     clearContext,

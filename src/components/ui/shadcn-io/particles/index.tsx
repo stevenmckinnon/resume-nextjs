@@ -109,6 +109,8 @@ export const Particles: React.FC<ParticlesProps> = ({
   vx = 0,
   vy = 0,
 }) => {
+  const { isAboveMd } = useBreakpoints("md");
+  const [hasTouchInput, setHasTouchInput] = useState(false);
   const canvasRef = useRef<HTMLCanvasElement>(null);
   const canvasContainerRef = useRef<HTMLDivElement>(null);
   const context = useRef<CanvasRenderingContext2D | null>(null);
@@ -117,30 +119,95 @@ export const Particles: React.FC<ParticlesProps> = ({
   const mouse = useRef<{ x: number; y: number }>({ x: 0, y: 0 });
   const canvasSize = useRef<{ w: number; h: number }>({ w: 0, h: 0 });
   const dpr = typeof window !== "undefined" ? window.devicePixelRatio : 1;
-  const { isAboveMd } = useBreakpoints("md");
+  const enableParticles = isAboveMd && !hasTouchInput;
+  const animationFrameId = useRef<number | null>(null);
+  const shouldAnimate = useRef(false);
+  const resetMouse = () => {
+    mouse.current.x = 0;
+    mouse.current.y = 0;
+  };
+  const stopAnimation = () => {
+    if (animationFrameId.current !== null) {
+      cancelAnimationFrame(animationFrameId.current);
+      animationFrameId.current = null;
+    }
+  };
 
   useEffect(() => {
+    if (typeof window === "undefined") {
+      return;
+    }
+
+    const mediaQuery = window.matchMedia("(pointer: coarse)");
+
+    const detectTouchInput = () => {
+      const coarsePointer = mediaQuery.matches;
+      const navigatorHasTouch =
+        typeof navigator !== "undefined" && navigator.maxTouchPoints > 0;
+      const touchCapable =
+        coarsePointer || navigatorHasTouch || "ontouchstart" in window;
+      setHasTouchInput(touchCapable);
+    };
+
+    detectTouchInput();
+
+    const handleChange = () => detectTouchInput();
+
+    if (typeof mediaQuery.addEventListener === "function") {
+      mediaQuery.addEventListener("change", handleChange);
+    } else if (typeof mediaQuery.addListener === "function") {
+      mediaQuery.addListener(handleChange);
+    }
+
+    return () => {
+      if (typeof mediaQuery.removeEventListener === "function") {
+        mediaQuery.removeEventListener("change", handleChange);
+      } else if (typeof mediaQuery.removeListener === "function") {
+        mediaQuery.removeListener(handleChange);
+      }
+    };
+  }, []);
+
+  useEffect(() => {
+    if (!enableParticles) {
+      shouldAnimate.current = false;
+      stopAnimation();
+      clearContext();
+      circles.current.length = 0;
+      resetMouse();
+      return;
+    }
+
     if (canvasRef.current) {
       context.current = canvasRef.current.getContext("2d");
     }
+
+    shouldAnimate.current = true;
     initCanvas();
     animate();
     window.addEventListener("resize", initCanvas);
 
     return () => {
+      shouldAnimate.current = false;
       window.removeEventListener("resize", initCanvas);
+      stopAnimation();
     };
-  }, [color]);
+  }, [color, enableParticles]);
 
   useEffect(() => {
-    if (isAboveMd) {
+    if (enableParticles) {
       onMouseMove();
+    } else {
+      resetMouse();
     }
-  }, [mousePosition.x, mousePosition.y, isAboveMd]);
+  }, [mousePosition.x, mousePosition.y, enableParticles]);
 
   useEffect(() => {
+    if (!enableParticles) {
+      return;
+    }
     initCanvas();
-  }, [refresh]);
+  }, [enableParticles, refresh]);
 
   const initCanvas = () => {
     resizeCanvas();
@@ -148,6 +215,10 @@ export const Particles: React.FC<ParticlesProps> = ({
   };
 
   const onMouseMove = () => {
+    if (!enableParticles) {
+      return;
+    }
+
     if (canvasRef.current) {
       const rect = canvasRef.current.getBoundingClientRect();
       const { w, h } = canvasSize.current;
@@ -263,6 +334,10 @@ export const Particles: React.FC<ParticlesProps> = ({
   };
 
   const animate = () => {
+    if (!shouldAnimate.current) {
+      return;
+    }
+
     clearContext();
     circles.current.forEach((circle: Circle, i: number) => {
       // Handle the alpha value
@@ -310,7 +385,7 @@ export const Particles: React.FC<ParticlesProps> = ({
         // update the circle position
       }
     });
-    window.requestAnimationFrame(animate);
+    animationFrameId.current = window.requestAnimationFrame(animate);
   };
 
   return (

@@ -26,8 +26,8 @@ export const Hero = () => {
         color={theme === "dark" ? "#ffffff" : "#000000"}
         size={0.8}
       />
-      <div className="mx-auto w-full max-w-3xl px-6">
-        <div className="flex flex-col text-center items-center space-y-6">
+      <div className="sticky top-6 z-10 w-full px-6 md:top-12">
+        <div className="mx-auto flex max-w-3xl flex-col items-center space-y-6 text-center">
           <BlurFade
             delay={BLUR_FADE_DELAY}
             className="h-full w-full flex items-center justify-center"

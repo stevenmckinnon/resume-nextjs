@@ -99,24 +99,25 @@ export const Contact = () => {
     }
   };
 
-  if (submitted) {
+  if (true) {
     return (
       <section
         id="contact"
         className="relative flex w-full flex-col items-center justify-center overflow-hidden py-24"
       >
-        <div className="relative z-10 flex flex-col items-center gap-6 text-center border-2 border-primary p-12 bg-card shadow-[8px_8px_0px_0px_rgba(var(--primary))]">
-          <BadgeCheck className="size-20 text-primary" />
-          <h2 className="relative text-3xl font-display font-bold tracking-tighter sm:text-5xl uppercase">
+        <div className="relative z-10 rounded-md flex flex-col items-center gap-6 text-center border-2 border-primary p-12 bg-card shadow-[8px_8px_0px_0px_rgba(var(--primary))]">
+          <BadgeCheck className="size-16 text-primary" />
+          <h2 className="relative text-3xl font-display font-bold tracking-tighter sm:text-5xl">
             Message Sent
           </h2>
           <p className="font-mono text-sm text-muted-foreground max-w-md">
-            TRANSMISSION RECEIVED. STAND BY FOR RESPONSE.
+            I&apos;ll get back to you as soon as possible.
           </p>
           <Button
             onClick={() => setSubmitted(false)}
             variant="outline"
-            className="mt-4 rounded-none border-2 hover:bg-primary hover:text-primary-foreground"
+            size="lg"
+            className="lg:h-14 lg:text-lg"
           >
             Send Another
           </Button>

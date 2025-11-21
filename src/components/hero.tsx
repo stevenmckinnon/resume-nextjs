@@ -158,10 +158,10 @@ export const Hero = () => {
           initial={{ opacity: 0, scale: 0.9, filter: "blur(10px)" }}
           animate={{ opacity: 1, scale: 1, filter: "blur(0px)" }}
           transition={{ duration: 1, delay: 0.5 }}
-          className="relative h-[300px] w-full md:h-[350px] md:w-full lg:h-[600px] lg:w-full order-1 md:order-2 lg:order-2 mb-8 md:mb-0 lg:mb-0"
+          className="relative h-[260px] w-full md:h-[350px] md:w-full lg:h-[600px] lg:w-full order-1 md:order-2 lg:order-2 mb-8 md:mb-0 lg:mb-0"
         >
           <div className="absolute inset-0 bg-linear-to-tr from-primary/20 to-secondary/20 rounded-full blur-[100px] opacity-50" />
-          <div className="relative h-full w-full border border-border bg-card/50 backdrop-blur-sm p-2 rotate-3 hover:rotate-0 transition-all duration-500 ease-out shadow-2xl max-w-[300px] md:max-w-none mx-auto md:mx-0">
+          <div className="relative h-full w-full border border-border bg-card/50 backdrop-blur-sm p-2 rotate-3 hover:rotate-0 transition-all duration-500 ease-out shadow-2xl max-w-[260px] md:max-w-none mx-auto md:mx-0">
             <div className="relative h-full w-full overflow-hidden md:grayscale hover:grayscale-0 transition-all duration-500">
               <Image
                 alt={DATA.name}

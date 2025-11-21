@@ -32,7 +32,7 @@ export const SimpleCard = ({
         </Avatar>
         <div className="flex-1 min-w-0">
           <div className="flex flex-col gap-1">
-            <div className="flex justify-between items-baseline gap-2">
+            <div className="flex flex-col md:flex-row md:items-baseline md:justify-between gap-1">
               <h4 className="font-display font-bold text-base truncate group-hover:text-primary transition-colors">
                 {title}
               </h4>

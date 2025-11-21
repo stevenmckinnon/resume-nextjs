@@ -80,6 +80,7 @@ export const Hero = () => {
           variants={containerAnimation}
           initial="hidden"
           animate="visible"
+          viewport={{ once: true }}
         >
           {/* Name Heading */}
           <div className="relative">
@@ -88,7 +89,7 @@ export const Hero = () => {
                 <span className="block text-transparent bg-clip-text bg-linear-to-b from-foreground to-foreground/70 whitespace-nowrap">
                   {firstName.split("").map((char, i) => (
                     <motion.span
-                      key={i}
+                      key={`${char}-${i}`}
                       variants={letterAnimation}
                       className="inline-block"
                     >
@@ -99,7 +100,7 @@ export const Hero = () => {
                 <span className="block text-primary whitespace-nowrap">
                   {lastName.split("").map((char, i) => (
                     <motion.span
-                      key={i}
+                      key={`${char}-${i}`}
                       variants={letterAnimation}
                       className="inline-block"
                     >

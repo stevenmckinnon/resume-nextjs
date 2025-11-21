@@ -137,12 +137,12 @@ export const Contact = () => {
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-12">
         <div className="flex flex-col justify-start space-y-6">
           <BlurFade delay={BLUR_FADE_DELAY * 2}>
-            <div className="space-y-2">
-              <span className="font-mono text-primary text-sm tracking-widest uppercase">
-                07 // Contact
+            <div className="flex flex-row md:flex-col items-center md:items-start gap-4 border-b md:border-b-0 md:border-l-4 border-primary/40 pb-4 md:pb-0 md:pl-8">
+              <span className="text-sm font-mono text-primary tracking-widest uppercase opacity-70">
+                07
               </span>
-              <h2 className="text-2xl md:text-3xl lg:text-4xl font-display font-black tracking-tighter uppercase">
-                Get in Touch
+              <h2 className="text-xl md:text-2xl lg:text-3xl font-display font-black uppercase tracking-tight text-foreground break-words md:break-normal">
+                Contact
               </h2>
             </div>
           </BlurFade>

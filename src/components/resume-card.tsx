@@ -52,7 +52,7 @@ export const ResumeCard = ({
           <AvatarImage
             src={logoUrl}
             alt={altText}
-            className="object-cover grayscale group-hover:grayscale-0 transition-all duration-300"
+            className="object-cover md:grayscale group-hover:grayscale-0 transition-all duration-300"
           />
           <AvatarFallback>{altText[0]}</AvatarFallback>
         </Avatar>

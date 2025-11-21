@@ -26,7 +26,7 @@ export const ProjectCard = ({
     <div className="group relative rounded-md overflow-hidden flex flex-col h-full border border-border bg-card transition-all duration-300 hover:border-primary hover:shadow-2xl">
       {/* Image Section */}
       {image && (
-        <div className="relative overflow-hidden aspect-video border-b border-border group-hover:border-primary/50 transition-colors">
+        <div className="relative overflow-hidden aspect-4/3 border-b border-border group-hover:border-primary/50 transition-colors">
           <Link
             href={website}
             target="_blank"

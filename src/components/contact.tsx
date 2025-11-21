@@ -15,7 +15,7 @@ import { Textarea } from "@/components/ui/textarea";
 import { useToast } from "@/hooks/use-toast";
 import { cn } from "@/lib/utils";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { BadgeCheck, Loader2, MailOpen } from "lucide-react";
+import { BadgeCheck, Loader2, Send } from "lucide-react";
 import { useEffect, useRef, useState } from "react";
 import { useForm } from "react-hook-form";
 import * as z from "zod";
@@ -103,51 +103,67 @@ export const Contact = () => {
     return (
       <section
         id="contact"
-        className="relative flex w-full flex-col items-center justify-center overflow-hidden"
+        className="relative flex w-full flex-col items-center justify-center overflow-hidden py-24"
       >
-        <div className="relative z-10 flex flex-col items-center gap-4 text-center">
-          <BadgeCheck className="size-16 text-green-500" />
-          <h2 className="relative text-2xl font-bold tracking-tighter sm:text-4xl xl:text-5xl/none">
-            Message sent
+        <div className="relative z-10 flex flex-col items-center gap-6 text-center border-2 border-primary p-12 bg-card shadow-[8px_8px_0px_0px_rgba(var(--primary))]">
+          <BadgeCheck className="size-20 text-primary" />
+          <h2 className="relative text-3xl font-display font-bold tracking-tighter sm:text-5xl uppercase">
+            Message Sent
           </h2>
-          <p className="prose max-w-full text-pretty font-sans text-sm text-muted-foreground dark:prose-invert">
-            Thank you for getting in touch. I&apos;ll get back to you as soon as
-            possible!
+          <p className="font-mono text-sm text-muted-foreground max-w-md">
+            TRANSMISSION RECEIVED. STAND BY FOR RESPONSE.
           </p>
+          <Button
+            onClick={() => setSubmitted(false)}
+            variant="outline"
+            className="mt-4 rounded-none border-2 hover:bg-primary hover:text-primary-foreground"
+          >
+            Send Another
+          </Button>
         </div>
         <Confetti
           ref={confettiRef}
-          className="absolute left-0 top-0 z-0 size-full"
+          className="absolute left-0 top-0 z-0 size-full pointer-events-none"
         />
       </section>
     );
   }
 
   return (
-    <section id="contact" className="py-12">
-      <div>
-        <div className="mx-auto w-full max-w-2xl space-y-8">
-          <div className="flex-col flex flex-1 space-y-1.5">
-            <BlurFade delay={BLUR_FADE_DELAY * 2}>
-              <h2 className="text-2xl font-bold tracking-tighter sm:text-4xl xl:text-5xl/none">
-                Get in Touch
+    <section
+      id="contact"
+      className="py-12 md:py-24 border-t-2 border-border/50"
+    >
+      <div className="grid grid-cols-1 lg:grid-cols-2 gap-12">
+        <div className="flex flex-col justify-start space-y-6">
+          <BlurFade delay={BLUR_FADE_DELAY * 2}>
+            <div className="space-y-2">
+              <span className="font-mono text-primary text-sm tracking-widest uppercase">
+                07 // Contact
+              </span>
+              <h2 className="text-2xl md:text-3xl lg:text-4xl font-display font-black tracking-tighter uppercase">
+                Get in
+                <br />
+                Touch
               </h2>
-            </BlurFade>
-            <BlurFade delay={BLUR_FADE_DELAY * 3}>
-              <p className="prose max-w-full text-pretty font-sans text-sm text-muted-foreground dark:prose-invert">
-                Drop me a message and I&apos;ll get back to you as soon as
-                possible.
-              </p>
-            </BlurFade>
-          </div>
+            </div>
+          </BlurFade>
+          <BlurFade delay={BLUR_FADE_DELAY * 3}>
+            <p className="text-xl text-muted-foreground font-light max-w-md">
+              Have a project in mind? Let&apos;s build something exceptional
+              together.
+            </p>
+          </BlurFade>
+        </div>
+        <div className="relative">
           <Form {...form}>
             <BlurFade delay={BLUR_FADE_DELAY * 4}>
               <form
                 onSubmit={form.handleSubmit(onSubmit)}
-                className="space-y-4"
+                className="space-y-6 p-4 rounded-md border border-border/50 bg-card/50 backdrop-blur-sm hover:border-primary/50 transition-colors duration-500"
                 noValidate
               >
-                <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
+                <div className="grid grid-cols-1 gap-6 sm:grid-cols-2">
                   <FormField
                     control={form.control}
                     name="name"
@@ -215,9 +231,9 @@ export const Contact = () => {
                           />
                           <span
                             className={cn(
-                              "absolute bottom-2 right-2 text-xs",
+                              "absolute bottom-2 right-2 text-[10px] font-mono",
                               field.value.length > 900
-                                ? "text-warning"
+                                ? "text-destructive"
                                 : "text-muted-foreground"
                             )}
                           >
@@ -230,13 +246,17 @@ export const Contact = () => {
                   )}
                 />
 
-                <Button type="submit" disabled={loading} className="gap-2">
+                <Button
+                  type="submit"
+                  disabled={loading}
+                  className="w-full h-14 text-lg transition-all duration-300 group"
+                >
                   {loading ? (
-                    <Loader2 className="animate-spin" />
+                    <Loader2 className="animate-spin mr-2" />
                   ) : (
-                    <MailOpen />
-                  )}{" "}
-                  Submit
+                    <Send className="mr-2 size-4 group-hover:translate-x-1 transition-transform" />
+                  )}
+                  {loading ? "TRANSMITTING..." : "SEND MESSAGE"}
                 </Button>
               </form>
             </BlurFade>

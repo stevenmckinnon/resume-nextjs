@@ -7,13 +7,19 @@ import { DATA } from "@/data/resume";
 import { cn } from "@/lib/utils";
 import { Analytics } from "@vercel/analytics/next";
 import type { Metadata } from "next";
-import { Inter } from "next/font/google";
+import { Manrope, Inter } from "next/font/google";
 
 import "./globals.css";
 
-const fontSans = Inter({
+const fontSans = Manrope({
   subsets: ["latin"],
   variable: "--font-sans",
+  display: "swap",
+});
+
+const fontDisplay = Inter({
+  subsets: ["latin"],
+  variable: "--font-display",
   display: "swap",
 });
 
@@ -66,15 +72,17 @@ export default function RootLayout({
 
       <body
         className={cn(
-          "min-h-dvh bg-background font-sans antialiased mx-auto pb-16 sm:pb-24",
-          fontSans.variable
+          "min-h-dvh bg-background font-sans antialiased mx-auto pb-16 sm:pb-24 selection:bg-primary selection:text-primary-foreground",
+          fontSans.variable,
+          fontDisplay.variable
         )}
       >
         <ThemeProvider enableSystem attribute="class" defaultTheme="dark">
           <TooltipProvider delayDuration={0}>
-            <div className="fixed inset-0 -z-10 h-full w-full bg-background md:bg-[radial-gradient(#e5e7eb_1px,transparent_1px)] bg-size-[16px_16px] dark:bg-[radial-gradient(#ffffff22_1px,transparent_1px)] md:mask-[radial-gradient(ellipse_50%_50%_at_50%_50%,#000_70%,transparent_100%)]" />
-            <ScrollProgress className="top-0" />
-            <main id="content" className="flex flex-col h-full space-y-10">
+            <div className="fixed inset-0 -z-10 h-full w-full bg-background" />
+            <div className="pointer-events-none fixed inset-0 -z-10 h-full w-full bg-[linear-gradient(to_right,#80808012_1px,transparent_1px),linear-gradient(to_bottom,#80808012_1px,transparent_1px)] bg-[size:24px_24px] [mask-image:radial-gradient(ellipse_60%_50%_at_50%_0%,#000_70%,transparent_100%)]" />
+            <ScrollProgress className="top-0 z-50" />
+            <main id="content" className="flex flex-col h-full relative">
               {children}
             </main>
             <Navbar />

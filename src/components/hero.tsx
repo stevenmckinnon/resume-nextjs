@@ -127,7 +127,12 @@ export const Hero = () => {
             <Button asChild size="lg" className="lg:h-14 lg:text-lg">
               <Link href="#contact">Work With Me</Link>
             </Button>
-            <Button asChild variant="outline" size="lg" className="lg:h-14 lg:text-lg">
+            <Button
+              asChild
+              variant="outline"
+              size="lg"
+              className="lg:h-14 lg:text-lg"
+            >
               <Link href="#projects">View Projects</Link>
             </Button>
           </motion.div>
@@ -163,7 +168,7 @@ export const Hero = () => {
         >
           <div className="absolute inset-0 bg-linear-to-tr from-primary/20 to-secondary/20 rounded-full blur-[100px] opacity-50" />
           <div className="relative h-full w-full border border-border bg-card/50 backdrop-blur-sm p-2 rotate-3 hover:rotate-0 transition-all duration-500 ease-out shadow-2xl max-w-[260px] md:max-w-none mx-auto md:mx-0">
-            <div className="relative h-full w-full overflow-hidden md:grayscale hover:grayscale-0 transition-all duration-500">
+            <div className="relative h-full w-full overflow-hidden transition-all duration-500">
               <Image
                 alt={DATA.name}
                 src={DATA.avatarUrl}

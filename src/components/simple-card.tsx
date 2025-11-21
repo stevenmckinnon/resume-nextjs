@@ -26,7 +26,7 @@ export const SimpleCard = ({
           <AvatarImage
             src={logoUrl}
             alt={altText}
-            className="object-cover md:grayscale group-hover:grayscale-0 transition-all duration-300"
+            className="object-cover transition-all duration-300"
           />
           <AvatarFallback>{altText[0]}</AvatarFallback>
         </Avatar>

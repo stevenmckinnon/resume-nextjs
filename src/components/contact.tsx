@@ -99,7 +99,7 @@ export const Contact = () => {
     }
   };
 
-  if (true) {
+  if (submitted) {
     return (
       <section
         id="contact"

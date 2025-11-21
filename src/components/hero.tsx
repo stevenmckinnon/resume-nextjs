@@ -167,8 +167,8 @@ export const Hero = () => {
           className="relative h-[260px] w-full md:h-[350px] md:w-full lg:h-[600px] lg:w-full order-1 md:order-2 lg:order-2 mb-8 md:mb-0 lg:mb-0"
         >
           <div className="absolute inset-0 bg-linear-to-tr from-primary/20 to-secondary/20 rounded-full blur-[100px] opacity-50" />
-          <div className="relative h-full w-full border border-border bg-card/50 backdrop-blur-sm p-2 rotate-3 hover:rotate-0 transition-all duration-500 ease-out shadow-2xl max-w-[260px] md:max-w-none mx-auto md:mx-0">
-            <div className="relative h-full w-full overflow-hidden transition-all duration-500">
+          <div className="relative h-full w-full rounded-md border border-border bg-card/50 backdrop-blur-sm p-2 rotate-3 hover:rotate-0 transition-all duration-500 ease-out shadow-2xl max-w-[260px] md:max-w-none mx-auto md:mx-0">
+            <div className="relative h-full w-full rounded-[10px] overflow-hidden transition-all duration-500">
               <Image
                 alt={DATA.name}
                 src={DATA.avatarUrl}

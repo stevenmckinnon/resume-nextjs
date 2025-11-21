@@ -39,7 +39,7 @@ export const ProjectCard = ({
               alt={title}
               width={800}
               height={450}
-              className="object-cover w-full h-full grayscale group-hover:grayscale-0 transition-all duration-500 group-hover:scale-105"
+              className="object-cover w-full h-full md:grayscale group-hover:grayscale-0 transition-all duration-500 group-hover:scale-105"
             />
           </Link>
         </div>

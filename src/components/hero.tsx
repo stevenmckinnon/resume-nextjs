@@ -123,15 +123,10 @@ export const Hero = () => {
             variants={letterAnimation}
             className="flex flex-wrap gap-4 pt-4 justify-center md:justify-start"
           >
-            <Button asChild size="lg" className="h-14 px-8 lg:text-lg">
+            <Button asChild size="lg" className="lg:h-14 lg:text-lg">
               <Link href="#contact">Work With Me</Link>
             </Button>
-            <Button
-              asChild
-              variant="outline"
-              size="lg"
-              className="h-14 px-8 lg:text-lg"
-            >
+            <Button asChild variant="outline" size="lg" className="lg:h-14 lg:text-lg">
               <Link href="#projects">View Projects</Link>
             </Button>
           </motion.div>

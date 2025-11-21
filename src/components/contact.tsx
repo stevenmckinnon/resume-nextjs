@@ -142,9 +142,7 @@ export const Contact = () => {
                 07 // Contact
               </span>
               <h2 className="text-2xl md:text-3xl lg:text-4xl font-display font-black tracking-tighter uppercase">
-                Get in
-                <br />
-                Touch
+                Get in Touch
               </h2>
             </div>
           </BlurFade>
@@ -249,14 +247,15 @@ export const Contact = () => {
                 <Button
                   type="submit"
                   disabled={loading}
-                  className="w-full h-14 text-lg transition-all duration-300 group"
+                  size="lg"
+                  className="w-full lg:h-14 lg:text-lg transition-all duration-300 group"
                 >
                   {loading ? (
                     <Loader2 className="animate-spin mr-2" />
                   ) : (
                     <Send className="mr-2 size-4 group-hover:translate-x-1 transition-transform" />
                   )}
-                  {loading ? "TRANSMITTING..." : "SEND MESSAGE"}
+                  {loading ? "Sending..." : "Send Message"}
                 </Button>
               </form>
             </BlurFade>

@@ -105,12 +105,12 @@ export const Contact = () => {
         id="contact"
         className="relative flex w-full flex-col items-center justify-center overflow-hidden py-24"
       >
-        <div className="relative z-10 rounded-md flex flex-col items-center gap-6 text-center border-2 border-primary p-12 bg-card shadow-[8px_8px_0px_0px_rgba(var(--primary))]">
-          <BadgeCheck className="size-16 text-primary" />
-          <h2 className="relative text-3xl font-display font-bold tracking-tighter sm:text-5xl">
+        <div className="border-primary bg-card relative z-10 flex flex-col items-center gap-6 rounded-md border-2 p-12 text-center shadow-[8px_8px_0px_0px_rgba(var(--primary))]">
+          <BadgeCheck className="text-primary size-16" />
+          <h2 className="font-display relative text-3xl font-bold tracking-tighter sm:text-5xl">
             Message Sent
           </h2>
-          <p className="font-mono text-sm text-muted-foreground max-w-md">
+          <p className="text-muted-foreground max-w-md font-mono text-sm">
             I&apos;ll get back to you as soon as possible.
           </p>
           <Button
@@ -124,7 +124,7 @@ export const Contact = () => {
         </div>
         <Confetti
           ref={confettiRef}
-          className="absolute left-0 top-0 z-0 size-full pointer-events-none"
+          className="pointer-events-none absolute top-0 left-0 z-0 size-full"
         />
       </section>
     );
@@ -133,22 +133,22 @@ export const Contact = () => {
   return (
     <section
       id="contact"
-      className="py-12 md:py-24 border-t-2 border-border/50"
+      className="border-border/50 border-t-2 py-12 md:py-24"
     >
-      <div className="grid grid-cols-1 lg:grid-cols-2 gap-12">
+      <div className="grid grid-cols-1 gap-12 lg:grid-cols-2">
         <div className="flex flex-col justify-start space-y-6">
           <BlurFade delay={BLUR_FADE_DELAY * 2}>
-            <div className="flex flex-row md:flex-col items-center md:items-start gap-4 border-b md:border-b-0 md:border-l-4 border-primary/40 pb-4 md:pb-0 md:pl-8">
-              <span className="text-sm font-mono text-primary tracking-widest uppercase opacity-70">
+            <div className="border-primary/40 flex flex-row items-center gap-4 border-b pb-4 md:flex-col md:items-start md:border-b-0 md:border-l-4 md:pb-0 md:pl-8">
+              <span className="text-primary font-mono text-sm tracking-widest uppercase opacity-70">
                 07
               </span>
-              <h2 className="text-xl md:text-2xl lg:text-3xl font-display font-black uppercase tracking-tight text-foreground break-words md:break-normal">
+              <h2 className="font-display text-foreground text-xl font-black tracking-tight wrap-break-word uppercase md:text-2xl md:break-normal lg:text-3xl">
                 Contact
               </h2>
             </div>
           </BlurFade>
           <BlurFade delay={BLUR_FADE_DELAY * 3}>
-            <p className="text-xl text-muted-foreground font-light max-w-md">
+            <p className="text-muted-foreground max-w-md text-xl font-light">
               Have a project in mind? Let&apos;s build something exceptional
               together.
             </p>
@@ -159,7 +159,7 @@ export const Contact = () => {
             <BlurFade delay={BLUR_FADE_DELAY * 4}>
               <form
                 onSubmit={form.handleSubmit(onSubmit)}
-                className="space-y-6 p-4 rounded-md border border-border/50 bg-card/50 backdrop-blur-sm hover:border-primary/50 transition-colors duration-500"
+                className="border-border/50 bg-card/50 hover:border-primary/50 space-y-6 rounded-md border p-4 backdrop-blur-sm transition-colors duration-500"
                 noValidate
               >
                 <div className="grid grid-cols-1 gap-6 sm:grid-cols-2">
@@ -230,10 +230,10 @@ export const Contact = () => {
                           />
                           <span
                             className={cn(
-                              "absolute bottom-2 right-2 text-[10px] font-mono",
+                              "absolute right-2 bottom-2 font-mono text-[10px]",
                               field.value.length > 900
                                 ? "text-destructive"
-                                : "text-muted-foreground"
+                                : "text-muted-foreground",
                             )}
                           >
                             {field.value.length}/1000
@@ -249,12 +249,12 @@ export const Contact = () => {
                   type="submit"
                   disabled={loading}
                   size="lg"
-                  className="w-full lg:h-14 lg:text-lg transition-all duration-300 group"
+                  className="group w-full transition-all duration-300 lg:h-14 lg:text-lg"
                 >
                   {loading ? (
-                    <Loader2 className="animate-spin mr-2" />
+                    <Loader2 className="mr-2 animate-spin" />
                   ) : (
-                    <Send className="mr-2 size-4 group-hover:translate-x-1 transition-transform" />
+                    <Send className="mr-2 size-4 transition-transform group-hover:translate-x-1" />
                   )}
                   {loading ? "Sending..." : "Send Message"}
                 </Button>

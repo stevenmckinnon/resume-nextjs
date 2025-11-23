@@ -14,7 +14,7 @@ export const Hero = () => {
   const { theme } = useTheme();
   const { isAboveMd } = useBreakpoints("md");
   const socials = Object.values(DATA.contact.social).filter(
-    (social) => social.navbar
+    (social) => social.navbar,
   );
 
   const heroRef = useRef<HTMLElement | null>(null);
@@ -59,7 +59,7 @@ export const Hero = () => {
     <section
       ref={heroRef}
       id="hero"
-      className="relative min-h-dvh flex flex-col justify-center overflow-hidden py-12 md:py-24 lg:py-32 px-4 md:px-8 lg:px-16"
+      className="relative flex min-h-dvh flex-col justify-center overflow-hidden px-4 py-12 md:px-8 md:py-24 lg:px-16 lg:py-32"
     >
       <Particles
         className="absolute inset-0 -z-10"
@@ -70,13 +70,13 @@ export const Hero = () => {
       />
 
       {/* Background large text element for depth */}
-      <div className="absolute right-0 top-0 opacity-[0.04] pointer-events-none select-none font-display font-black text-[30vw] leading-none tracking-tighter z-0 translate-x-[20%] -translate-y-[10%]">
+      <div className="font-display pointer-events-none absolute top-0 right-0 z-0 translate-x-[20%] -translate-y-[10%] text-[30vw] leading-none font-black tracking-tighter opacity-[0.04] select-none">
         SM
       </div>
 
-      <div className="z-10 w-full max-w-[1400px] mx-auto grid grid-cols-1 md:grid-cols-2 lg:grid-cols-2 gap-8 md:gap-12 lg:gap-24 items-center">
+      <div className="z-10 mx-auto grid w-full max-w-[1400px] grid-cols-1 items-center gap-8 md:grid-cols-2 md:gap-12 lg:grid-cols-2 lg:gap-24">
         <motion.div
-          className="flex flex-col space-y-6 md:space-y-8 order-2 md:order-1 lg:order-1 items-center text-center md:items-start md:text-left"
+          className="order-2 flex flex-col items-center space-y-6 text-center md:order-1 md:items-start md:space-y-8 md:text-left lg:order-1"
           variants={containerAnimation}
           initial="hidden"
           animate="visible"
@@ -85,8 +85,8 @@ export const Hero = () => {
           {/* Name Heading */}
           <div className="relative">
             <div className="overflow-hidden">
-              <motion.h1 className="font-display font-black text-5xl lg:text-6xl tracking-tighter leading-[0.9] text-foreground">
-                <span className="block text-transparent bg-clip-text bg-linear-to-b from-foreground to-foreground/70 whitespace-nowrap">
+              <motion.h1 className="font-display text-foreground text-5xl leading-[0.9] font-black tracking-tighter lg:text-6xl">
+                <span className="from-foreground to-foreground/70 block bg-linear-to-b bg-clip-text whitespace-nowrap text-transparent">
                   {firstName.split("").map((char, i) => (
                     <motion.span
                       key={`${char}-${i}`}
@@ -97,7 +97,7 @@ export const Hero = () => {
                     </motion.span>
                   ))}
                 </span>
-                <span className="block text-primary whitespace-nowrap">
+                <span className="text-primary block whitespace-nowrap">
                   {lastName.split("").map((char, i) => (
                     <motion.span
                       key={`${char}-${i}`}
@@ -114,7 +114,7 @@ export const Hero = () => {
 
           {/* Description */}
           <motion.div variants={letterAnimation} className="max-w-xl">
-            <p className="text-xl lg:text-2xl text-muted-foreground font-light leading-relaxed md:border-l-2 border-primary md:pl-6">
+            <p className="text-muted-foreground border-primary text-xl leading-relaxed font-light md:border-l-2 md:pl-6 lg:text-2xl">
               {DATA.description}
             </p>
           </motion.div>
@@ -122,7 +122,7 @@ export const Hero = () => {
           {/* CTAs */}
           <motion.div
             variants={letterAnimation}
-            className="flex flex-wrap gap-4 pt-4 justify-center md:justify-start"
+            className="flex flex-wrap justify-center gap-4 pt-4 md:justify-start"
           >
             <Button asChild size="lg" className="lg:h-14 lg:text-lg">
               <Link href="#contact">Work With Me</Link>
@@ -140,17 +140,17 @@ export const Hero = () => {
           {/* Socials - Horizontal list */}
           <motion.div
             variants={letterAnimation}
-            className="flex items-center gap-4 pt-8 justify-center md:justify-start"
+            className="flex items-center justify-center gap-4 pt-8 md:justify-start"
           >
             {socials.map((social) => (
               <Link
                 key={social.name}
                 href={social.url}
                 target="_blank"
-                className="group relative p-2 hover:-translate-y-1 transition-transform"
+                className="group relative p-2 transition-transform hover:-translate-y-1"
               >
-                <social.icon className="h-6 w-6 text-muted-foreground group-hover:text-primary transition-colors" />
-                <span className="absolute -bottom-8 left-1/2 -translate-x-1/2 text-xs opacity-0 group-hover:opacity-100 transition-opacity whitespace-nowrap font-mono">
+                <social.icon className="text-muted-foreground group-hover:text-primary h-6 w-6 transition-colors" />
+                <span className="absolute -bottom-8 left-1/2 -translate-x-1/2 font-mono text-xs whitespace-nowrap opacity-0 transition-opacity group-hover:opacity-100">
                   {social.name}
                 </span>
               </Link>
@@ -164,11 +164,11 @@ export const Hero = () => {
           initial={{ opacity: 0, scale: 0.9, filter: "blur(10px)" }}
           animate={{ opacity: 1, scale: 1, filter: "blur(0px)" }}
           transition={{ duration: 1, delay: 0.5 }}
-          className="relative h-[260px] w-full md:h-[350px] md:w-full lg:h-[600px] lg:w-full order-1 md:order-2 lg:order-2 mb-8 md:mb-0 lg:mb-0"
+          className="relative order-1 mb-8 h-[260px] w-full transition-all duration-500 ease-out md:order-2 md:mb-0 md:h-[350px] md:w-full lg:order-2 lg:mb-0 lg:h-[600px] lg:w-full"
         >
-          <div className="absolute inset-0 bg-linear-to-tr from-primary/20 to-secondary/20 rounded-full blur-[100px] opacity-50" />
-          <div className="relative h-full w-full rounded-md border border-border bg-card/50 backdrop-blur-sm p-2 rotate-3 hover:rotate-0 transition-all duration-500 ease-out shadow-2xl max-w-[260px] md:max-w-none mx-auto md:mx-0">
-            <div className="relative h-full w-full rounded-[10px] overflow-hidden transition-all duration-500">
+          <div className="from-primary/20 to-secondary/20 absolute inset-0 rounded-full bg-linear-to-tr opacity-50 blur-[100px]" />
+          <div className="border-border bg-card/50 relative mx-auto h-full w-full max-w-[260px] rotate-3 rounded-md border p-2 shadow-2xl backdrop-blur-sm transition-all duration-500 ease-out hover:rotate-0 md:mx-0 md:max-w-none">
+            <div className="relative h-full w-full overflow-hidden rounded-[10px] transition-all duration-500">
               <Image
                 alt={DATA.name}
                 src={DATA.avatarUrl}
@@ -177,7 +177,7 @@ export const Hero = () => {
                 priority
               />
               {/* Scanline overlay */}
-              <div className="hidden md:absolute inset-0 bg-[linear-gradient(to_bottom,transparent_50%,rgba(0,0,0,0.5)_50%)] bg-size-[100%_4px] opacity-20 pointer-events-none" />
+              <div className="pointer-events-none inset-0 hidden bg-[linear-gradient(to_bottom,transparent_50%,rgba(0,0,0,0.5)_50%)] bg-size-[100%_4px] opacity-20 md:absolute" />
             </div>
           </div>
         </motion.div>

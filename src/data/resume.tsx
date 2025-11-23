@@ -12,7 +12,7 @@ export const DATA: Resume = {
   description:
     "I'm a Glasgow based frontend developer creating modern web apps.",
   summary: `Highly focused and enthusiastic software developer with over ${calculateYearsOfExperience(
-    "2014-06-30"
+    "2014-06-30",
   )} years of experience. Expert in building scalable web applications, leading technical teams, and translating complex business requirements into robust technical solutions. Passionate about user experience and modern frontend architectures.`,
   avatarUrl: "/me.jpg",
   skills: [
@@ -54,7 +54,7 @@ export const DATA: Resume = {
       },
       LinkedIn: {
         name: "LinkedIn",
-        url: "https://linkedin.com/in/stevenmckinnon",
+        url: "https://www.linkedin.com/in/stevenmckinnon92/",
         icon: Icons.linkedin,
 
         navbar: true,

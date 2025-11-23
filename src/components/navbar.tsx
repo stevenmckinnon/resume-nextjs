@@ -51,8 +51,8 @@ export default function Navbar() {
           transition={{ duration: 0.5, ease: [0.16, 1, 0.3, 1] }}
           className="pointer-events-none fixed inset-x-0 bottom-0 z-30 mx-auto mb-4 flex h-full max-h-14 origin-bottom"
         >
-          <div className="fixed inset-x-0 bottom-0 h-16 w-full bg-background/80 backdrop-blur-xl [-webkit-mask-image:linear-gradient(to_top,black,transparent)] dark:bg-background/80"></div>
-          <Dock className="pointer-events-auto relative z-50 mx-auto flex h-full min-h-full items-center rounded-full border border-white/20 bg-white/10 px-1 backdrop-blur-xl [box-shadow:inset_0_1px_0_rgba(255,255,255,0.2),0_8px_32px_rgba(0,0,0,0.1),0_0_0_1px_rgba(255,255,255,0.1)] transform-gpu dark:border-gray-700/20 dark:bg-gray-900/10 dark:[box-shadow:inset_0_1px_0_rgba(255,255,255,0.1),0_8px_32px_rgba(0,0,0,0.3),0_0_0_1px_rgba(255,255,255,0.05)]">
+          <div className="bg-background/80 dark:bg-background/80 fixed inset-x-0 bottom-0 h-16 w-full backdrop-blur-xl [-webkit-mask-image:linear-gradient(to_top,black,transparent)]"></div>
+          <Dock className="pointer-events-auto relative z-50 mx-auto flex h-full min-h-full transform-gpu items-center rounded-full border border-white/20 bg-white/10 px-1 [box-shadow:inset_0_1px_0_rgba(255,255,255,0.2),0_8px_32px_rgba(0,0,0,0.1),0_0_0_1px_rgba(255,255,255,0.1)] backdrop-blur-xl dark:border-gray-700/20 dark:bg-gray-900/10 dark:[box-shadow:inset_0_1px_0_rgba(255,255,255,0.1),0_8px_32px_rgba(0,0,0,0.3),0_0_0_1px_rgba(255,255,255,0.05)]">
             {DATA.navbar.map((item) => (
               <DockIcon key={item.href}>
                 <Tooltip>
@@ -62,7 +62,7 @@ export default function Navbar() {
                       className={cn(
                         buttonVariants({ variant: "ghost", size: "icon" }),
                         "size-12",
-                        "rounded-full bg-transparent transition-colors duration-300 hover:bg-muted/80"
+                        "hover:bg-muted/80 rounded-full bg-transparent transition-colors duration-300",
                       )}
                     >
                       <item.icon className="size-4" />
@@ -87,9 +87,11 @@ export default function Navbar() {
                     <TooltipTrigger asChild>
                       <Link
                         href={social.url}
+                        target="_blank"
+                        rel="noopener noreferrer"
                         className={cn(
                           buttonVariants({ variant: "ghost", size: "icon" }),
-                          "size-12 rounded-full bg-transparent transition-colors duration-300 hover:bg-muted/80"
+                          "hover:bg-muted/80 size-12 rounded-full bg-transparent transition-colors duration-300",
                         )}
                       >
                         <social.icon className="size-4" />
@@ -104,7 +106,7 @@ export default function Navbar() {
               ))}
             <Separator
               orientation="vertical"
-              className="h-full py-2 bg-white/20 dark:bg-gray-700/20"
+              className="h-full bg-white/20 py-2 dark:bg-gray-700/20"
             />
             <DockIcon>
               <Tooltip>

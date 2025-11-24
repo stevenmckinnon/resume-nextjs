@@ -7,12 +7,11 @@ import { Button } from "@/components/ui/button";
 import { DATA } from "@/data/resume";
 import useBreakpoints from "@/hooks/useBreakpoints";
 import { cn } from "@/lib/utils";
-import { motion, useScroll, useTransform } from "framer-motion";
-import { ArrowDown, Download } from "lucide-react";
+import { motion } from "framer-motion";
+import { Download } from "lucide-react";
 import { useTheme } from "next-themes";
 import Image from "next/image";
 import Link from "next/link";
-import { useRef } from "react";
 
 export const Hero = () => {
   const { theme } = useTheme();
@@ -21,30 +20,20 @@ export const Hero = () => {
     (social) => social.navbar,
   );
 
-  const heroRef = useRef<HTMLElement | null>(null);
-  const { scrollYProgress } = useScroll({
-    target: heroRef,
-    offset: ["start start", "end start"],
-  });
-
-  const y = useTransform(scrollYProgress, [0, 1], [0, 200]);
-  const opacity = useTransform(scrollYProgress, [0, 0.5], [1, 0]);
-  const scale = useTransform(scrollYProgress, [0, 1], [1, 1.2]);
-
   // Split name for styling
   const firstName = DATA.name.split(" ")[0].toUpperCase();
   const lastName = DATA.name.split(" ")[1].toUpperCase();
 
+  // Simplified animation - removed rotateX for iOS performance
   const letterAnimation = {
-    hidden: { y: 100, opacity: 0, rotateX: 90 },
+    hidden: { y: 50, opacity: 0 },
     visible: {
       y: 0,
       opacity: 1,
-      rotateX: 0,
       transition: {
         type: "spring",
-        damping: 12,
-        stiffness: 200,
+        damping: 20,
+        stiffness: 300,
       },
     },
   };
@@ -69,17 +58,16 @@ export const Hero = () => {
 
   return (
     <section
-      ref={heroRef}
       id="hero"
       className="relative flex min-h-dvh flex-col justify-center overflow-hidden px-4 py-12 md:px-8 md:py-24 lg:px-16 lg:py-32"
     >
       {/* Particles Background */}
       <Particles
         className="absolute inset-0 -z-10"
-        quantity={isAboveMd ? 200 : 100}
+        quantity={isAboveMd ? 150 : 75}
         color={theme === "dark" ? "#ffffff" : "#000000"}
-        vx={0.2}
-        vy={0.2}
+        vx={0.1}
+        vy={0.1}
       />
 
       {/* Background large text element for depth */}
@@ -108,7 +96,6 @@ export const Hero = () => {
                       key={`first-${char}-${i}`}
                       variants={letterAnimation}
                       className="from-foreground to-foreground/70 inline-block bg-linear-to-b bg-clip-text text-transparent"
-                      style={{ perspective: "1000px" }}
                     >
                       {char}
                     </motion.span>
@@ -120,7 +107,6 @@ export const Hero = () => {
                       key={`last-${char}-${i}`}
                       variants={letterAnimation}
                       className="inline-block"
-                      style={{ perspective: "1000px" }}
                     >
                       {char}
                     </motion.span>
@@ -165,10 +151,6 @@ export const Hero = () => {
               >
                 <Link href="#contact">
                   <span className="relative z-10">Work With Me</span>
-                  <motion.div
-                    animate={{ backgroundPosition: ["0%", "100%", "0%"] }}
-                    transition={{ duration: 3, repeat: Infinity }}
-                  />
                 </Link>
               </Button>
             </MagneticButton>
@@ -198,7 +180,7 @@ export const Hero = () => {
                 key={social.name}
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
-                transition={{ delay: 1 + index * 0.1 }}
+                transition={{ delay: 0.8 + index * 0.1 }}
               >
                 <Link
                   href={social.url}
@@ -222,16 +204,15 @@ export const Hero = () => {
           </motion.div>
         </motion.div>
 
-        {/* Image / Visual Side */}
+        {/* Image / Visual Side - removed scroll-linked transforms for iOS performance */}
         <motion.div
-          style={{ y, opacity, scale }}
-          initial={{ opacity: 0, scale: 0.9, filter: "blur(10px)" }}
-          animate={{ opacity: 1, scale: 1, filter: "blur(0px)" }}
-          transition={{ duration: 1, delay: 0.5 }}
-          className="relative order-1 mb-8 h-[280px] w-full transition-all duration-500 ease-out md:order-2 md:mb-0 md:h-[400px] md:w-full lg:order-2 lg:mb-0 lg:h-[600px] lg:w-full"
+          initial={{ opacity: 0, scale: 0.95 }}
+          animate={{ opacity: 1, scale: 1 }}
+          transition={{ duration: 0.8, delay: 0.3 }}
+          className="relative order-1 mb-8 h-[280px] w-full md:order-2 md:mb-0 md:h-[400px] md:w-full lg:order-2 lg:mb-0 lg:h-[600px] lg:w-full"
         >
-          {/* Gradient glow */}
-          <div className="from-primary/30 via-secondary/20 to-accent/20 absolute inset-0 rounded-full bg-linear-to-tr opacity-60 blur-[100px]" />
+          {/* Gradient glow - reduced blur for iOS */}
+          <div className="from-primary/20 via-secondary/10 to-accent/10 absolute inset-0 rounded-full bg-linear-to-tr opacity-50 blur-3xl" />
 
           {/* Main image container */}
           <div className="border-border bg-card/50 relative mx-auto h-full w-full max-w-[280px] rotate-3 rounded-2xl border-2 p-2 shadow-2xl backdrop-blur-sm transition-all duration-500 ease-out hover:scale-105 hover:rotate-0 md:mx-0 md:max-w-none">
@@ -253,7 +234,7 @@ export const Hero = () => {
           <motion.div
             initial={{ opacity: 0, x: 20 }}
             animate={{ opacity: 1, x: 0 }}
-            transition={{ delay: 1.5 }}
+            transition={{ delay: 1.2 }}
             className="border-border bg-card/90 absolute -right-4 bottom-1/4 hidden rounded-lg border px-4 py-2 shadow-xl backdrop-blur-sm md:block"
           >
             <p className="text-muted-foreground font-mono text-xs">Based in</p>

@@ -161,6 +161,49 @@ html {
       right: 25%;
     }
   }
+
+  /* Gradient orb animations - CSS for better iOS performance */
+  @keyframes orb-1 {
+    0%,
+    100% {
+      transform: translate(0, 0) scale(1);
+    }
+    50% {
+      transform: translate(50px, -25px) scale(1.05);
+    }
+  }
+  @keyframes orb-2 {
+    0%,
+    100% {
+      transform: translate(0, 0) scale(1);
+    }
+    50% {
+      transform: translate(-40px, 30px) scale(1.1);
+    }
+  }
+  @keyframes orb-3 {
+    0%,
+    100% {
+      transform: translate(-50%, -50%) scale(0.9);
+    }
+    50% {
+      transform: translate(-50%, -50%) scale(1);
+    }
+  }
+  @keyframes blink {
+    0%,
+    100% {
+      opacity: 1;
+    }
+    50% {
+      opacity: 0;
+    }
+  }
+
+  --animate-orb-1: orb-1 25s ease-in-out infinite;
+  --animate-orb-2: orb-2 30s ease-in-out infinite;
+  --animate-orb-3: orb-3 20s ease-in-out infinite;
+  --animate-blink: blink 1s step-end infinite;
 }
 
 @utility container {

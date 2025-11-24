@@ -1,7 +1,7 @@
 "use client";
 
 import { cn } from "@/lib/utils";
-import { motion, useInView } from "framer-motion";
+import { useInView } from "framer-motion";
 import { useEffect, useRef, useState } from "react";
 
 interface TypingEffectProps {
@@ -65,12 +65,8 @@ export const TypingEffect = ({
   return (
     <span ref={ref} className={cn("inline-flex items-center", className)}>
       <span>{displayText}</span>
-      <motion.span
-        animate={{ opacity: [1, 0] }}
-        transition={{ duration: 0.5, repeat: Infinity, repeatType: "reverse" }}
-        className="ml-1 inline-block h-[1em] w-[3px] bg-primary"
-      />
+      {/* Using CSS animation instead of framer-motion for better iOS performance */}
+      <span className="bg-primary ml-1 inline-block h-[1em] w-[3px] animate-blink" />
     </span>
   );
 };
-

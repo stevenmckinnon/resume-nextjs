@@ -1,7 +1,6 @@
 "use client";
 
 import { cn } from "@/lib/utils";
-import { motion } from "framer-motion";
 
 interface GradientOrbsProps {
   className?: string;
@@ -16,50 +15,14 @@ export const GradientOrbs = ({ className }: GradientOrbsProps) => {
       )}
       aria-hidden="true"
     >
-      {/* Primary orb */}
-      <motion.div
-        className="from-primary/30 via-primary/10 absolute -top-[40%] -right-[20%] h-[80vh] w-[80vh] rounded-full bg-linear-to-br to-transparent blur-[120px]"
-        animate={{
-          x: [0, 100, 0],
-          y: [0, -50, 0],
-          scale: [1, 1.1, 1],
-        }}
-        transition={{
-          duration: 20,
-          repeat: Infinity,
-          ease: "easeInOut",
-        }}
-      />
+      {/* Primary orb - using CSS animation instead of framer-motion for better iOS performance */}
+      <div className="animate-orb-1 from-primary/20 via-primary/5 absolute -top-[40%] -right-[20%] h-[60vh] w-[60vh] rounded-full bg-linear-to-br to-transparent blur-[80px] will-change-transform" />
 
       {/* Secondary orb */}
-      <motion.div
-        className="from-secondary/20 via-secondary/5 absolute -bottom-[30%] -left-[20%] h-[70vh] w-[70vh] rounded-full bg-linear-to-tr to-transparent blur-[100px]"
-        animate={{
-          x: [0, -80, 0],
-          y: [0, 60, 0],
-          scale: [1, 1.2, 1],
-        }}
-        transition={{
-          duration: 25,
-          repeat: Infinity,
-          ease: "easeInOut",
-          delay: 2,
-        }}
-      />
+      <div className="animate-orb-2 from-secondary/15 via-secondary/5 absolute -bottom-[30%] -left-[20%] h-[50vh] w-[50vh] rounded-full bg-linear-to-tr to-transparent blur-[60px] will-change-transform" />
 
       {/* Accent orb */}
-      <motion.div
-        className="from-accent/15 to-primary/10 absolute top-1/2 left-1/2 h-[50vh] w-[50vh] -translate-x-1/2 -translate-y-1/2 rounded-full bg-linear-to-r via-transparent blur-[80px]"
-        animate={{
-          rotate: [0, 360],
-          scale: [0.8, 1, 0.8],
-        }}
-        transition={{
-          duration: 30,
-          repeat: Infinity,
-          ease: "linear",
-        }}
-      />
+      <div className="animate-orb-3 from-accent/10 to-primary/5 absolute top-1/2 left-1/2 h-[40vh] w-[40vh] -translate-x-1/2 -translate-y-1/2 rounded-full bg-linear-to-r via-transparent blur-[50px] will-change-transform" />
     </div>
   );
 };

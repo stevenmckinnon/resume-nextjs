@@ -69,12 +69,12 @@ export const ContactEmail = ({
           </style>
         </Head>
 
-        <Body className="bg-[#f7f5f2] py-10 px-5 font-sans">
+        <Body className="bg-[#f7f5f2] px-5 py-10 font-sans">
           <Preview>{previewText}</Preview>
 
           <Container className="mx-auto max-w-[600px]">
             {/* Header Card */}
-            <Section className="bg-white rounded-t-2xl overflow-hidden">
+            <Section className="overflow-hidden rounded-t-2xl bg-white">
               {/* Gradient accent bar - using inline style for gradient */}
               <div
                 style={{
@@ -92,50 +92,47 @@ export const ContactEmail = ({
                     width="56"
                     height="56"
                     alt={DATA.name}
-                    className="rounded-xl border-2 border-border"
+                    className="border-border rounded-xl border-2"
                   />
                 </Column>
                 <Column className="align-middle">
-                  <Text className="m-0 text-lg font-bold text-foreground tracking-tight">
+                  <Text className="text-foreground m-0 text-lg font-bold tracking-tight">
                     {DATA.name}
-                  </Text>
-                  <Text className="m-0 text-[13px] text-muted-foreground font-mono tracking-wide">
-                    Lead Frontend Developer
                   </Text>
                 </Column>
               </Row>
             </Section>
 
             {/* Main Content Card */}
-            <Section className="bg-white rounded-b-2xl border-t border-border px-8 py-8">
+            <Section className="border-border rounded-b-2xl border-t bg-white px-8 py-8">
               {/* Badge */}
-              <div className="inline-block bg-primary-light rounded-full px-3.5 py-1.5 mb-5">
-                <span className="text-[11px] font-semibold text-primary tracking-widest font-mono">
-                  ✉ NEW MESSAGE
+              <div className="bg-primary-light mb-5 inline-block rounded-full px-3.5 py-1.5">
+                <span className="text-primary font-mono text-[11px] font-semibold tracking-widest">
+                  📨 NEW MESSAGE
                 </span>
               </div>
 
-              <Heading className="m-0 mb-2 text-[28px] font-bold text-foreground tracking-tight leading-tight">
+              <Heading className="text-foreground m-0 mb-2 text-[28px] leading-tight font-bold tracking-tight">
                 You&apos;ve got mail!
               </Heading>
 
-              <Text className="m-0 mb-7 text-base text-muted-foreground">
+              <Text className="text-muted-foreground m-0 mb-7 text-base">
                 <span className="text-primary font-semibold">{name}</span>{" "}
                 reached out via your portfolio
               </Text>
 
               {/* Sender Details Card */}
-              <Section className="bg-surface rounded-xl p-4 mb-6">
+              <Section className="bg-surface mb-6 rounded-xl p-4">
                 <Row className="mb-2">
                   <Column className="w-[80px] align-top">
-                    <Text className="m-0 text-xs font-medium text-muted-foreground uppercase tracking-wider font-mono">
+                    <Text className="text-muted-foreground m-0 font-mono text-xs font-medium tracking-wider uppercase">
                       From
                     </Text>
                   </Column>
                   <Column className="align-top">
                     <Link
                       href={`mailto:${email}`}
-                      className="text-sm font-medium text-primary no-underline"
+                      className="text-primary text-sm font-medium no-underline"
                     >
                       {email}
                     </Link>
@@ -143,12 +140,12 @@ export const ContactEmail = ({
                 </Row>
                 <Row>
                   <Column className="w-[80px] align-top">
-                    <Text className="m-0 text-xs font-medium text-muted-foreground uppercase tracking-wider font-mono">
+                    <Text className="text-muted-foreground m-0 font-mono text-xs font-medium tracking-wider uppercase">
                       Subject
                     </Text>
                   </Column>
                   <Column className="align-top">
-                    <Text className="m-0 text-sm font-medium text-foreground">
+                    <Text className="text-foreground m-0 text-sm font-medium">
                       {subject}
                     </Text>
                   </Column>
@@ -157,17 +154,16 @@ export const ContactEmail = ({
 
               {/* Message Section */}
               <Section className="mb-7">
-                <Text className="m-0 mb-2.5 text-xs font-medium text-muted-foreground uppercase tracking-wider font-mono">
+                <Text className="text-muted-foreground m-0 mb-2.5 font-mono text-xs font-medium tracking-wider uppercase">
                   Message
                 </Text>
                 <div
                   className="bg-surface rounded-xl p-5"
                   style={{
                     border: "1px solid #e5e7eb",
-                    borderLeft: "3px solid #7c3aed",
                   }}
                 >
-                  <Text className="m-0 text-[15px] leading-relaxed text-foreground whitespace-pre-wrap">
+                  <Text className="text-foreground m-0 text-[15px] leading-relaxed whitespace-pre-wrap">
                     {message}
                   </Text>
                 </div>
@@ -177,7 +173,7 @@ export const ContactEmail = ({
               <Section className="text-center">
                 <Link
                   href={`mailto:${email}?subject=Re: ${subject}`}
-                  className="inline-block bg-primary text-white text-sm font-semibold no-underline px-8 py-3.5 rounded-xl"
+                  className="bg-primary inline-block rounded-xl px-8 py-3.5 text-sm font-semibold text-white no-underline"
                 >
                   Reply to {name.split(" ")[0]} →
                 </Link>
@@ -186,8 +182,8 @@ export const ContactEmail = ({
 
             {/* Footer */}
             <Section className="pt-8">
-              <Hr className="border-t border-border mb-6" />
-              <Text className="m-0 mb-4 text-[13px] text-muted-foreground text-center">
+              <Hr className="border-border mb-6 border-t" />
+              <Text className="text-muted-foreground m-0 mb-4 text-center text-[13px]">
                 This email was sent from your portfolio contact form at{" "}
                 <Link href={baseUrl} className="text-primary no-underline">
                   stevemckinnon.co.uk
@@ -197,27 +193,27 @@ export const ContactEmail = ({
                 <Column align="center">
                   <Link
                     href="https://github.com/stevenmckinnon"
-                    className="text-xs text-muted-foreground no-underline font-mono"
+                    className="text-muted-foreground font-mono text-xs no-underline"
                   >
                     GitHub
                   </Link>
                   <span className="text-border mx-3">•</span>
                   <Link
                     href="https://linkedin.com/in/stevenmckinnon92"
-                    className="text-xs text-muted-foreground no-underline font-mono"
+                    className="text-muted-foreground font-mono text-xs no-underline"
                   >
                     LinkedIn
                   </Link>
                   <span className="text-border mx-3">•</span>
                   <Link
                     href="https://x.com/stevenmckinnon"
-                    className="text-xs text-muted-foreground no-underline font-mono"
+                    className="text-muted-foreground font-mono text-xs no-underline"
                   >
                     X
                   </Link>
                 </Column>
               </Row>
-              <Text className="m-0 text-xs text-muted-foreground text-center">
+              <Text className="text-muted-foreground m-0 text-center text-xs">
                 © {new Date().getFullYear()} Steve McKinnon. Glasgow, Scotland
                 🏴󠁧󠁢󠁳󠁣󠁴󠁿
               </Text>

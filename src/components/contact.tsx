@@ -1,6 +1,7 @@
 "use client";
 
 import BlurFade from "@/components/magicui/blur-fade";
+import { MagneticButton } from "@/components/magicui/magnetic-button";
 import { Button } from "@/components/ui/button";
 import {
   Form,
@@ -15,7 +16,8 @@ import { Textarea } from "@/components/ui/textarea";
 import { useToast } from "@/hooks/use-toast";
 import { cn } from "@/lib/utils";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { BadgeCheck, Loader2, Send } from "lucide-react";
+import { motion } from "framer-motion";
+import { BadgeCheck, Loader2, Send, Sparkles } from "lucide-react";
 import { useEffect, useRef, useState } from "react";
 import { useForm } from "react-hook-form";
 import * as z from "zod";
@@ -105,13 +107,26 @@ export const Contact = () => {
         id="contact"
         className="relative flex w-full flex-col items-center justify-center overflow-hidden py-24"
       >
-        <div className="border-primary bg-card relative z-10 flex flex-col items-center gap-6 rounded-md border-2 p-12 text-center shadow-[8px_8px_0px_0px_rgba(var(--primary))]">
-          <BadgeCheck className="text-primary size-16" />
+        <motion.div
+          initial={{ scale: 0.8, opacity: 0 }}
+          animate={{ scale: 1, opacity: 1 }}
+          transition={{ type: "spring", duration: 0.6 }}
+          className="border-primary bg-card relative z-10 flex flex-col items-center gap-6 rounded-2xl border-2 p-12 text-center shadow-[0_0_60px_rgba(var(--primary),0.2)]"
+        >
+          <motion.div
+            initial={{ scale: 0 }}
+            animate={{ scale: 1 }}
+            transition={{ delay: 0.2, type: "spring" }}
+            className="bg-primary/10 rounded-full p-4"
+          >
+            <BadgeCheck className="text-primary size-12" />
+          </motion.div>
           <h2 className="font-display relative text-3xl font-bold tracking-tighter sm:text-5xl">
-            Message Sent
+            Message Sent!
           </h2>
           <p className="text-muted-foreground max-w-md font-mono text-sm">
-            I&apos;ll get back to you as soon as possible.
+            Thanks for reaching out! I&apos;ll get back to you as soon as
+            possible.
           </p>
           <Button
             onClick={() => setSubmitted(false)}
@@ -121,7 +136,7 @@ export const Contact = () => {
           >
             Send Another
           </Button>
-        </div>
+        </motion.div>
         <Confetti
           ref={confettiRef}
           className="pointer-events-none absolute top-0 left-0 z-0 size-full"
@@ -133,9 +148,9 @@ export const Contact = () => {
   return (
     <section
       id="contact"
-      className="border-border/50 border-t-2 py-12 md:py-24"
+      className="border-border/50 relative border-t-2 py-12 md:py-24"
     >
-      <div className="grid grid-cols-1 gap-12 lg:grid-cols-2">
+      <div className="relative grid grid-cols-1 gap-12 lg:grid-cols-2">
         <div className="flex flex-col justify-start space-y-6">
           <BlurFade delay={BLUR_FADE_DELAY * 2}>
             <div className="border-primary/40 flex flex-row items-center gap-4 border-b pb-4 md:flex-col md:items-start md:border-b-0 md:border-l-4 md:pb-0 md:pl-8">
@@ -153,16 +168,29 @@ export const Contact = () => {
               together.
             </p>
           </BlurFade>
+          <BlurFade delay={BLUR_FADE_DELAY * 4}>
+            <div className="border-primary/20 bg-primary/5 flex items-center gap-3 rounded-lg border px-4 py-3">
+              <Sparkles className="text-primary h-5 w-5" />
+              <span className="text-muted-foreground text-sm">
+                Usually responds within{" "}
+                <span className="text-foreground font-semibold">24 hours</span>
+              </span>
+            </div>
+          </BlurFade>
         </div>
+
         <div className="relative">
           <Form {...form}>
             <BlurFade delay={BLUR_FADE_DELAY * 4}>
-              <form
+              <motion.form
                 onSubmit={form.handleSubmit(onSubmit)}
-                className="border-border/50 bg-card/50 hover:border-primary/50 space-y-6 rounded-md border p-4 backdrop-blur-sm transition-colors duration-500"
+                className="group/form border-border/50 bg-card/50 hover:border-primary/30 space-y-6 rounded-2xl border p-6 backdrop-blur-sm transition-all duration-500 hover:shadow-[0_0_40px_rgba(var(--primary),0.1)]"
                 noValidate
               >
-                <div className="grid grid-cols-1 gap-6 sm:grid-cols-2">
+                {/* Form glow effect */}
+                <div className="from-primary/20 to-secondary/20 pointer-events-none absolute -inset-px mb-0 rounded-2xl bg-linear-to-br via-transparent opacity-0 transition-opacity duration-500 group-hover/form:opacity-100" />
+
+                <div className="relative grid grid-cols-1 gap-6 sm:grid-cols-2">
                   <FormField
                     control={form.control}
                     name="name"
@@ -174,6 +202,7 @@ export const Contact = () => {
                             autoComplete="name"
                             placeholder="Your name"
                             required
+                            className="transition-all duration-300 focus:shadow-[0_0_20px_rgba(var(--primary),0.1)]"
                             {...field}
                           />
                         </FormControl>
@@ -193,6 +222,7 @@ export const Contact = () => {
                             autoComplete="email"
                             placeholder="Your email"
                             required
+                            className="transition-all duration-300 focus:shadow-[0_0_20px_rgba(var(--primary),0.1)]"
                             {...field}
                           />
                         </FormControl>
@@ -205,10 +235,15 @@ export const Contact = () => {
                   control={form.control}
                   name="subject"
                   render={({ field }) => (
-                    <FormItem>
+                    <FormItem className="relative">
                       <FormLabel required>Subject</FormLabel>
                       <FormControl>
-                        <Input placeholder="Subject" required {...field} />
+                        <Input
+                          placeholder="What's this about?"
+                          required
+                          className="transition-all duration-300 focus:shadow-[0_0_20px_rgba(var(--primary),0.1)]"
+                          {...field}
+                        />
                       </FormControl>
                       <FormMessage />
                     </FormItem>
@@ -218,22 +253,23 @@ export const Contact = () => {
                   control={form.control}
                   name="message"
                   render={({ field }) => (
-                    <FormItem>
+                    <FormItem className="relative">
                       <FormLabel required>Message</FormLabel>
                       <FormControl>
                         <div className="relative">
                           <Textarea
-                            placeholder="Your message"
+                            placeholder="Tell me about your project..."
                             required
                             maxLength={1000}
+                            className="min-h-[150px] transition-all duration-300 focus:shadow-[0_0_20px_rgba(var(--primary),0.1)]"
                             {...field}
                           />
                           <span
                             className={cn(
-                              "absolute right-2 bottom-2 font-mono text-[10px]",
+                              "absolute right-3 bottom-3 font-mono text-[10px] transition-colors",
                               field.value.length > 900
                                 ? "text-destructive"
-                                : "text-muted-foreground",
+                                : "text-muted-foreground/50",
                             )}
                           >
                             {field.value.length}/1000
@@ -245,20 +281,35 @@ export const Contact = () => {
                   )}
                 />
 
-                <Button
-                  type="submit"
-                  disabled={loading}
-                  size="lg"
-                  className="group w-full transition-all duration-300 lg:h-14 lg:text-lg"
-                >
-                  {loading ? (
-                    <Loader2 className="mr-2 animate-spin" />
-                  ) : (
-                    <Send className="mr-2 size-4 transition-transform group-hover:translate-x-1" />
-                  )}
-                  {loading ? "Sending..." : "Send Message"}
-                </Button>
-              </form>
+                <MagneticButton strength={20} className="w-full">
+                  <Button
+                    type="submit"
+                    disabled={loading}
+                    size="lg"
+                    className="group relative w-full overflow-hidden transition-all duration-300 lg:h-14 lg:text-lg"
+                  >
+                    {/* Button gradient animation */}
+                    <motion.div
+                      className="from-primary via-secondary to-primary absolute inset-0 bg-linear-to-r bg-size-[200%_100%]"
+                      animate={{
+                        backgroundPosition: loading ? ["0%", "100%"] : "0%",
+                      }}
+                      transition={{
+                        duration: 1,
+                        repeat: loading ? Infinity : 0,
+                      }}
+                    />
+                    <span className="relative z-10 flex items-center justify-center gap-2">
+                      {loading ? (
+                        <Loader2 className="h-5 w-5 animate-spin" />
+                      ) : (
+                        <Send className="h-5 w-5" />
+                      )}
+                      {loading ? "Sending..." : "Send Message"}
+                    </span>
+                  </Button>
+                </MagneticButton>
+              </motion.form>
             </BlurFade>
           </Form>
         </div>

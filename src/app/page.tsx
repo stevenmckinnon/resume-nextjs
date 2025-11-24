@@ -7,7 +7,7 @@ import BlurFade from "@/components/magicui/blur-fade";
 import { ProjectCard } from "@/components/project-card";
 import { ResumeCard } from "@/components/resume-card";
 import { SimpleCard } from "@/components/simple-card";
-import { Badge } from "@/components/ui/badge";
+import { SkillsSection } from "@/components/skills-section";
 import { DATA } from "@/data/resume";
 import { BLUR_FADE_DELAY } from "@/lib/utils";
 import { MapPin } from "lucide-react";
@@ -27,15 +27,15 @@ const Section = ({
 }) => (
   <section
     id={id}
-    className={`grid grid-cols-1 md:grid-cols-[300px_1fr] gap-8 md:gap-16 mb-24 md:mb-32 ${className}`}
+    className={`mb-24 grid grid-cols-1 gap-8 md:mb-32 md:grid-cols-[300px_1fr] md:gap-16 ${className}`}
   >
-    <div className="md:sticky md:top-32 h-fit">
+    <div className="h-fit md:sticky md:top-32">
       <BlurFade delay={BLUR_FADE_DELAY}>
-        <div className="flex flex-row md:flex-col items-center md:items-start gap-4 border-b md:border-b-0 md:border-l-4 border-primary/40 pb-4 md:pb-0 md:pl-8">
-          <span className="text-sm font-mono text-primary tracking-widest uppercase opacity-70">
+        <div className="border-primary/40 flex flex-row items-center gap-4 border-b pb-4 md:flex-col md:items-start md:border-b-0 md:border-l-4 md:pb-0 md:pl-8">
+          <span className="text-primary font-mono text-sm tracking-widest uppercase opacity-70">
             {number}
           </span>
-          <h2 className="text-xl md:text-2xl lg:text-3xl font-display font-black uppercase tracking-tight text-foreground break-words md:break-normal">
+          <h2 className="font-display text-foreground text-xl font-black tracking-tight break-words uppercase md:text-2xl md:break-normal lg:text-3xl">
             {title}
           </h2>
         </div>
@@ -49,11 +49,11 @@ export default function Page() {
   return (
     <>
       <Hero />
-      <div className="w-full max-w-[1200px] mx-auto px-6 md:px-12 lg:px-24 pb-24">
+      <div className="mx-auto w-full max-w-[1200px] px-6 pb-24 md:px-12 lg:px-24">
         <Section id="about" title="About" number="01">
           <BlurFade delay={BLUR_FADE_DELAY * 2}>
             <div className="flex flex-col gap-4">
-              <div className="flex items-center gap-2 text-muted-foreground mb-4">
+              <div className="text-muted-foreground mb-4 flex items-center gap-2">
                 <MapPin className="size-4" />
                 <Link
                   href={DATA.locationLink}
@@ -62,7 +62,7 @@ export default function Page() {
                   {DATA.location}
                 </Link>
               </div>
-              <Markdown className="prose max-w-full text-lg text-muted-foreground dark:prose-invert leading-relaxed">
+              <Markdown className="prose text-muted-foreground dark:prose-invert max-w-full text-lg leading-relaxed">
                 {DATA.summary}
               </Markdown>
             </div>
@@ -70,16 +70,7 @@ export default function Page() {
         </Section>
 
         <Section id="skills" title="Skills" number="02">
-          <div className="flex flex-wrap gap-2">
-            {DATA.skills.map(({ name, icon: Icon }, id) => (
-              <BlurFade key={name} delay={BLUR_FADE_DELAY * 3 + id * 0.05}>
-                <Badge className="text-sm">
-                  {Icon && <Icon className="size-4 mr-2" />}
-                  {name}
-                </Badge>
-              </BlurFade>
-            ))}
-          </div>
+          <SkillsSection />
         </Section>
 
         <Section id="work" title="Experience" number="03">

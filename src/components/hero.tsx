@@ -2,7 +2,6 @@
 
 import { MagneticButton } from "@/components/magicui/magnetic-button";
 import { Particles } from "@/components/magicui/particles";
-import { TypingEffect } from "@/components/magicui/typing-effect";
 import { Button } from "@/components/ui/button";
 import { DATA } from "@/data/resume";
 import useBreakpoints from "@/hooks/useBreakpoints";
@@ -48,13 +47,6 @@ export const Hero = () => {
       },
     },
   };
-
-  const roles = [
-    "Lead Frontend Developer",
-    "React Specialist",
-    "UI/UX Enthusiast",
-    "TypeScript Expert",
-  ];
 
   return (
     <section
@@ -115,21 +107,6 @@ export const Hero = () => {
               </motion.h1>
             </div>
           </div>
-
-          {/* Typing Effect Role */}
-          <motion.div
-            variants={letterAnimation}
-            className="flex h-[24px] items-center gap-3"
-          >
-            <div className="bg-primary/50 h-px w-8" />
-            <TypingEffect
-              texts={roles}
-              className="text-muted-foreground font-mono text-sm tracking-widest uppercase md:text-base"
-              typingSpeed={80}
-              deletingSpeed={40}
-              delayBetween={2500}
-            />
-          </motion.div>
 
           {/* Description */}
           <motion.div variants={letterAnimation} className="max-w-xl">

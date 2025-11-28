@@ -2,6 +2,7 @@
 
 import { MagneticButton } from "@/components/magicui/magnetic-button";
 import { Particles } from "@/components/magicui/particles";
+import { SpinnablePhoto } from "@/components/spinnable-photo";
 import { Button } from "@/components/ui/button";
 import { DATA } from "@/data/resume";
 import useBreakpoints from "@/hooks/useBreakpoints";
@@ -9,9 +10,8 @@ import { cn } from "@/lib/utils";
 import { motion, useScroll, useTransform } from "framer-motion";
 import { Download } from "lucide-react";
 import { useTheme } from "next-themes";
-import Image from "next/image";
 import Link from "next/link";
-import { useRef, useState } from "react";
+import { useRef } from "react";
 
 export const Hero = () => {
   const { theme } = useTheme();
@@ -19,7 +19,6 @@ export const Hero = () => {
   const socials = Object.values(DATA.contact.social).filter(
     (social) => social.navbar,
   );
-  const [spin, setSpin] = useState(false);
 
   // Scroll-linked parallax for image
   const heroRef = useRef<HTMLElement>(null);
@@ -31,16 +30,6 @@ export const Hero = () => {
   const y = useTransform(scrollYProgress, [0, 1], [0, 150]);
   const opacity = useTransform(scrollYProgress, [0, 0.6], [1, 0]);
   const scale = useTransform(scrollYProgress, [0, 1], [1, 1.1]);
-
-  const handleMouseEnter = (event: React.MouseEvent<HTMLImageElement>) => {
-    if (event.ctrlKey) {
-      setSpin(true);
-    }
-  };
-
-  const handleMouseLeave = () => {
-    setSpin(false);
-  };
 
   // Split name for styling
   const firstName = DATA.name.split(" ")[0].toUpperCase();
@@ -205,53 +194,12 @@ export const Hero = () => {
           </motion.div>
         </motion.div>
 
-        {/* Image / Visual Side with scroll-linked parallax */}
-        <motion.div
-          style={{ y, opacity, scale }}
-          initial={{ opacity: 0, scale: 0.95 }}
-          animate={{ opacity: 1, scale: 1 }}
-          transition={{ duration: 0.8, delay: 0.3 }}
-          className="relative order-1 mb-8 h-[280px] w-full md:order-2 md:mb-0 md:h-[400px] md:w-full lg:order-2 lg:mb-0 lg:h-[600px] lg:w-full"
-        >
-          {/* Gradient glow - reduced blur for iOS */}
-          <div className="from-primary/20 via-secondary/10 to-accent/10 absolute inset-0 rounded-full bg-linear-to-tr opacity-50 blur-3xl" />
-
-          {/* Main image container */}
-          <div
-            className={cn(
-              "border-border bg-card/50 relative mx-auto h-full w-full max-w-[280px] rotate-3 rounded-2xl border-2 p-2 shadow-2xl backdrop-blur-sm transition-all duration-500 ease-out hover:scale-105 hover:rotate-0 md:mx-0 md:max-w-none",
-              spin && "animate-spin",
-            )}
-            onMouseEnter={handleMouseEnter}
-            onMouseLeave={handleMouseLeave}
-          >
-            <div className="relative h-full w-full overflow-hidden rounded-xl">
-              <Image
-                alt={DATA.name}
-                src={DATA.avatarUrl}
-                fill
-                className="object-cover object-center"
-                priority
-              />
-
-              {/* Overlay gradient */}
-              <div className="from-background/80 pointer-events-none absolute inset-0 bg-linear-to-t via-transparent to-transparent opacity-40" />
-            </div>
-          </div>
-
-          {/* Floating badge */}
-          <motion.div
-            initial={{ opacity: 0, x: 20 }}
-            animate={{ opacity: 1, x: 0 }}
-            transition={{ delay: 1.2 }}
-            className="border-border bg-card/90 absolute -right-4 bottom-1/4 hidden rounded-lg border px-4 py-2 shadow-xl backdrop-blur-sm md:block"
-          >
-            <p className="text-muted-foreground font-mono text-xs">Based in</p>
-            <p className="font-display text-foreground font-bold">
-              Glasgow, Scotland 🏴󠁧󠁢󠁳󠁣󠁴󠁿
-            </p>
-          </motion.div>
-        </motion.div>
+        {/* Profile Photo with touch-to-spin on mobile */}
+        <SpinnablePhoto
+          src={DATA.avatarUrl}
+          alt={DATA.name}
+          parallax={{ y, opacity, scale }}
+        />
       </div>
     </section>
   );

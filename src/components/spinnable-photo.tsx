@@ -85,20 +85,31 @@ export const SpinnablePhoto = ({
     [],
   );
 
-  // Schedule reset to initial rotation after inactivity
+  // Calculate nearest "home" position (n * 360 + initial offset)
+  const getNearestHomePosition = useCallback((currentRotation: number) => {
+    // Remove the initial offset, round to nearest full rotation, add offset back
+    const rotationsFromHome = (currentRotation - INITIAL_ROTATION) / 360;
+    const nearestFullRotation = Math.round(rotationsFromHome);
+    return nearestFullRotation * 360 + INITIAL_ROTATION;
+  }, []);
+
+  // Schedule reset to nearest home position after inactivity
   const scheduleReset = useCallback(() => {
     if (resetTimeoutRef.current) {
       clearTimeout(resetTimeoutRef.current);
     }
 
     resetTimeoutRef.current = setTimeout(() => {
-      animate(rotation, INITIAL_ROTATION, {
+      const currentRotation = rotation.get();
+      const targetRotation = getNearestHomePosition(currentRotation);
+
+      animate(rotation, targetRotation, {
         type: "spring",
         stiffness: 100,
         damping: 20,
       });
     }, RESET_DELAY_MS);
-  }, [rotation]);
+  }, [rotation, getNearestHomePosition]);
 
   // Cancel reset when user starts interacting
   const cancelReset = useCallback(() => {

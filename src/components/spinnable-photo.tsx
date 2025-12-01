@@ -1,7 +1,6 @@
 "use client";
 
 import { cn } from "@/lib/utils";
-import useBreakpoints from "@/hooks/useBreakpoints";
 import {
   motion,
   useMotionValue,
@@ -33,61 +32,51 @@ export const SpinnablePhoto = ({
   className,
   parallax,
 }: SpinnablePhotoProps) => {
-  const { isAboveMd } = useBreakpoints("md");
-  const [spin, setSpin] = useState(false);
   const [hasMounted, setHasMounted] = useState(false);
 
-  // Track mount state to avoid hydration mismatch
   useEffect(() => {
     setHasMounted(true);
   }, []);
 
-  // Touch-to-spin functionality for mobile
   const imageContainerRef = useRef<HTMLDivElement>(null);
   const rotation = useMotionValue(INITIAL_ROTATION);
   const smoothRotation = useSpring(rotation, { stiffness: 100, damping: 30 });
   const resetTimeoutRef = useRef<ReturnType<typeof setTimeout> | null>(null);
 
-  // Track touch state for momentum calculation
-  const touchStateRef = useRef({
-    startX: 0,
-    startY: 0,
+  // Track drag state for momentum calculation
+  const dragStateRef = useRef({
     centerX: 0,
     centerY: 0,
     lastAngle: 0,
     velocity: 0,
     lastTime: 0,
-    isEdgeTouch: false,
+    isDragging: false,
   });
 
-  // Check if touch is near edge/corner (within 30% from edge)
-  const isNearEdge = useCallback(
-    (touchX: number, touchY: number, rect: DOMRect) => {
-      const relX = (touchX - rect.left) / rect.width;
-      const relY = (touchY - rect.top) / rect.height;
-      const edgeThreshold = 0.3;
+  // Check if pointer is near edge/corner (within 30% from edge)
+  const isNearEdge = useCallback((x: number, y: number, rect: DOMRect) => {
+    const relX = (x - rect.left) / rect.width;
+    const relY = (y - rect.top) / rect.height;
+    const edgeThreshold = 0.3;
 
-      return (
-        relX < edgeThreshold ||
-        relX > 1 - edgeThreshold ||
-        relY < edgeThreshold ||
-        relY > 1 - edgeThreshold
-      );
-    },
-    [],
-  );
+    return (
+      relX < edgeThreshold ||
+      relX > 1 - edgeThreshold ||
+      relY < edgeThreshold ||
+      relY > 1 - edgeThreshold
+    );
+  }, []);
 
-  // Calculate angle from center to touch point
+  // Calculate angle from center to pointer
   const getAngle = useCallback(
-    (touchX: number, touchY: number, centerX: number, centerY: number) => {
-      return Math.atan2(touchY - centerY, touchX - centerX) * (180 / Math.PI);
+    (x: number, y: number, centerX: number, centerY: number) => {
+      return Math.atan2(y - centerY, x - centerX) * (180 / Math.PI);
     },
     [],
   );
 
   // Calculate nearest "home" position (n * 360 + initial offset)
   const getNearestHomePosition = useCallback((currentRotation: number) => {
-    // Remove the initial offset, round to nearest full rotation, add offset back
     const rotationsFromHome = (currentRotation - INITIAL_ROTATION) / 360;
     const nearestFullRotation = Math.round(rotationsFromHome);
     return nearestFullRotation * 360 + INITIAL_ROTATION;
@@ -119,61 +108,44 @@ export const SpinnablePhoto = ({
     }
   }, []);
 
-  const handleTouchStart = useCallback(
-    (e: TouchEvent) => {
-      if (!imageContainerRef.current || isAboveMd) return;
+  // Start drag (shared logic for touch and mouse)
+  const startDrag = useCallback(
+    (clientX: number, clientY: number) => {
+      if (!imageContainerRef.current) return false;
 
-      const touch = e.touches[0];
       const rect = imageContainerRef.current.getBoundingClientRect();
 
-      // Only enable spinning if touching near edge
-      if (!isNearEdge(touch.clientX, touch.clientY, rect)) return;
+      // Only enable spinning if near edge
+      if (!isNearEdge(clientX, clientY, rect)) return false;
 
-      // Cancel any pending reset
       cancelReset();
-
-      // Prevent scroll when spinning
-      e.preventDefault();
 
       const centerX = rect.left + rect.width / 2;
       const centerY = rect.top + rect.height / 2;
-      const initialAngle = getAngle(
-        touch.clientX,
-        touch.clientY,
-        centerX,
-        centerY,
-      );
+      const initialAngle = getAngle(clientX, clientY, centerX, centerY);
 
-      touchStateRef.current = {
-        startX: touch.clientX,
-        startY: touch.clientY,
+      dragStateRef.current = {
         centerX,
         centerY,
         lastAngle: initialAngle,
         velocity: 0,
         lastTime: Date.now(),
-        isEdgeTouch: true,
+        isDragging: true,
       };
+
+      return true;
     },
-    [isAboveMd, isNearEdge, getAngle, cancelReset],
+    [isNearEdge, getAngle, cancelReset],
   );
 
-  const handleTouchMove = useCallback(
-    (e: TouchEvent) => {
-      if (!touchStateRef.current.isEdgeTouch || isAboveMd) return;
+  // Move drag (shared logic for touch and mouse)
+  const moveDrag = useCallback(
+    (clientX: number, clientY: number) => {
+      if (!dragStateRef.current.isDragging) return;
 
-      // Prevent scroll while spinning
-      e.preventDefault();
+      const { centerX, centerY, lastAngle, lastTime } = dragStateRef.current;
 
-      const touch = e.touches[0];
-      const { centerX, centerY, lastAngle, lastTime } = touchStateRef.current;
-
-      const currentAngle = getAngle(
-        touch.clientX,
-        touch.clientY,
-        centerX,
-        centerY,
-      );
+      const currentAngle = getAngle(clientX, clientY, centerX, centerY);
       let deltaAngle = currentAngle - lastAngle;
 
       // Handle angle wrapping at ±180°
@@ -184,23 +156,22 @@ export const SpinnablePhoto = ({
       const currentTime = Date.now();
       const deltaTime = currentTime - lastTime;
       if (deltaTime > 0) {
-        touchStateRef.current.velocity = (deltaAngle / deltaTime) * 1000;
+        dragStateRef.current.velocity = (deltaAngle / deltaTime) * 1000;
       }
 
-      // Update rotation
       rotation.set(rotation.get() + deltaAngle);
 
-      // Update tracking state
-      touchStateRef.current.lastAngle = currentAngle;
-      touchStateRef.current.lastTime = currentTime;
+      dragStateRef.current.lastAngle = currentAngle;
+      dragStateRef.current.lastTime = currentTime;
     },
-    [isAboveMd, getAngle, rotation],
+    [getAngle, rotation],
   );
 
-  const handleTouchEnd = useCallback(() => {
-    if (!touchStateRef.current.isEdgeTouch || isAboveMd) return;
+  // End drag (shared logic for touch and mouse)
+  const endDrag = useCallback(() => {
+    if (!dragStateRef.current.isDragging) return;
 
-    const { velocity } = touchStateRef.current;
+    const { velocity } = dragStateRef.current;
 
     // Apply momentum animation with inertia
     if (Math.abs(velocity) > 50) {
@@ -218,48 +189,101 @@ export const SpinnablePhoto = ({
       });
     }
 
-    touchStateRef.current.isEdgeTouch = false;
-    touchStateRef.current.velocity = 0;
+    dragStateRef.current.isDragging = false;
+    dragStateRef.current.velocity = 0;
 
-    // Schedule reset to initial position after inactivity
     scheduleReset();
-  }, [isAboveMd, rotation, scheduleReset]);
+  }, [rotation, scheduleReset]);
 
-  // Attach native touch listeners with { passive: false } to enable preventDefault
+  // Touch handlers
+  const handleTouchStart = useCallback(
+    (e: TouchEvent) => {
+      const touch = e.touches[0];
+      if (startDrag(touch.clientX, touch.clientY)) {
+        e.preventDefault();
+      }
+    },
+    [startDrag],
+  );
+
+  const handleTouchMove = useCallback(
+    (e: TouchEvent) => {
+      if (!dragStateRef.current.isDragging) return;
+      e.preventDefault();
+      const touch = e.touches[0];
+      moveDrag(touch.clientX, touch.clientY);
+    },
+    [moveDrag],
+  );
+
+  const handleTouchEnd = useCallback(() => {
+    endDrag();
+  }, [endDrag]);
+
+  // Mouse handlers
+  const handleMouseDown = useCallback(
+    (e: MouseEvent) => {
+      if (startDrag(e.clientX, e.clientY)) {
+        e.preventDefault();
+      }
+    },
+    [startDrag],
+  );
+
+  const handleMouseMove = useCallback(
+    (e: MouseEvent) => {
+      moveDrag(e.clientX, e.clientY);
+    },
+    [moveDrag],
+  );
+
+  const handleMouseUp = useCallback(() => {
+    endDrag();
+  }, [endDrag]);
+
+  // Attach event listeners
   useEffect(() => {
     const element = imageContainerRef.current;
-    if (!element || isAboveMd) return;
+    if (!element) return;
 
-    element.addEventListener("touchstart", handleTouchStart, {
-      passive: false,
-    });
+    // Touch events (with passive: false for preventDefault)
+    element.addEventListener("touchstart", handleTouchStart, { passive: false });
     element.addEventListener("touchmove", handleTouchMove, { passive: false });
     element.addEventListener("touchend", handleTouchEnd);
+
+    // Mouse events - mousedown on element, move/up on document for drag outside
+    element.addEventListener("mousedown", handleMouseDown);
+    document.addEventListener("mousemove", handleMouseMove);
+    document.addEventListener("mouseup", handleMouseUp);
 
     return () => {
       element.removeEventListener("touchstart", handleTouchStart);
       element.removeEventListener("touchmove", handleTouchMove);
       element.removeEventListener("touchend", handleTouchEnd);
+      element.removeEventListener("mousedown", handleMouseDown);
+      document.removeEventListener("mousemove", handleMouseMove);
+      document.removeEventListener("mouseup", handleMouseUp);
+
       if (resetTimeoutRef.current) {
         clearTimeout(resetTimeoutRef.current);
       }
     };
-  }, [isAboveMd, handleTouchStart, handleTouchMove, handleTouchEnd]);
-
-  // Easter egg: ctrl+hover to spin
-  const handleMouseEnter = (event: React.MouseEvent<HTMLDivElement>) => {
-    if (event.ctrlKey) {
-      setSpin(true);
-    }
-  };
-
-  const handleMouseLeave = () => {
-    setSpin(false);
-  };
+  }, [
+    handleTouchStart,
+    handleTouchMove,
+    handleTouchEnd,
+    handleMouseDown,
+    handleMouseMove,
+    handleMouseUp,
+  ]);
 
   return (
     <motion.div
-      style={parallax ? { y: parallax.y, opacity: parallax.opacity, scale: parallax.scale } : undefined}
+      style={
+        parallax
+          ? { y: parallax.y, opacity: parallax.opacity, scale: parallax.scale }
+          : undefined
+      }
       initial={{ opacity: 0, scale: 0.95 }}
       animate={{ opacity: 1, scale: 1 }}
       transition={{ duration: 0.8, delay: 0.3 }}
@@ -271,27 +295,24 @@ export const SpinnablePhoto = ({
       {/* Gradient glow */}
       <div className="from-primary/20 via-secondary/10 to-accent/10 absolute inset-0 rounded-full bg-linear-to-tr opacity-50 blur-3xl" />
 
-      {/* Main image container with touch-to-spin on mobile */}
+      {/* Spinnable image container */}
       <motion.div
         ref={imageContainerRef}
         className={cn(
-          "border-border bg-card/50 relative mx-auto h-full w-full max-w-[280px] rounded-2xl border-2 p-2 shadow-2xl backdrop-blur-sm transition-shadow duration-500 ease-out md:mx-0 md:max-w-none md:transition-all md:hover:scale-105",
-          spin && "animate-spin",
-          "md:rotate-3 md:hover:rotate-0",
+          "border-border bg-card/50 relative mx-auto h-full w-full max-w-[280px] cursor-grab rounded-2xl border-2 p-2 shadow-2xl backdrop-blur-sm transition-shadow duration-500 ease-out active:cursor-grabbing md:mx-0 md:max-w-none",
         )}
         style={{
-          rotate: hasMounted && !isAboveMd ? smoothRotation : undefined,
+          rotate: hasMounted ? smoothRotation : undefined,
         }}
-        onMouseEnter={handleMouseEnter}
-        onMouseLeave={handleMouseLeave}
       >
         <div className="relative h-full w-full overflow-hidden rounded-[8px]">
           <Image
             alt={alt}
             src={src}
             fill
-            className="object-cover object-center"
+            className="pointer-events-none object-cover object-center select-none"
             priority
+            draggable={false}
           />
 
           {/* Overlay gradient */}
@@ -314,4 +335,3 @@ export const SpinnablePhoto = ({
     </motion.div>
   );
 };
-

@@ -49,7 +49,11 @@ const BuggyComponent = () => {
   }
 
   return (
-    <Button variant="destructive" onClick={() => setShouldThrow(true)}>
+    <Button
+      variant="destructive"
+      size="sm"
+      onClick={() => setShouldThrow(true)}
+    >
       <Bug className="h-4 w-4" />
       Trigger Crash (Error Boundary)
     </Button>
@@ -122,15 +126,8 @@ const DemoContent = () => {
   const [count, setCount] = useState(0);
 
   // Using typed context with the default logger
-  const {
-    logAction,
-    logDebug,
-    logInfo,
-    logWarn,
-    logError,
-    downloadLog,
-    clearLogs,
-  } = useLogger<AppLogContext>();
+  const { logAction, logDebug, logInfo, logWarn, logError } =
+    useLogger<AppLogContext>();
 
   const handleIncrement = () => {
     logDebug("Increment button hover detected", { component: "Counter" });
@@ -195,15 +192,6 @@ const DemoContent = () => {
                 <ExternalLinkIcon className="h-4 w-4" />
               </Link>
             </Button>
-            <Button
-              variant="outline"
-              size="lg"
-              onClick={() => downloadLog("demo-logs.json")}
-              className="gap-2"
-            >
-              <Download className="h-4 w-4" />
-              Download Logs
-            </Button>
           </div>
         </div>
       </BlurFade>
@@ -211,7 +199,7 @@ const DemoContent = () => {
       <Separator className="mb-16" />
 
       {/* Demo Sections */}
-      <div className="space-y-8">
+      <div className="mx-auto max-w-3xl space-y-8">
         {/* Counter Section */}
         <BlurFade delay={0.2}>
           <Card className="border-green-200 bg-green-50/50 dark:border-green-900 dark:bg-green-950/20">
@@ -260,7 +248,7 @@ const DemoContent = () => {
                   variant="outline"
                   size="sm"
                   onClick={handleWarn}
-                  className="border-yellow-500 text-yellow-700 hover:bg-yellow-50 dark:border-yellow-600 dark:text-yellow-400 dark:hover:bg-yellow-950/20"
+                  className="border-yellow-500 text-yellow-700 hover:bg-yellow-50 hover:text-yellow-700 dark:border-yellow-600 dark:text-yellow-400 dark:hover:bg-yellow-950/20 dark:hover:text-yellow-400"
                 >
                   <AlertTriangle className="h-4 w-4" />
                   Log Warning
@@ -305,20 +293,6 @@ const DemoContent = () => {
         <div className="mt-16 space-y-6">
           <Separator />
           <div className="flex flex-col items-center gap-4 text-center">
-            <div className="flex flex-wrap justify-center gap-3">
-              <Button variant="secondary" onClick={clearLogs} className="gap-2">
-                <Trash2 className="h-4 w-4" />
-                Clear Logs
-              </Button>
-              <Button
-                variant="outline"
-                onClick={() => downloadLog("demo-logs.json")}
-                className="gap-2"
-              >
-                <Download className="h-4 w-4" />
-                Download Logs
-              </Button>
-            </div>
             <p className="text-muted-foreground max-w-md text-sm">
               💡 Open the DevTools panel (bottom-right corner) to view logs in
               real-time with filtering, search, and export capabilities!
@@ -327,7 +301,7 @@ const DemoContent = () => {
                 <kbd className="bg-muted border-border rounded border px-1.5 py-0.5 font-mono text-xs">
                   ⌘/Ctrl + Shift + D
                 </kbd>
-                <span>to toggle the DevTools.</span>
+                <span>to toggle the DevTool's panel.</span>
               </span>
             </p>
           </div>

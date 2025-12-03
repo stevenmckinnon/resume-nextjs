@@ -42,6 +42,9 @@ importers:
       '@react-email/components':
         specifier: ^1.0.1
         version: 1.0.1(react-dom@19.2.0(react@19.2.0))(react@19.2.0)
+      '@stevenmckinnon/log-dumper':
+        specifier: ^1.1.1
+        version: 1.1.1(react-dom@19.2.0(react@19.2.0))(react@19.2.0)
       '@types/canvas-confetti':
         specifier: ^1.9.0
         version: 1.9.0
@@ -1434,6 +1437,12 @@ packages:
 
   '@standard-schema/utils@0.3.0':
     resolution: {integrity: sha512-e7Mew686owMaPJVNNLs55PUvgz371nKgwsc4vxE49zsODpJEnxgxRo2y/OKrqueavXgZNMDVj3DdHFlaSAeU8g==}
+
+  '@stevenmckinnon/log-dumper@1.1.1':
+    resolution: {integrity: sha512-RNv3XDezMgJhHbQYX7YEbwj5OEgCtVfrjx0acWcA61/kbxZm3ChgdNHYvJqrBvxCOaQizEKCA6IYEFuut6fO9w==}
+    peerDependencies:
+      react: ^18.0.0 || ^19.0.0
+      react-dom: ^18.0.0 || ^19.0.0
 
   '@swc/helpers@0.5.15':
     resolution: {integrity: sha512-JQ5TuMi45Owi4/BIMAJBoSQoOJu12oOk/gADqlcUL9JEdHB8vyjUSsxqeNXnmXHjYKMi2WcYtezGEEhqUI/E2g==}
@@ -5193,6 +5202,14 @@ snapshots:
   '@stablelib/base64@1.0.1': {}
 
   '@standard-schema/utils@0.3.0': {}
+
+  '@stevenmckinnon/log-dumper@1.1.1(react-dom@19.2.0(react@19.2.0))(react@19.2.0)':
+    dependencies:
+      motion: 12.23.24(react-dom@19.2.0(react@19.2.0))(react@19.2.0)
+      react: 19.2.0
+      react-dom: 19.2.0(react@19.2.0)
+    transitivePeerDependencies:
+      - '@emotion/is-prop-valid'
 
   '@swc/helpers@0.5.15':
     dependencies:

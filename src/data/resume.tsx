@@ -235,8 +235,8 @@ export const DATA: Resume = {
     },
     {
       name: "Log Dumper",
-      description: `A specialized Node.js utility for efficient log management in development and production. Published on npm to streamline debugging workflows.`,
-      website: "https://www.npmjs.com/package/@stevenmckinnon/log-dumper",
+      description: `A TypeScript library for capturing user actions and errors in React applications, with real-time DevTools, automatic metadata capture, and downloadable logs for debugging and analysis.`,
+      website: "/log-dumper",
       github: "https://github.com/stevenmckinnon/log-dumper",
       defaultExpanded: true,
       tags: ["typescript"],

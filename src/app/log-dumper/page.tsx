@@ -350,7 +350,7 @@ const App = () => {
         defaultVisible
         defaultCollapsed
         theme={theme as "dark" | "light"}
-        maxHeight={350}
+        maxHeight={400}
       />
     </LogDumper>
   );

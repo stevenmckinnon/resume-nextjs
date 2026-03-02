@@ -80,7 +80,7 @@ export const DATA: Resume = {
       href: "https://jpmorgan.com",
       badges: [],
       location: "Glasgow, Scotland",
-      title: "SeniorLead Frontend Developer",
+      title: "Senior Lead Frontend Developer",
       logoUrl: "/jpm.png",
       start: "February 2024",
       description: `Manage a team of eight developers, architecting robust UI libraries and business intelligence tools. Drive innovation in the Risk Technology space, establishing application scaffolds and 'sensible defaults' that streamline development across the organization. Mentor team members and lead client engagement to ensure scalable, efficient delivery.`,

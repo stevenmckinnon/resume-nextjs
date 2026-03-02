@@ -1,5 +1,7 @@
 "use client";
 
+import { useWebHaptics } from "web-haptics/react";
+
 import { cn } from "@/lib/utils";
 import {
   motion,
@@ -33,6 +35,9 @@ export const SpinnablePhoto = ({
   parallax,
 }: SpinnablePhotoProps) => {
   const [hasMounted, setHasMounted] = useState(false);
+  const isDesktop =
+    typeof window !== "undefined" && !("ontouchstart" in window);
+  const { trigger } = useWebHaptics({ debug: isDesktop });
 
   useEffect(() => {
     setHasMounted(true);
@@ -52,6 +57,12 @@ export const SpinnablePhoto = ({
     lastTime: 0,
     isDragging: false,
   });
+
+  // Haptic tick every N degrees of rotation, throttled to avoid cancellation
+  const HAPTIC_TICK_DEGREES = 20;
+  const hapticAccumulator = useRef(0);
+  const lastHapticTime = useRef(0);
+  const HAPTIC_MIN_INTERVAL_MS = 50;
 
   // Check if pointer is near edge/corner (within 30% from edge)
   const isNearEdge = useCallback((x: number, y: number, rect: DOMRect) => {
@@ -133,9 +144,13 @@ export const SpinnablePhoto = ({
         isDragging: true,
       };
 
+      hapticAccumulator.current = 0;
+      lastHapticTime.current = Date.now();
+      trigger([{ duration: 20, intensity: 1 }]);
+
       return true;
     },
-    [isNearEdge, getAngle, cancelReset],
+    [isNearEdge, getAngle, cancelReset, trigger],
   );
 
   // Move drag (shared logic for touch and mouse)
@@ -161,10 +176,21 @@ export const SpinnablePhoto = ({
 
       rotation.set(rotation.get() + deltaAngle);
 
+      hapticAccumulator.current += Math.abs(deltaAngle);
+      const now = Date.now();
+      if (
+        hapticAccumulator.current >= HAPTIC_TICK_DEGREES &&
+        now - lastHapticTime.current >= HAPTIC_MIN_INTERVAL_MS
+      ) {
+        trigger([{ duration: 10, intensity: 1 }]);
+        hapticAccumulator.current = 0;
+        lastHapticTime.current = now;
+      }
+
       dragStateRef.current.lastAngle = currentAngle;
       dragStateRef.current.lastTime = currentTime;
     },
-    [getAngle, rotation],
+    [getAngle, rotation, trigger],
   );
 
   // End drag (shared logic for touch and mouse)
@@ -189,11 +215,15 @@ export const SpinnablePhoto = ({
       });
     }
 
+    if (Math.abs(velocity) > 50) {
+      trigger([{ duration: 30, intensity: 1 }]);
+    }
+
     dragStateRef.current.isDragging = false;
     dragStateRef.current.velocity = 0;
 
     scheduleReset();
-  }, [rotation, scheduleReset]);
+  }, [rotation, scheduleReset, trigger]);
 
   // Touch handlers
   const handleTouchStart = useCallback(
@@ -247,7 +277,9 @@ export const SpinnablePhoto = ({
     if (!element) return;
 
     // Touch events (with passive: false for preventDefault)
-    element.addEventListener("touchstart", handleTouchStart, { passive: false });
+    element.addEventListener("touchstart", handleTouchStart, {
+      passive: false,
+    });
     element.addEventListener("touchmove", handleTouchMove, { passive: false });
     element.addEventListener("touchend", handleTouchEnd);
 

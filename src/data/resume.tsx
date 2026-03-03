@@ -73,7 +73,6 @@ export const DATA: Resume = {
       },
     },
   },
-
   work: [
     {
       company: "JP Morgan Chase",
@@ -82,7 +81,7 @@ export const DATA: Resume = {
       location: "Glasgow, Scotland",
       title: "Senior Lead Frontend Developer",
       logoUrl: "/jpm.png",
-      start: "February 2024",
+      start: "February 2026",
       description: `Manage a team of eight developers, architecting robust UI libraries and business intelligence tools. Drive innovation in the Risk Technology space, establishing application scaffolds and 'sensible defaults' that streamline development across the organization. Mentor team members and lead client engagement to ensure scalable, efficient delivery.`,
     },
     {

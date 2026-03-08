@@ -2,6 +2,7 @@ import Link from "next/link";
 import Markdown from "react-markdown";
 
 import { Contact } from "@/components/contact";
+import { GitHubActivity } from "@/components/github-activity";
 import { Hero } from "@/components/hero";
 import BlurFade from "@/components/magicui/blur-fade";
 import { ProjectCard } from "@/components/project-card";
@@ -133,7 +134,11 @@ export default function Page() {
           </div>
         </Section>
 
-        <Section id="other" title="Other" number="06">
+        <Section id="github" title="GitHub" number="06">
+          <GitHubActivity />
+        </Section>
+
+        <Section id="other" title="Other" number="07">
           <div className="flex flex-col gap-4">
             {DATA.otherWork.map((work, id) => (
               <BlurFade

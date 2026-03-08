@@ -155,7 +155,7 @@ export const Contact = () => {
           <BlurFade delay={BLUR_FADE_DELAY * 2}>
             <div className="border-primary/40 flex flex-row items-center gap-4 border-b pb-4 md:flex-col md:items-start md:border-b-0 md:border-l-4 md:pb-0 md:pl-8">
               <span className="text-primary font-mono text-sm tracking-widest uppercase opacity-70">
-                07
+                08
               </span>
               <h2 className="font-display text-foreground text-xl font-black tracking-tight wrap-break-word uppercase md:text-2xl md:break-normal lg:text-3xl">
                 Contact

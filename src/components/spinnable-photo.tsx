@@ -44,6 +44,14 @@ export const SpinnablePhoto = ({
   }, []);
 
   const imageContainerRef = useRef<HTMLDivElement>(null);
+  const hapticButtonRef = useRef<HTMLButtonElement>(null);
+  const pendingHapticRef = useRef<Array<{ duration: number; intensity: number }> | null>(null);
+
+  const fireHaptic = useCallback((pattern: Array<{ duration: number; intensity: number }>) => {
+    pendingHapticRef.current = pattern;
+    hapticButtonRef.current?.click();
+  }, []);
+
   const rotation = useMotionValue(INITIAL_ROTATION);
   const smoothRotation = useSpring(rotation, { stiffness: 100, damping: 30 });
   const resetTimeoutRef = useRef<ReturnType<typeof setTimeout> | null>(null);
@@ -146,11 +154,11 @@ export const SpinnablePhoto = ({
 
       hapticAccumulator.current = 0;
       lastHapticTime.current = Date.now();
-      trigger([{ duration: 20, intensity: 1 }]);
+      fireHaptic([{ duration: 20, intensity: 1 }]);
 
       return true;
     },
-    [isNearEdge, getAngle, cancelReset, trigger],
+    [isNearEdge, getAngle, cancelReset, fireHaptic],
   );
 
   // Move drag (shared logic for touch and mouse)
@@ -182,7 +190,7 @@ export const SpinnablePhoto = ({
         hapticAccumulator.current >= HAPTIC_TICK_DEGREES &&
         now - lastHapticTime.current >= HAPTIC_MIN_INTERVAL_MS
       ) {
-        trigger([{ duration: 10, intensity: 1 }]);
+        fireHaptic([{ duration: 10, intensity: 1 }]);
         hapticAccumulator.current = 0;
         lastHapticTime.current = now;
       }
@@ -190,7 +198,7 @@ export const SpinnablePhoto = ({
       dragStateRef.current.lastAngle = currentAngle;
       dragStateRef.current.lastTime = currentTime;
     },
-    [getAngle, rotation, trigger],
+    [getAngle, rotation, fireHaptic],
   );
 
   // End drag (shared logic for touch and mouse)
@@ -216,14 +224,14 @@ export const SpinnablePhoto = ({
     }
 
     if (Math.abs(velocity) > 50) {
-      trigger([{ duration: 30, intensity: 1 }]);
+      fireHaptic([{ duration: 30, intensity: 1 }]);
     }
 
     dragStateRef.current.isDragging = false;
     dragStateRef.current.velocity = 0;
 
     scheduleReset();
-  }, [rotation, scheduleReset, trigger]);
+  }, [rotation, scheduleReset, fireHaptic]);
 
   // Touch handlers
   const handleTouchStart = useCallback(
@@ -324,6 +332,20 @@ export const SpinnablePhoto = ({
         className,
       )}
     >
+      {/* Hidden button used to fire haptics within a trusted user-gesture context */}
+      <button
+        ref={hapticButtonRef}
+        onClick={() => {
+          if (pendingHapticRef.current) {
+            trigger(pendingHapticRef.current);
+            pendingHapticRef.current = null;
+          }
+        }}
+        aria-hidden="true"
+        tabIndex={-1}
+        className="sr-only"
+      />
+
       {/* Gradient glow */}
       <div className="from-primary/20 via-secondary/10 to-accent/10 absolute inset-0 rounded-full bg-linear-to-tr opacity-50 blur-3xl" />
 

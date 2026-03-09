@@ -10,6 +10,7 @@ import {
   SiPostgresql,
   SiVercel,
   SiShadcnui,
+  SiClaude,
 } from "@icons-pack/react-simple-icons";
 
 import type { JSX } from "react";
@@ -25,6 +26,7 @@ export const iconMap = {
   postgresql: SiPostgresql,
   vercel: SiVercel,
   shadcn: SiShadcnui,
+  claude: SiClaude,
 } as const;
 
 export type SocialLink = {

@@ -215,6 +215,7 @@ export const DATA: Resume = {
         "postgresql",
         "vercel",
         "shadcn",
+        "claude",
       ],
       image: "/caley-demo.png",
     },

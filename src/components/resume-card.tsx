@@ -43,12 +43,12 @@ export const ResumeCard = ({
     <div
       onClick={handleClick}
       className={cn(
-        "group relative border-l-2 border-transparent pl-4 transition-all duration-300 hover:border-primary cursor-pointer",
-        isExpanded ? "border-primary" : "border-border/40"
+        "group hover:border-primary relative cursor-pointer border-l-2 border-transparent pl-4 transition-all duration-300",
+        isExpanded ? "border-primary" : "border-border/40",
       )}
     >
       <div className="flex items-start gap-4">
-        <Avatar className="size-12 border border-border bg-muted-background dark:bg-foreground">
+        <Avatar className="border-border bg-muted-background dark:bg-foreground size-12 border">
           <AvatarImage
             src={logoUrl}
             alt={altText}
@@ -58,14 +58,14 @@ export const ResumeCard = ({
         </Avatar>
 
         <div className="flex-1 space-y-1">
-          <div className="flex flex-col sm:flex-row sm:items-baseline sm:justify-between gap-1">
-            <h3 className="font-display font-bold text-lg text-foreground group-hover:text-primary transition-colors">
+          <div className="flex flex-col gap-1 sm:flex-row sm:items-baseline sm:justify-between">
+            <h3 className="font-display text-foreground group-hover:text-primary text-lg font-bold transition-colors">
               {href ? (
                 <Link
                   href={href}
                   target="_blank"
                   onClick={(e) => e.stopPropagation()}
-                  className="hover:underline decoration-primary underline-offset-4"
+                  className="decoration-primary underline-offset-4 hover:underline"
                 >
                   {title}
                 </Link>
@@ -73,13 +73,13 @@ export const ResumeCard = ({
                 title
               )}
             </h3>
-            <span className="font-mono text-xs text-muted-foreground/80">
+            <span className="text-muted-foreground/80 font-mono text-xs">
               {period}
             </span>
           </div>
 
           {subtitle && (
-            <p className="font-sans text-sm text-muted-foreground">
+            <p className="text-muted-foreground font-sans text-sm">
               {subtitle}
             </p>
           )}
@@ -89,7 +89,7 @@ export const ResumeCard = ({
               {badges.map((badge) => (
                 <Badge
                   variant="secondary"
-                  className="rounded-none text-[10px] uppercase tracking-wider px-1 py-0 border-border bg-transparent text-muted-foreground"
+                  className="border-border text-muted-foreground bg-transparent px-1 py-0 text-[10px] tracking-wider uppercase"
                   key={badge}
                 >
                   {badge}
@@ -107,7 +107,7 @@ export const ResumeCard = ({
             transition={{ duration: 0.3, ease: [0.23, 1, 0.32, 1] }}
             className="overflow-hidden"
           >
-            <div className="pt-4 text-sm text-muted-foreground/90 font-sans leading-relaxed border-t border-border/40 mt-4">
+            <div className="text-muted-foreground/90 border-border/40 mt-4 border-t pt-4 font-sans text-sm leading-relaxed">
               {description}
             </div>
           </motion.div>
@@ -116,8 +116,8 @@ export const ResumeCard = ({
         {description && (
           <ChevronRightIcon
             className={cn(
-              "size-5 text-muted-foreground/50 transition-transform duration-300 group-hover:text-primary",
-              isExpanded ? "rotate-90" : "rotate-0"
+              "text-muted-foreground/50 group-hover:text-primary size-5 transition-transform duration-300",
+              isExpanded ? "rotate-90" : "rotate-0",
             )}
           />
         )}

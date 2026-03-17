@@ -10,7 +10,7 @@ import { ResumeCard } from "@/components/resume-card";
 import { SimpleCard } from "@/components/simple-card";
 import { SkillsSection } from "@/components/skills-section";
 import { DATA } from "@/data/resume";
-import { BLUR_FADE_DELAY } from "@/lib/utils";
+import { BLUR_FADE_DELAY, calculateYearsOfExperience } from "@/lib/utils";
 import { MapPin } from "lucide-react";
 
 const Section = ({
@@ -36,7 +36,7 @@ const Section = ({
           <span className="text-primary font-mono text-sm tracking-widest uppercase opacity-70">
             {number}
           </span>
-          <h2 className="font-display text-foreground text-xl font-black tracking-tight break-words uppercase md:text-2xl md:break-normal lg:text-3xl">
+          <h2 className="font-display text-foreground text-xl font-black tracking-tight wrap-break-word uppercase md:text-2xl md:break-normal lg:text-3xl">
             {title}
           </h2>
         </div>
@@ -53,8 +53,8 @@ export default function Page() {
       <div className="mx-auto w-full max-w-[1200px] px-6 pb-24 md:px-12 lg:px-24">
         <Section id="about" title="About" number="01">
           <BlurFade delay={BLUR_FADE_DELAY * 2}>
-            <div className="flex flex-col gap-4">
-              <div className="text-muted-foreground mb-4 flex items-center gap-2">
+            <div className="flex flex-col gap-6">
+              <div className="text-muted-foreground flex items-center gap-2">
                 <MapPin className="size-4" />
                 <Link
                   href={DATA.locationLink}
@@ -115,7 +115,7 @@ export default function Page() {
         </Section>
 
         <Section id="projects" title="Projects" number="05">
-          <div className="grid grid-cols-1 gap-8">
+          <div className="grid grid-cols-1 gap-8 md:grid-cols-2">
             {DATA.projects?.map((project, id) => (
               <BlurFade
                 key={project.name}
@@ -138,7 +138,7 @@ export default function Page() {
           <GitHubActivity />
         </Section>
 
-        <Section id="other" title="Other" number="07">
+        <Section id="other" title="Beyond Code" number="07">
           <div className="flex flex-col gap-4">
             {DATA.otherWork.map((work, id) => (
               <BlurFade

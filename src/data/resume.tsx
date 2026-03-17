@@ -10,7 +10,7 @@ export const DATA: Resume = {
   location: "Glasgow, Scotland",
   locationLink: "https://www.google.com/maps/place/glasgow",
   description:
-    "I'm a Glasgow based frontend developer creating modern web apps.",
+    "Senior Lead Frontend Developer at JPMorgan Chase — building scalable UI systems and leading engineering teams.",
   summary: `Highly focused and enthusiastic software developer with over ${calculateYearsOfExperience(
     "2014-06-30",
   )} years of experience. Expert in building scalable web applications, leading technical teams, and translating complex business requirements into robust technical solutions. Passionate about user experience and modern frontend architectures.`,
@@ -92,7 +92,7 @@ export const DATA: Resume = {
       title: "Lead Frontend Developer",
       logoUrl: "/jpm.png",
       start: "February 2024",
-      end: "February 2024",
+      end: "February 2026",
       description: `Manage a team of eight developers, architecting robust UI libraries and business intelligence tools. Drive innovation in the Risk Technology space, establishing application scaffolds and 'sensible defaults' that streamline development across the organization. Mentor team members and lead client engagement to ensure scalable, efficient delivery.`,
     },
     {

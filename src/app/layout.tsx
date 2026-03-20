@@ -97,7 +97,7 @@ export default function RootLayout({
 
       <body
         className={cn(
-          "bg-background selection:bg-primary selection:text-primary-foreground mx-auto min-h-dvh pb-16 font-sans antialiased sm:pb-24",
+          "bg-background selection:bg-primary selection:text-primary-foreground relative mx-auto min-h-dvh pb-16 font-sans antialiased sm:pb-24",
           fontSans.variable,
           fontMono.variable,
         )}

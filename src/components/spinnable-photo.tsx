@@ -364,6 +364,7 @@ export const SpinnablePhoto = ({
             alt={alt}
             src={src}
             fill
+            sizes="(max-width: 768px) 280px, 50vw"
             className="pointer-events-none object-cover object-center select-none"
             priority
             draggable={false}

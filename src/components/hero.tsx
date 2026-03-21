@@ -152,7 +152,11 @@ export const Hero = () => {
                 size="lg"
                 className="group lg:h-14 lg:text-lg"
               >
-                <Link href="/cv.pdf" target="_blank" download>
+                <Link
+                  href="/cv.pdf"
+                  target="_blank"
+                  download="Steve McKinnon CV.pdf"
+                >
                   <Download className="mr-2 h-4 w-4 transition-transform group-hover:-translate-y-1" />
                   Download CV
                 </Link>

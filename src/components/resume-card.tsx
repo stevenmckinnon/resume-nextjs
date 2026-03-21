@@ -15,7 +15,7 @@ interface ResumeCardProps {
   href?: string;
   badges?: readonly string[];
   period: string;
-  description?: string;
+  description?: string | string[];
   index?: number;
 }
 
@@ -108,7 +108,18 @@ export const ResumeCard = ({
             className="overflow-hidden"
           >
             <div className="text-muted-foreground/90 border-border/40 mt-4 border-t pt-4 font-sans text-sm leading-relaxed">
-              {description}
+              {Array.isArray(description) ? (
+                <ul className="space-y-1.5">
+                  {description.map((item, i) => (
+                    <li key={i} className="flex gap-2">
+                      <span className="text-primary mt-1.5 shrink-0 text-[8px]">▸</span>
+                      <span>{item}</span>
+                    </li>
+                  ))}
+                </ul>
+              ) : (
+                description
+              )}
             </div>
           </motion.div>
         </div>

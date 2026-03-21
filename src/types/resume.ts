@@ -58,7 +58,7 @@ export type WorkExperience = {
   logoUrl: string;
   start: string;
   end?: string; // Optional end date
-  description?: string;
+  description?: string | string[];
   defaultExpanded?: boolean;
 };
 

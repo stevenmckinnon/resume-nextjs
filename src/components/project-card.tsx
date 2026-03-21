@@ -37,9 +37,8 @@ export const ProjectCard = ({
             <Image
               src={image}
               alt={title}
-              width={800}
-              height={450}
-              className="h-full w-full object-cover transition-all duration-500 group-hover:scale-105"
+              fill
+              className="object-cover transition-all duration-500 group-hover:scale-105"
             />
           </Link>
         </div>

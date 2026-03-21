@@ -16,12 +16,15 @@ const fontSans = Manrope({
   subsets: ["latin"],
   variable: "--font-sans",
   display: "swap",
+  preload: true,
+  weight: ["400", "500", "600", "700", "800"],
 });
 
 const fontMono = Syne({
   subsets: ["latin"],
   variable: "--font-mono",
   display: "swap",
+  preload: false,
 });
 
 export const metadata: Metadata = {

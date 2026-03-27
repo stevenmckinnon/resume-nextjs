@@ -211,6 +211,24 @@ export const DATA: Resume = {
       image: "/caley-demo.png",
     },
     {
+      name: "CareerWealth",
+      description:
+        "A financial planning tool designed to help users map out their career trajectories and associated earnings. Built with Next.js and TypeScript, it features a dynamic interface for visualising potential career paths and financial outcomes.",
+      website: "https://careerwealth.dev",
+      github: "https://github.com/stevenmckinnon/career-dashboard",
+      defaultExpanded: true,
+      tags: [
+        "nextjs",
+        "typescript",
+        "tailwindcss",
+        "supabase",
+        "vercel",
+        "shadcn",
+        "claude",
+      ],
+      image: "/careerwealth.png",
+    },
+    {
       name: "Photography Portfolio",
       description: `A high-performance portfolio site showcasing photography work. Built with Next.js and Tailwind CSS, utilizing Cloudinary for optimized image delivery and shadcn/ui for a refined aesthetic.`,
       website: "https://stevenmckinnon.co.uk",

@@ -11,6 +11,7 @@ import {
   SiVercel,
   SiShadcnui,
   SiClaude,
+  SiSupabase,
 } from "@icons-pack/react-simple-icons";
 
 import type { JSX } from "react";
@@ -27,6 +28,7 @@ export const iconMap = {
   vercel: SiVercel,
   shadcn: SiShadcnui,
   claude: SiClaude,
+  supabase: SiSupabase,
 } as const;
 
 export type SocialLink = {

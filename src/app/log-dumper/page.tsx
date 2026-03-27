@@ -16,7 +16,6 @@ import {
   AlertTriangle,
   Bug,
   CheckCircle2,
-  Download,
   ExternalLinkIcon,
   FileCode,
   Logs,

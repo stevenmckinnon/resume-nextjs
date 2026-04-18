@@ -11,7 +11,7 @@ import {
 } from '@/components/ui/form';
 import { render, screen } from '@/test/utils';
 import { useForm, FormProvider } from 'react-hook-form';
-import * as z from 'zod';
+import { z } from 'zod';
 import { Input } from '@/components/ui/input';
 import React from 'react';
 

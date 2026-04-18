@@ -10,6 +10,28 @@ const nextConfig: NextConfig = {
   logging: {
     browserToTerminal: true,
   },
+  async headers() {
+    return [
+      {
+        source: "/",
+        headers: [
+          {
+            key: "Link",
+            value:
+              '</.well-known/api-catalog>; rel="api-catalog", </sitemap.xml>; rel="sitemap", </mcp>; rel="service-desc"',
+          },
+        ],
+      },
+    ];
+  },
+  async rewrites() {
+    return [
+      {
+        source: "/.well-known/api-catalog",
+        destination: "/api/well-known/api-catalog",
+      },
+    ];
+  },
 };
 
 export default withBotId(nextConfig);

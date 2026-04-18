@@ -1,0 +1,12 @@
+{
+  "$schema": "https://agentskills.io/schema/v0.2.0/index.json",
+  "skills": [
+    {
+      "name": "portfolio",
+      "type": "skill-md",
+      "description": "Access Steve McKinnon's professional profile and resume data via MCP",
+      "url": "https://stevemckinnon.co.uk/.well-known/agent-skills/portfolio/SKILL.md",
+      "digest": "sha256:09f261d2762d3043e9f2fa722c10c933accce2096dcbe11ca4263f7d50e3ac57"
+    }
+  ]
+}

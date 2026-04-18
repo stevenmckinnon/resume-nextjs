@@ -7,7 +7,7 @@ import { Button } from "@/components/ui/button";
 import { DATA } from "@/data/resume";
 import useBreakpoints from "@/hooks/useBreakpoints";
 import { cn } from "@/lib/utils";
-import { motion, useScroll, useTransform } from "framer-motion";
+import { type Variants, motion, useScroll, useTransform } from "framer-motion";
 import { Download } from "lucide-react";
 import { useTheme } from "next-themes";
 import Link from "next/link";
@@ -36,7 +36,7 @@ export const Hero = () => {
   const lastName = DATA.name.split(" ")[1].toUpperCase();
 
   // Simplified animation - removed rotateX for iOS performance
-  const letterAnimation = {
+  const letterAnimation: Variants = {
     hidden: { y: 50, opacity: 0 },
     visible: {
       y: 0,
@@ -49,7 +49,7 @@ export const Hero = () => {
     },
   };
 
-  const containerAnimation = {
+  const containerAnimation: Variants = {
     hidden: { opacity: 0 },
     visible: {
       opacity: 1,

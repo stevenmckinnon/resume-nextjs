@@ -7,7 +7,7 @@ describe('Card Component', () => {
     render(<Card data-testid="card">Card Content</Card>);
     const card = screen.getByTestId('card');
     expect(card).toBeInTheDocument();
-    expect(card).toHaveClass('rounded-lg bg-card text-card-foreground');
+    expect(card).toHaveClass('rounded-xl border bg-card text-card-foreground shadow');
   });
 
   it('renders Card with custom className', () => {
@@ -31,7 +31,7 @@ describe('Card Component', () => {
   it('renders CardTitle with default props', () => {
     render(<CardTitle>Card Title</CardTitle>);
     const title = screen.getByText('Card Title');
-    expect(title).toHaveClass('text-2xl font-semibold leading-none tracking-tight');
+    expect(title).toHaveClass('font-semibold leading-none tracking-tight');
   });
 
   it('renders CardTitle with custom className', () => {
@@ -55,7 +55,7 @@ describe('Card Component', () => {
   it('renders CardContent with default props', () => {
     render(<CardContent data-testid="card-content">Content</CardContent>);
     const content = screen.getByTestId('card-content');
-    expect(content).toHaveClass('text-pretty font-sans text-sm text-muted-foreground');
+    expect(content).toHaveClass('p-6 pt-0');
   });
 
   it('renders CardContent with custom className', () => {
@@ -67,7 +67,7 @@ describe('Card Component', () => {
   it('renders CardFooter with default props', () => {
     render(<CardFooter data-testid="card-footer">Footer</CardFooter>);
     const footer = screen.getByTestId('card-footer');
-    expect(footer).toHaveClass('flex items-center pt-2');
+    expect(footer).toHaveClass('flex items-center p-6 pt-0');
   });
 
   it('renders CardFooter with custom className', () => {

@@ -63,9 +63,9 @@ export default function Page() {
                   {DATA.location}
                 </Link>
               </div>
-              <Markdown className="prose text-muted-foreground dark:prose-invert max-w-full text-lg leading-relaxed">
-                {DATA.summary}
-              </Markdown>
+              <div className="prose text-muted-foreground dark:prose-invert max-w-full text-lg leading-relaxed">
+                <Markdown>{DATA.summary}</Markdown>
+              </div>
             </div>
           </BlurFade>
         </Section>

@@ -1,3 +1,4 @@
+import { WebMCP } from "@/components/webmcp";
 import { GradientOrbs } from "@/components/magicui/gradient-orbs";
 import { ScrollProgress } from "@/components/magicui/scroll-progress";
 import Navbar from "@/components/navbar";
@@ -130,6 +131,7 @@ export default function RootLayout({
           </TooltipProvider>
         </ThemeProvider>
         <Analytics />
+        <WebMCP />
       </body>
     </html>
   );

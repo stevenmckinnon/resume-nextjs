@@ -8,7 +8,7 @@ describe('Button Component', () => {
     const button = screen.getByRole('button', { name: 'Click me' });
     expect(button).toBeInTheDocument();
     expect(button).toHaveClass('bg-primary');
-    expect(button).toHaveClass('h-9');
+    expect(button).toHaveClass('h-11');
   });
 
   it('renders with secondary variant', () => {

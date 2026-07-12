@@ -73,8 +73,8 @@ const AuthSection = () => {
           Auth Section (Named Logger)
         </CardTitle>
         <CardDescription>
-          Demonstrates scoped logging with named loggers for different modules.
-          These logs are visible in the browser's console.
+          Scoped logging with a named logger per module. The logs also appear
+          in the browser console.
         </CardDescription>
       </CardHeader>
       <CardContent>
@@ -170,9 +170,9 @@ const DemoContent = () => {
             Log Dumper
           </h1>
           <p className="text-muted-foreground mx-auto mb-6 max-w-2xl text-lg md:text-xl">
-            A powerful, type-safe logging library for React applications with
-            error boundaries, DevTools integration, and comprehensive log
-            management.
+            A type-safe logging library for React. Captures user actions and
+            errors, streams them to a live DevTools panel, and exports logs
+            for debugging.
           </p>
           <div className="mb-8 flex flex-wrap items-center justify-center gap-3">
             <FeatureBadge icon={FileCode} label="TypeScript" />
@@ -181,16 +181,21 @@ const DemoContent = () => {
             <FeatureBadge icon={CheckCircle2} label="Type-safe Context" />
           </div>
           <div className="flex flex-wrap items-center justify-center gap-4">
-            <Button asChild size="lg" className="gap-2">
-              <Link
-                href="https://www.npmjs.com/package/@stevenmckinnon/log-dumper"
-                target="_blank"
-                rel="noopener noreferrer"
-              >
-                View on npm
-                <ExternalLinkIcon className="h-4 w-4" />
-              </Link>
-            </Button>
+            <Button
+              size="lg"
+              nativeButton={false}
+              className="gap-2"
+              render={
+                <Link
+                  href="https://www.npmjs.com/package/@stevenmckinnon/log-dumper"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                >
+                  View on npm
+                  <ExternalLinkIcon className="h-4 w-4" />
+                </Link>
+              }
+            />
           </div>
         </div>
       </BlurFade>
@@ -275,9 +280,8 @@ const DemoContent = () => {
                 Error Boundary Integration
               </CardTitle>
               <CardDescription className="text-red-600 dark:text-red-400">
-                Automatically catches and logs React errors with graceful
-                fallback UI. Click the button below to trigger a crash and see
-                the error boundary in action.
+                Catches and logs React errors and renders a fallback UI.
+                Trigger a crash to see it work.
               </CardDescription>
             </CardHeader>
             <CardContent>
@@ -293,14 +297,14 @@ const DemoContent = () => {
           <Separator />
           <div className="flex flex-col items-center gap-4 text-center">
             <p className="text-muted-foreground max-w-md text-sm">
-              💡 Open the DevTools panel (bottom-right corner) to view logs in
-              real-time with filtering, search, and export capabilities!
+              💡 Open the DevTools panel (bottom-right) to filter, search, and
+              export logs in real time.
               <span className="mt-2 flex items-center justify-center gap-2">
                 <span>Press</span>
                 <kbd className="bg-muted border-border rounded border px-1.5 py-0.5 font-mono text-xs">
                   ⌘/Ctrl + Shift + D
                 </kbd>
-                <span>to toggle the DevTool's panel.</span>
+                <span>to toggle the panel.</span>
               </span>
             </p>
           </div>
@@ -331,9 +335,8 @@ const App = () => {
             </CardHeader>
             <CardContent>
               <p className="text-muted-foreground mb-6 text-sm">
-                This error was automatically caught and logged by the Error
-                Boundary. You can view the full error details in the DevTools
-                panel.
+                The error boundary caught and logged this error. Full details
+                are in the DevTools panel.
               </p>
               <Button variant="destructive" onClick={reset}>
                 Try Again

@@ -15,10 +15,10 @@ export const DATA: Resume = {
   location: "Glasgow, Scotland",
   locationLink: "https://www.google.com/maps/place/glasgow",
   description:
-    "Senior Lead Front-End Engineer at JPMorgan Chase — leading teams, building UI platforms, and shipping firm-wide design systems.",
-  summary: `Senior Lead Front-End Engineer with ${calculateYearsOfExperience(
+    "Senior Lead Front-End Engineer at JPMorgan Chase. I lead the team behind the pattern library and UI platforms used across Risk Technology.",
+  summary: `Front-end engineer for ${calculateYearsOfExperience(
     "2014-06-30",
-  )}+ years developing enterprise-scale React/TypeScript applications, including 8 years at JPMorgan Chase across multiple increasingly senior roles. Currently leads an 8-engineer team delivering firm-wide UI infrastructure — design systems, BI tooling, and application scaffolding — adopted across 20+ internal applications. Recognised expert in frontend platform engineering, accessible component libraries, and translating complex business requirements into scalable, production-grade UI systems.`,
+  )}+ years, 8 of them at JPMorgan Chase. I lead an 8-engineer team building Risk Technology's UI infrastructure: a pattern and component library on top of the firm's design system, plus BI tooling and application scaffolding, used by 20+ internal applications. I build accessible components that other teams ship on.`,
   avatarUrl: "/me.jpg",
   skills: [
     {
@@ -93,10 +93,10 @@ export const DATA: Resume = {
       logoUrl: "/jpm.png",
       start: "February 2024",
       description: [
-        `Lead an 8-person front-end engineering team, overseeing the design and delivery of UI libraries, reusable component systems, and business intelligence tooling adopted across multiple development teams firm-wide.`,
-        `Architected application scaffolding frameworks that enable teams to rapidly bootstrap new projects using consistent, pre-approved patterns — reducing setup overhead across the organisation.`,
-        `Serve as a line of business lead within the Risk Technology space, driving UI innovation and establishing best practices for scalable, accessible front-end development.`,
-        `Manage client relationships and mentor team members, championing "sensible defaults" to standardise application development and support both individual and team growth.`,
+        `Lead an 8-person front-end team delivering a pattern and component library built on the firm's design system, plus business intelligence tooling, used by 20+ applications across Risk Technology.`,
+        `Built application scaffolding that lets teams bootstrap new projects from pre-approved patterns instead of starting from scratch.`,
+        `Act as a line of business lead for UI, setting the standards teams follow for accessible front-end development.`,
+        `Manage stakeholder relationships and mentor engineers, pushing "sensible defaults" that standardise how teams build applications.`,
       ],
     },
     {
@@ -109,10 +109,10 @@ export const DATA: Resume = {
       start: "March 2022",
       end: "February 2024",
       description: [
-        `Built and maintained a multi-tenant corporate gifting platform using React and TypeScript, enabling companies to deliver tailored, curated gifts to employees, clients, and stakeholders.`,
-        `Created a well-tested, fully documented custom component library of reusable hooks and functions, forming the foundation of a responsive, accessible, and secure application.`,
-        `Delivered a personalised gift recipient application and email system that adapts dynamically to each client's branding, strengthening recipient trust.`,
-        `Collaborated closely with management, product, and design teams to translate client requirements into polished features.`,
+        `Built a multi-tenant corporate gifting platform in React and TypeScript that companies use to send curated gifts to employees and clients.`,
+        `Wrote the tested, documented component library and hooks the whole application is built on.`,
+        `Shipped a gift recipient app and email system that restyles itself to each client's branding.`,
+        `Worked with product and design to turn client requirements into shipped features.`,
       ],
     },
     {
@@ -125,10 +125,10 @@ export const DATA: Resume = {
       start: "January 2021",
       end: "March 2022",
       description: [
-        `Developed the next-generation health and safety application using React and TypeScript, delivering a responsive, modern, and secure product.`,
-        `Built a bespoke JSON-to-form renderer and accompanying component library, enabling clients to independently create and configure complex custom forms without developer involvement.`,
-        `Ensured strong accessibility, internationalisation, and simplicity standards throughout.`,
-        `Collaborated closely with product and UX teams throughout the development lifecycle to validate and meet customer needs.`,
+        `Developed Evotix's next-generation health and safety application in React and TypeScript.`,
+        `Built a JSON-to-form renderer and component library that lets clients configure complex custom forms without a developer.`,
+        `Held the product to accessibility and internationalisation standards throughout.`,
+        `Paired with product and UX throughout development to validate features against customer needs.`,
       ],
     },
     {
@@ -141,8 +141,8 @@ export const DATA: Resume = {
       start: "May 2019",
       end: "December 2020",
       description: [
-        `Built an Electron and OpenFin-powered desktop platform for Windows, used by multiple development teams and end users across the firm.`,
-        `Delivered advanced multi-window layout capabilities and client-side interoperability using TypeScript, React, and Redux.`,
+        `Built an Electron and OpenFin desktop platform for Windows, used by development teams and end users across the firm.`,
+        `Delivered multi-window layouts and client-side interoperability in TypeScript, React, and Redux.`,
       ],
     },
     {
@@ -155,11 +155,11 @@ export const DATA: Resume = {
       start: "June 2014",
       end: "May 2019",
       description: [
-        `Built a modern, responsive GraphQL playground and aggregated company news application, hosting UX usability sessions with end users to validate requirements and shape both products.`,
-        `Served as key point of contact for front end design, from wireframes and proof of concepts through to production implementation.`,
-        `Built a comprehensive automated end-to-end test suite using Selenium and BDD principles.`,
-        `Took on full stack responsibilities including global business requirements gathering, design decisions, deployment pipelines, and maintaining application environment stability.`,
-        `Managed Scrum/Agile delivery processes and trained new team members on front end technologies.`,
+        `Built a GraphQL playground and a company news aggregator, running usability sessions with end users to shape both products.`,
+        `Owned front-end design from wireframes and proofs of concept through to production.`,
+        `Built an automated end-to-end test suite with Selenium and BDD.`,
+        `Took on full-stack work, from requirements gathering and design decisions to deployment pipelines and environment stability.`,
+        `Ran Scrum delivery and trained new team members on front-end technologies.`,
       ],
     },
   ],
@@ -203,7 +203,7 @@ export const DATA: Resume = {
   projects: [
     {
       name: "Caley",
-      description: `A comprehensive invoice management solution engineered with Next.js, Prisma, and Better Auth. Features secure authentication, automated email notifications via Resend, and real-time analytics, wrapped in a polished, modern UI.`,
+      description: `Invoicing app built with Next.js, Prisma, and Better Auth. Sends automated emails through Resend and tracks payments with real-time analytics.`,
       website: "https://caley.app",
       github: "https://github.com/stevenmckinnon/invoice-app",
       defaultExpanded: true,
@@ -223,7 +223,7 @@ export const DATA: Resume = {
     {
       name: "CareerWealth",
       description:
-        "A financial planning tool designed to help users map out their career trajectories and associated earnings. Built with Next.js and TypeScript, it features a dynamic interface for visualising potential career paths and financial outcomes.",
+        "Plots career paths against projected earnings so you can see what each move is worth. Built with Next.js and TypeScript.",
       website: "https://careerwealth.dev",
       github: "https://github.com/stevenmckinnon/career-dashboard",
       defaultExpanded: true,
@@ -240,7 +240,7 @@ export const DATA: Resume = {
     },
     {
       name: "Photography Portfolio",
-      description: `A high-performance portfolio site showcasing photography work. Built with Next.js and Tailwind CSS, utilizing Cloudinary for optimized image delivery and shadcn/ui for a refined aesthetic.`,
+      description: `My photography portfolio, built with Next.js and Tailwind CSS. Cloudinary handles optimised image delivery.`,
       website: "https://stevenmckinnon.co.uk",
       github: "https://github.com/stevenmckinnon/photography",
       defaultExpanded: true,
@@ -256,7 +256,7 @@ export const DATA: Resume = {
     },
     {
       name: "Biosite",
-      description: `A customizable, open-source link-in-bio tool built with Next.js. Offers a lightweight, performance-focused alternative to commercial services.`,
+      description: `Open-source link-in-bio tool built with Next.js. A lightweight alternative to the commercial services.`,
       website: "https://www.stevemck.link",
       github: "https://github.com/stevenmckinnon/biosite",
       defaultExpanded: true,
@@ -265,7 +265,7 @@ export const DATA: Resume = {
     },
     {
       name: "Log Dumper",
-      description: `A TypeScript library for capturing user actions and errors in React applications, with real-time DevTools, automatic metadata capture, and downloadable logs for debugging and analysis.`,
+      description: `TypeScript library that captures user actions and errors in React apps, with a live DevTools panel and downloadable logs for debugging.`,
       website: "/log-dumper",
       github: "https://github.com/stevenmckinnon/log-dumper",
       defaultExpanded: true,

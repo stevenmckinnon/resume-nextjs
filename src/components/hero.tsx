@@ -124,28 +124,30 @@ export const Hero = () => {
           >
             <MagneticButton strength={30}>
               <Button
-                asChild
                 size="lg"
+                nativeButton={false}
                 className="group relative overflow-hidden lg:h-14 lg:text-lg"
-              >
-                <Link href="#contact">
-                  <span className="relative z-10">Get in Touch</span>
-                </Link>
-              </Button>
+                render={
+                  <Link href="#contact">
+                    <span className="relative z-10">Get in Touch</span>
+                  </Link>
+                }
+              />
             </MagneticButton>
 
             <MagneticButton strength={30}>
               <Button
-                asChild
                 variant="outline"
                 size="lg"
+                nativeButton={false}
                 className="group lg:h-14 lg:text-lg"
-              >
-                <a href="/api/cv" download="Steve McKinnon CV.pdf">
-                  <Download className="mr-2 h-4 w-4 transition-transform group-hover:-translate-y-1" />
-                  Download CV
-                </a>
-              </Button>
+                render={
+                  <a href="/api/cv" download="Steve McKinnon CV.pdf">
+                    <Download className="mr-2 h-4 w-4 transition-transform group-hover:-translate-y-1" />
+                    Download CV
+                  </a>
+                }
+              />
             </MagneticButton>
           </motion.div>
 

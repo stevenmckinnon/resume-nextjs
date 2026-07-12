@@ -7,9 +7,9 @@ import {
 } from '@/components/ui/tooltip';
 import { render, screen, fireEvent, act } from '@/test/utils';
 
-// Mock the Radix tooltip primitives (imported from the unified radix-ui package)
-vi.mock('radix-ui', async () => {
-  const actual = await vi.importActual<typeof import('radix-ui')>('radix-ui');
+// Mock the Base UI tooltip primitives
+vi.mock('@base-ui/react/tooltip', async () => {
+  const actual = await vi.importActual<typeof import('@base-ui/react/tooltip')>('@base-ui/react/tooltip');
   return {
     ...actual,
     Tooltip: {
@@ -23,11 +23,14 @@ vi.mock('radix-ui', async () => {
           </div>
         );
       },
-      Trigger: ({ children, className }: any) => (
-        <div data-testid="tooltip-trigger" className={className}>{children}</div>
+      Trigger: ({ children, className, render }: any) => (
+        <div data-testid="tooltip-trigger" className={className}>
+          {render ? render : children}
+        </div>
       ),
       Portal: ({ children }: any) => <div data-testid="tooltip-portal">{children}</div>,
-      Content: ({ children, className }: any) => (
+      Positioner: ({ children }: any) => <div data-testid="tooltip-positioner">{children}</div>,
+      Popup: ({ children, className }: any) => (
         <div data-testid="tooltip-content" className={className}>
           {children}
         </div>

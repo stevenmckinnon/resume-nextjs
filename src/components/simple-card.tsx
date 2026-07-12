@@ -24,10 +24,10 @@ export const SimpleCard = ({
       href={href || "#"}
       target="_blank"
       rel="noopener noreferrer"
-      className="block group"
+      className="group block"
     >
-      <div className="flex rounded-md items-center gap-4 p-4 border border-border/50 bg-card hover:border-primary transition-all duration-300 hover:shadow-[4px_4px_0px_0px_var(--color-primary)]">
-        <Avatar className="border size-12 bg-muted-background dark:bg-foreground">
+      <div className="border-border/50 bg-card hover:border-primary flex items-center gap-4 rounded-md border p-4 transition-all duration-300">
+        <Avatar className="bg-muted-background dark:bg-foreground size-12 border">
           <AvatarImage
             src={logoUrl}
             alt={altText}
@@ -35,18 +35,18 @@ export const SimpleCard = ({
           />
           <AvatarFallback>{altText[0]}</AvatarFallback>
         </Avatar>
-        <div className="flex-1 min-w-0">
+        <div className="min-w-0 flex-1">
           <div className="flex flex-col gap-1">
-            <div className="flex flex-col md:flex-row md:items-baseline md:justify-between gap-1">
-              <h3 className="font-display font-bold text-base truncate group-hover:text-primary transition-colors">
+            <div className="flex flex-col gap-1 md:flex-row md:items-baseline md:justify-between">
+              <h3 className="font-display group-hover:text-primary truncate text-base font-bold transition-colors">
                 {title}
               </h3>
-              <span className="text-xs font-mono text-muted-foreground shrink-0">
+              <span className="text-muted-foreground shrink-0 font-mono text-xs">
                 {period}
               </span>
             </div>
             {subtitle && (
-              <p className="text-sm text-muted-foreground truncate font-sans">
+              <p className="text-muted-foreground truncate font-sans text-sm">
                 {subtitle}
               </p>
             )}

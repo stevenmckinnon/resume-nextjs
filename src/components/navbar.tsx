@@ -56,19 +56,21 @@ export default function Navbar() {
             {DATA.navbar.map((item) => (
               <DockIcon key={item.href}>
                 <Tooltip>
-                  <TooltipTrigger asChild>
-                    <Link
-                      href={item.href}
-                      className={cn(
-                        buttonVariants({ variant: "ghost", size: "icon" }),
-                        "size-12",
-                        "hover:bg-muted/80 rounded-full bg-transparent transition-colors duration-300",
-                      )}
-                    >
-                      <item.icon className="size-4" />
-                      <span className="sr-only">{item.label}</span>
-                    </Link>
-                  </TooltipTrigger>
+                  <TooltipTrigger
+                    render={
+                      <Link
+                        href={item.href}
+                        className={cn(
+                          buttonVariants({ variant: "ghost", size: "icon" }),
+                          "size-12",
+                          "hover:bg-muted/80 rounded-full bg-transparent transition-colors duration-300",
+                        )}
+                      >
+                        <item.icon className="size-4" />
+                        <span className="sr-only">{item.label}</span>
+                      </Link>
+                    }
+                  />
                   <TooltipContent>
                     <p>{item.label}</p>
                   </TooltipContent>
@@ -84,20 +86,22 @@ export default function Navbar() {
               .map(([name, social]) => (
                 <DockIcon key={name} className="hidden sm:flex">
                   <Tooltip>
-                    <TooltipTrigger asChild>
-                      <Link
-                        href={social.url}
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        className={cn(
-                          buttonVariants({ variant: "ghost", size: "icon" }),
-                          "hover:bg-muted/80 size-12 rounded-full bg-transparent transition-colors duration-300",
-                        )}
-                      >
-                        <social.icon className="size-4" />
-                        <span className="sr-only">{name}</span>
-                      </Link>
-                    </TooltipTrigger>
+                    <TooltipTrigger
+                      render={
+                        <Link
+                          href={social.url}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          className={cn(
+                            buttonVariants({ variant: "ghost", size: "icon" }),
+                            "hover:bg-muted/80 size-12 rounded-full bg-transparent transition-colors duration-300",
+                          )}
+                        >
+                          <social.icon className="size-4" />
+                          <span className="sr-only">{name}</span>
+                        </Link>
+                      }
+                    />
                     <TooltipContent>
                       <p>{name}</p>
                     </TooltipContent>
@@ -110,9 +114,7 @@ export default function Navbar() {
             />
             <DockIcon>
               <Tooltip>
-                <TooltipTrigger asChild>
-                  <ModeToggle />
-                </TooltipTrigger>
+                <TooltipTrigger render={<ModeToggle />} />
                 <TooltipContent>
                   <p>Theme</p>
                 </TooltipContent>

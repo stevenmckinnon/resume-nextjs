@@ -13,7 +13,7 @@ import {
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
-import { useToast } from "@/hooks/use-toast";
+import { toast } from "sonner";
 import { cn } from "@/lib/utils";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { motion } from "framer-motion";
@@ -48,7 +48,6 @@ export type ContactFormData = z.infer<typeof schema>;
 const BLUR_FADE_DELAY = 0.04;
 
 export const Contact = () => {
-  const { toast } = useToast();
   const [loading, setLoading] = useState(false);
   const [submitted, setSubmitted] = useState(false);
   const confettiRef = useRef<ConfettiRef>(null);
@@ -87,17 +86,13 @@ export const Contact = () => {
       if (response.ok) {
         setSubmitted(true);
       } else {
-        toast({
-          title: "Error sending email:",
+        toast.error("Failed to send message", {
           description: response.statusText,
-          variant: "destructive",
         });
       }
     } catch (error) {
-      toast({
-        title: "Error sending email:",
+      toast.error("Failed to send message", {
         description: error instanceof Error ? error.message : "Unknown error",
-        variant: "destructive",
       });
     } finally {
       setLoading(false);
@@ -128,8 +123,7 @@ export const Contact = () => {
             Message Sent!
           </h2>
           <p className="text-muted-foreground max-w-md font-mono text-sm">
-            Thanks for reaching out! I&apos;ll get back to you as soon as
-            possible.
+            Thanks for getting in touch. I&apos;ll reply within a day.
           </p>
           <Button
             onClick={() => setSubmitted(false)}
@@ -167,14 +161,14 @@ export const Contact = () => {
           </BlurFade>
           <BlurFade delay={BLUR_FADE_DELAY * 3}>
             <p className="text-muted-foreground max-w-md text-xl font-light">
-              Hiring, or just want to talk shop? My inbox is always open.
+              Hiring, or just want to talk shop? Send me a message.
             </p>
           </BlurFade>
           <BlurFade delay={BLUR_FADE_DELAY * 4}>
             <div className="border-primary/20 bg-primary/5 flex items-center gap-3 rounded-lg border px-4 py-3">
               <Sparkles className="text-primary h-5 w-5" />
               <span className="text-muted-foreground text-sm">
-                Usually responds within{" "}
+                I usually reply within{" "}
                 <span className="text-foreground font-semibold">24 hours</span>
               </span>
             </div>

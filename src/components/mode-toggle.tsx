@@ -59,20 +59,22 @@ export const ModeToggle = forwardRef<HTMLButtonElement>((_, ref) => {
 
   return (
     <Tooltip>
-      <TooltipTrigger asChild>
-        <button
-          ref={ref}
-          className={cn(
-            buttonVariants({ variant: "ghost", size: "icon" }),
-            "size-12 rounded-full bg-transparent transition-colors duration-300 hover:bg-muted/80"
-          )}
-          onClick={handleClick}
-        >
-          <SunIcon className="size-4 dark:hidden " />
-          <MoonIcon className="size-4 hidden dark:block" />
-          <span className="sr-only">Theme switch</span>
-        </button>
-      </TooltipTrigger>
+      <TooltipTrigger
+        render={
+          <button
+            ref={ref}
+            className={cn(
+              buttonVariants({ variant: "ghost", size: "icon" }),
+              "size-12 rounded-full bg-transparent transition-colors duration-300 hover:bg-muted/80"
+            )}
+            onClick={handleClick}
+          >
+            <SunIcon className="size-4 dark:hidden " />
+            <MoonIcon className="size-4 hidden dark:block" />
+            <span className="sr-only">Theme switch</span>
+          </button>
+        }
+      />
       <TooltipContent>
         <p>Toggle theme</p>
       </TooltipContent>

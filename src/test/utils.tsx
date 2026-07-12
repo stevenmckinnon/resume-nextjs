@@ -11,7 +11,7 @@ const customRender = (
   const AllProviders = ({ children }: { children: React.ReactNode }) => {
     return (
       <ThemeProvider enableSystem attribute="class" defaultTheme="light">
-        <TooltipProvider delayDuration={0}>
+        <TooltipProvider delay={0}>
           {children}
         </TooltipProvider>
       </ThemeProvider>

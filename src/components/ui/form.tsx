@@ -1,7 +1,8 @@
 "use client";
 
 import * as React from "react";
-import { Label as LabelPrimitive, Slot as SlotPrimitive } from "radix-ui";
+import { mergeProps } from "@base-ui/react/merge-props";
+import { useRender } from "@base-ui/react/use-render";
 
 import {
   Controller,
@@ -91,8 +92,8 @@ const FormItem = React.forwardRef<
 FormItem.displayName = "FormItem";
 
 const FormLabel = React.forwardRef<
-  React.ElementRef<typeof LabelPrimitive.Root>,
-  React.ComponentPropsWithoutRef<typeof LabelPrimitive.Root> & {
+  React.ComponentRef<"label">,
+  React.ComponentPropsWithoutRef<"label"> & {
     required?: boolean;
     optional?: boolean;
   }
@@ -123,25 +124,28 @@ const FormLabel = React.forwardRef<
 FormLabel.displayName = "FormLabel";
 
 const FormControl = React.forwardRef<
-  React.ElementRef<typeof SlotPrimitive.Slot>,
-  React.ComponentPropsWithoutRef<typeof SlotPrimitive.Slot>
->(({ ...props }, ref) => {
+  HTMLElement,
+  Omit<React.ComponentPropsWithRef<"div">, "children"> & {
+    children: React.ReactElement;
+  }
+>(({ children, ...props }, ref) => {
   const { error, formItemId, formDescriptionId, formMessageId } =
     useFormField();
 
-  return (
-    <SlotPrimitive.Slot
-      ref={ref}
-      id={formItemId}
-      aria-describedby={
-        !error
+  return useRender({
+    render: children,
+    ref,
+    props: mergeProps<"div">(
+      {
+        id: formItemId,
+        "aria-describedby": !error
           ? `${formDescriptionId}`
-          : `${formDescriptionId} ${formMessageId}`
-      }
-      aria-invalid={!!error}
-      {...props}
-    />
-  );
+          : `${formDescriptionId} ${formMessageId}`,
+        "aria-invalid": !!error,
+      } as React.ComponentPropsWithRef<"div">,
+      props
+    ),
+  });
 });
 FormControl.displayName = "FormControl";
 

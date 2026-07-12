@@ -3,7 +3,7 @@ import { GradientOrbs } from "@/components/magicui/gradient-orbs";
 import { ScrollProgress } from "@/components/magicui/scroll-progress";
 import Navbar from "@/components/navbar";
 import { ThemeProvider } from "@/components/theme-provider";
-import { Toaster } from "@/components/ui/toaster";
+import { Toaster } from "@/components/ui/sonner";
 import { TooltipProvider } from "@/components/ui/tooltip";
 import { DATA } from "@/data/resume";
 import { cn } from "@/lib/utils";
@@ -110,7 +110,7 @@ export default function RootLayout({
         )}
       >
         <ThemeProvider enableSystem attribute="class" defaultTheme="dark">
-          <TooltipProvider delayDuration={0}>
+          <TooltipProvider delay={0}>
             <a
               href="#content"
               className="sr-only focus:not-sr-only focus:bg-background focus:text-foreground focus:border-border focus:fixed focus:top-4 focus:left-4 focus:z-100 focus:rounded-md focus:border focus:px-4 focus:py-2 focus:shadow-lg"

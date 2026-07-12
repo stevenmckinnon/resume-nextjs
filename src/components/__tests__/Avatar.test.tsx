@@ -23,7 +23,7 @@ describe('Avatar Component', () => {
     render(<Avatar data-testid="avatar" />);
     const avatar = screen.getByTestId('avatar');
     expect(avatar).toBeInTheDocument();
-    expect(avatar).toHaveClass('relative flex h-10 w-10 shrink-0 overflow-hidden rounded-full');
+    expect(avatar).toHaveClass('relative flex size-8 shrink-0 rounded-full');
   });
 
   it('renders with custom className', () => {

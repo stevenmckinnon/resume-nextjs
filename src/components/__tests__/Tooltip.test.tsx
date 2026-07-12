@@ -7,30 +7,34 @@ import {
 } from '@/components/ui/tooltip';
 import { render, screen, fireEvent, act } from '@/test/utils';
 
-// Mock the useTooltip hook
-vi.mock('@radix-ui/react-tooltip', async () => {
-  const actual = await vi.importActual('@radix-ui/react-tooltip');
+// Mock the Radix tooltip primitives (imported from the unified radix-ui package)
+vi.mock('radix-ui', async () => {
+  const actual = await vi.importActual<typeof import('radix-ui')>('radix-ui');
   return {
     ...actual,
-    Root: ({ children, open, defaultOpen, onOpenChange }: any) => {
-      return (
-        <div data-testid="tooltip-root">
-          {typeof children === 'function'
-            ? children({ open: open || defaultOpen })
-            : children}
+    Tooltip: {
+      ...actual.Tooltip,
+      Root: ({ children, open, defaultOpen, onOpenChange }: any) => {
+        return (
+          <div data-testid="tooltip-root">
+            {typeof children === 'function'
+              ? children({ open: open || defaultOpen })
+              : children}
+          </div>
+        );
+      },
+      Trigger: ({ children, className }: any) => (
+        <div data-testid="tooltip-trigger" className={className}>{children}</div>
+      ),
+      Portal: ({ children }: any) => <div data-testid="tooltip-portal">{children}</div>,
+      Content: ({ children, className }: any) => (
+        <div data-testid="tooltip-content" className={className}>
+          {children}
         </div>
-      );
+      ),
+      Provider: ({ children }: any) => <div data-testid="tooltip-provider">{children}</div>,
+      Arrow: () => null,
     },
-    Trigger: ({ children, className }: any) => (
-      <div data-testid="tooltip-trigger" className={className}>{children}</div>
-    ),
-    Portal: ({ children }: any) => <div data-testid="tooltip-portal">{children}</div>,
-    Content: ({ children, className, ...props }: any) => (
-      <div data-testid="tooltip-content" className={className} {...props}>
-        {children}
-      </div>
-    ),
-    Provider: ({ children }: any) => <div data-testid="tooltip-provider">{children}</div>,
   };
 });
 
@@ -66,7 +70,7 @@ describe('Tooltip Component', () => {
     );
     
     const content = screen.getByTestId('tooltip-content');
-    expect(content).toHaveClass('z-50 overflow-hidden rounded-md bg-primary px-3 py-1.5 text-xs text-primary-foreground animate-in fade-in-0 zoom-in-95 data-[state=closed]:animate-out data-[state=closed]:fade-out-0 data-[state=closed]:zoom-out-95 data-[side=bottom]:slide-in-from-top-2 data-[side=left]:slide-in-from-right-2 data-[side=right]:slide-in-from-left-2 data-[side=top]:slide-in-from-bottom-2');
+    expect(content).toHaveClass('z-50 inline-flex w-fit max-w-xs items-center gap-1.5 rounded-xl bg-foreground px-3 py-1.5 text-xs text-background');
   });
 
   it('renders TooltipContent with custom className', () => {

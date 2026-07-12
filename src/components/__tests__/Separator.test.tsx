@@ -21,14 +21,14 @@ describe('Separator Component', () => {
     render(<Separator orientation="horizontal" />);
     const separator = screen.getByRole('none');
     expect(separator).toHaveAttribute('data-orientation', 'horizontal');
-    expect(separator).toHaveClass('h-[1px] w-full');
+    expect(separator).toHaveClass('data-horizontal:h-px data-horizontal:w-full');
   });
 
   it('renders with vertical orientation', () => {
     render(<Separator orientation="vertical" />);
     const separator = screen.getByRole('none');
     expect(separator).toHaveAttribute('data-orientation', 'vertical');
-    expect(separator).toHaveClass('h-full w-[1px]');
+    expect(separator).toHaveClass('data-vertical:w-px data-vertical:self-stretch');
   });
 
   it('renders with decorative attribute', () => {

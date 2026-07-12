@@ -77,12 +77,12 @@ export default function Navbar() {
             ))}
             <Separator
               orientation="vertical"
-              className="h-full bg-white/20 dark:bg-gray-700/20"
+              className="hidden h-full bg-white/20 sm:block dark:bg-gray-700/20"
             />
             {Object.entries(DATA.contact.social)
               .filter(([_, social]) => social.navbar)
               .map(([name, social]) => (
-                <DockIcon key={name}>
+                <DockIcon key={name} className="hidden sm:flex">
                   <Tooltip>
                     <TooltipTrigger asChild>
                       <Link

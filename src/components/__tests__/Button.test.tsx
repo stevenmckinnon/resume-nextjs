@@ -8,7 +8,7 @@ describe('Button Component', () => {
     const button = screen.getByRole('button', { name: 'Click me' });
     expect(button).toBeInTheDocument();
     expect(button).toHaveClass('bg-primary');
-    expect(button).toHaveClass('h-11');
+    expect(button).toHaveClass('h-9');
   });
 
   it('renders with secondary variant', () => {
@@ -22,21 +22,21 @@ describe('Button Component', () => {
     render(<Button variant="destructive">Destructive</Button>);
     const button = screen.getByRole('button', { name: 'Destructive' });
     expect(button).toBeInTheDocument();
-    expect(button).toHaveClass('bg-destructive');
+    expect(button).toHaveClass('bg-destructive/10 text-destructive');
   });
 
   it('renders with outline variant', () => {
     render(<Button variant="outline">Outline</Button>);
     const button = screen.getByRole('button', { name: 'Outline' });
     expect(button).toBeInTheDocument();
-    expect(button).toHaveClass('border-input');
+    expect(button).toHaveClass('border-border bg-background');
   });
 
   it('renders with ghost variant', () => {
     render(<Button variant="ghost">Ghost</Button>);
     const button = screen.getByRole('button', { name: 'Ghost' });
     expect(button).toBeInTheDocument();
-    expect(button).toHaveClass('hover:bg-accent');
+    expect(button).toHaveClass('hover:bg-muted');
   });
 
   it('renders with link variant', () => {
@@ -64,7 +64,7 @@ describe('Button Component', () => {
     render(<Button size="icon">Icon</Button>);
     const button = screen.getByRole('button', { name: 'Icon' });
     expect(button).toBeInTheDocument();
-    expect(button).toHaveClass('h-9 w-9');
+    expect(button).toHaveClass('size-9');
   });
 
   it('applies custom className', () => {

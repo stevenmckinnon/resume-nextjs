@@ -64,7 +64,10 @@ export const Contact = () => {
   });
 
   useEffect(() => {
-    if (submitted) {
+    if (
+      submitted &&
+      !window.matchMedia("(prefers-reduced-motion: reduce)").matches
+    ) {
       confettiRef.current?.fire({});
     }
   }, [submitted]);
@@ -111,7 +114,7 @@ export const Contact = () => {
           initial={{ scale: 0.8, opacity: 0 }}
           animate={{ scale: 1, opacity: 1 }}
           transition={{ type: "spring", duration: 0.6 }}
-          className="border-primary bg-card relative z-10 flex flex-col items-center gap-6 rounded-2xl border-2 p-12 text-center shadow-[0_0_60px_rgba(var(--primary),0.2)]"
+          className="border-primary bg-card relative z-10 flex flex-col items-center gap-6 rounded-2xl border-2 p-12 text-center shadow-[0_0_60px_color-mix(in_srgb,var(--color-primary)_20%,transparent)]"
         >
           <motion.div
             initial={{ scale: 0 }}
@@ -164,8 +167,7 @@ export const Contact = () => {
           </BlurFade>
           <BlurFade delay={BLUR_FADE_DELAY * 3}>
             <p className="text-muted-foreground max-w-md text-xl font-light">
-              Have a project in mind? Let&apos;s build something exceptional
-              together.
+              Hiring, or just want to talk shop? My inbox is always open.
             </p>
           </BlurFade>
           <BlurFade delay={BLUR_FADE_DELAY * 4}>
@@ -184,7 +186,7 @@ export const Contact = () => {
             <BlurFade delay={BLUR_FADE_DELAY * 4}>
               <motion.form
                 onSubmit={form.handleSubmit(onSubmit)}
-                className="group/form border-border/50 bg-card/50 hover:border-primary/30 space-y-6 rounded-2xl border p-6 backdrop-blur-sm transition-all duration-500 hover:shadow-[0_0_40px_rgba(var(--primary),0.1)]"
+                className="group/form border-border/50 bg-card/50 hover:border-primary/30 space-y-6 rounded-2xl border p-6 backdrop-blur-sm transition-all duration-500 hover:shadow-[0_0_40px_color-mix(in_srgb,var(--color-primary)_10%,transparent)]"
                 noValidate
               >
                 {/* Form glow effect */}
@@ -202,7 +204,7 @@ export const Contact = () => {
                             autoComplete="name"
                             placeholder="Your name"
                             required
-                            className="transition-all duration-300 focus:shadow-[0_0_20px_rgba(var(--primary),0.1)]"
+                            className="transition-all duration-300 focus:shadow-[0_0_20px_color-mix(in_srgb,var(--color-primary)_10%,transparent)]"
                             {...field}
                           />
                         </FormControl>
@@ -222,7 +224,7 @@ export const Contact = () => {
                             autoComplete="email"
                             placeholder="Your email"
                             required
-                            className="transition-all duration-300 focus:shadow-[0_0_20px_rgba(var(--primary),0.1)]"
+                            className="transition-all duration-300 focus:shadow-[0_0_20px_color-mix(in_srgb,var(--color-primary)_10%,transparent)]"
                             {...field}
                           />
                         </FormControl>
@@ -241,7 +243,7 @@ export const Contact = () => {
                         <Input
                           placeholder="What's this about?"
                           required
-                          className="transition-all duration-300 focus:shadow-[0_0_20px_rgba(var(--primary),0.1)]"
+                          className="transition-all duration-300 focus:shadow-[0_0_20px_color-mix(in_srgb,var(--color-primary)_10%,transparent)]"
                           {...field}
                         />
                       </FormControl>
@@ -258,7 +260,7 @@ export const Contact = () => {
                       <FormControl>
                         <div className="relative">
                           <Textarea
-                            placeholder="Tell me about your project..."
+                            placeholder="Tell me about the role, the team, or what you're building..."
                             required
                             maxLength={1000}
                             className="min-h-[150px] transition-all duration-300 focus:shadow-[0_0_20px_rgba(var(--primary),0.1)]"

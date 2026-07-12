@@ -1,7 +1,12 @@
 import { Icons } from "@/components/icons";
 import { calculateYearsOfExperience } from "@/lib/utils";
 import type { Resume } from "@/types/resume";
-import { HomeIcon } from "lucide-react";
+import {
+  BriefcaseIcon,
+  FolderKanbanIcon,
+  HomeIcon,
+  MailIcon,
+} from "lucide-react";
 
 export const DATA: Resume = {
   name: "Steve McKinnon",
@@ -36,7 +41,12 @@ export const DATA: Resume = {
     { name: "Storybook", icon: Icons.storybook },
     { name: "Figma", icon: Icons.figma },
   ],
-  navbar: [{ href: "/", icon: HomeIcon, label: "Home" }],
+  navbar: [
+    { href: "/", icon: HomeIcon, label: "Home" },
+    { href: "#work", icon: BriefcaseIcon, label: "Experience" },
+    { href: "#projects", icon: FolderKanbanIcon, label: "Projects" },
+    { href: "#contact", icon: MailIcon, label: "Contact" },
+  ],
   contact: {
     email: "hello@stevenmckinnon.co.uk",
     social: {

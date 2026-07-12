@@ -10,7 +10,7 @@ import { ResumeCard } from "@/components/resume-card";
 import { SimpleCard } from "@/components/simple-card";
 import { SkillsSection } from "@/components/skills-section";
 import { DATA } from "@/data/resume";
-import { BLUR_FADE_DELAY, calculateYearsOfExperience } from "@/lib/utils";
+import { BLUR_FADE_DELAY } from "@/lib/utils";
 import { MapPin } from "lucide-react";
 
 const Section = ({
@@ -78,7 +78,7 @@ export default function Page() {
           {DATA.work.map((work, id) => (
             <BlurFade
               key={`${work.company}-${work.start}`}
-              delay={BLUR_FADE_DELAY * 4 + id * 0.05}
+              delay={BLUR_FADE_DELAY + id * 0.05}
             >
               <ResumeCard
                 logoUrl={work.logoUrl}
@@ -99,7 +99,7 @@ export default function Page() {
           {DATA.education.map((education, id) => (
             <BlurFade
               key={education.school}
-              delay={BLUR_FADE_DELAY * 5 + id * 0.05}
+              delay={BLUR_FADE_DELAY + id * 0.05}
             >
               <ResumeCard
                 key={education.school}
@@ -119,7 +119,7 @@ export default function Page() {
             {DATA.projects?.map((project, id) => (
               <BlurFade
                 key={project.name}
-                delay={BLUR_FADE_DELAY * 6 + id * 0.05}
+                delay={BLUR_FADE_DELAY + id * 0.05}
               >
                 <ProjectCard
                   title={project.name}
@@ -143,7 +143,7 @@ export default function Page() {
             {DATA.otherWork.map((work, id) => (
               <BlurFade
                 key={`${work.company}-${work.start}`}
-                delay={BLUR_FADE_DELAY * 7 + id * 0.05}
+                delay={BLUR_FADE_DELAY + id * 0.05}
               >
                 <SimpleCard
                   logoUrl={work.logoUrl}

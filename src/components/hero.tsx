@@ -1,21 +1,16 @@
 "use client";
 
 import { MagneticButton } from "@/components/magicui/magnetic-button";
-import { Particles } from "@/components/magicui/particles";
 import { SpinnablePhoto } from "@/components/spinnable-photo";
 import { Button } from "@/components/ui/button";
 import { DATA } from "@/data/resume";
-import useBreakpoints from "@/hooks/useBreakpoints";
 import { cn } from "@/lib/utils";
 import { type Variants, motion, useScroll, useTransform } from "framer-motion";
 import { Download } from "lucide-react";
-import { useTheme } from "next-themes";
 import Link from "next/link";
 import { useRef } from "react";
 
 export const Hero = () => {
-  const { theme } = useTheme();
-  const { isAboveMd } = useBreakpoints("md");
   const socials = Object.values(DATA.contact.social).filter(
     (social) => social.navbar,
   );
@@ -66,15 +61,6 @@ export const Hero = () => {
       id="hero"
       className="relative flex min-h-dvh flex-col justify-center overflow-hidden px-4 py-12 md:px-8 md:py-24 lg:px-16 lg:py-32"
     >
-      {/* Particles Background */}
-      <Particles
-        className="absolute inset-0 -z-10"
-        quantity={isAboveMd ? 150 : 75}
-        color={theme === "dark" ? "#ffffff" : "#000000"}
-        vx={0.1}
-        vy={0.1}
-      />
-
       {/* Background large text element for depth */}
       <div className="font-display pointer-events-none absolute top-0 right-0 z-0 translate-x-[20%] -translate-y-[10%] text-[30vw] leading-none font-black tracking-tighter opacity-[0.02] select-none dark:opacity-[0.04]">
         SM
@@ -94,8 +80,11 @@ export const Hero = () => {
           {/* Name Heading */}
           <div className="relative">
             <div className="overflow-hidden">
-              <motion.h1 className="font-display text-foreground text-5xl leading-[0.85] font-black tracking-tighter md:text-6xl lg:text-7xl xl:text-8xl">
-                <span className="block">
+              <motion.h1
+                aria-label={DATA.name}
+                className="font-display text-foreground text-5xl leading-[0.85] font-black tracking-tighter md:text-6xl lg:text-7xl xl:text-8xl"
+              >
+                <span className="block" aria-hidden="true">
                   {firstName.split("").map((char, i) => (
                     <motion.span
                       key={`first-${char}-${i}`}
@@ -106,7 +95,7 @@ export const Hero = () => {
                     </motion.span>
                   ))}
                 </span>
-                <span className="text-primary block">
+                <span className="text-primary block" aria-hidden="true">
                   {lastName.split("").map((char, i) => (
                     <motion.span
                       key={`last-${char}-${i}`}
@@ -140,7 +129,7 @@ export const Hero = () => {
                 className="group relative overflow-hidden lg:h-14 lg:text-lg"
               >
                 <Link href="#contact">
-                  <span className="relative z-10">Work With Me</span>
+                  <span className="relative z-10">Get in Touch</span>
                 </Link>
               </Button>
             </MagneticButton>
@@ -175,6 +164,7 @@ export const Hero = () => {
                 <Link
                   href={social.url}
                   target="_blank"
+                  rel="noopener noreferrer"
                   className={cn(
                     "group relative flex items-center justify-center rounded-full p-3",
                     "text-muted-foreground transition-all duration-300",

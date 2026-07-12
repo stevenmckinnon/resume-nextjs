@@ -9,34 +9,20 @@ interface SkillOrbProps {
   name: string;
   icon?: ComponentType<IconProps>;
   className?: string;
-  index?: number;
 }
 
-export const SkillOrb = ({
-  name,
-  icon: Icon,
-  className,
-  index = 0,
-}: SkillOrbProps) => {
+export const SkillOrb = ({ name, icon: Icon, className }: SkillOrbProps) => {
   const [isHovered, setIsHovered] = useState(false);
 
   return (
     <motion.div
-      initial={{ opacity: 0, scale: 0.5 }}
-      animate={{ opacity: 1, scale: 1 }}
-      transition={{
-        type: "spring",
-        stiffness: 200,
-        damping: 15,
-        delay: index * 0.05,
-      }}
       whileHover={{ scale: 1.1, zIndex: 10 }}
       onHoverStart={() => setIsHovered(true)}
       onHoverEnd={() => setIsHovered(false)}
       className={cn("group relative cursor-default", className)}
     >
       {/* Main orb */}
-      <div className="border-border/50 bg-card/80 hover:border-primary hover:bg-card relative flex items-center gap-2 rounded-full border px-4 py-2 backdrop-blur-sm transition-all duration-300 hover:shadow-[0_0_20px_rgba(var(--primary),0.2)]">
+      <div className="border-border/50 bg-card/80 hover:border-primary hover:bg-card relative flex items-center gap-2 rounded-full border px-4 py-2 backdrop-blur-sm transition-all duration-300 hover:shadow-[0_0_20px_color-mix(in_srgb,var(--color-primary)_20%,transparent)]">
         {/* Animated ring on hover */}
         <motion.div
           className="border-primary pointer-events-none absolute -inset-1 rounded-full border-2"

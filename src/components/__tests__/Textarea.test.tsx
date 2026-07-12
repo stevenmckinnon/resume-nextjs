@@ -7,7 +7,7 @@ describe('Textarea Component', () => {
     render(<Textarea />);
     const textarea = screen.getByRole('textbox');
     expect(textarea).toBeInTheDocument();
-    expect(textarea).toHaveClass('flex min-h-[60px] w-full rounded-md border border-input');
+    expect(textarea).toHaveClass('flex field-sizing-content min-h-16 w-full resize-none rounded-2xl border border-transparent bg-input/50');
   });
 
   it('renders with custom className', () => {

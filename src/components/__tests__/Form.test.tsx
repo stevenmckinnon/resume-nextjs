@@ -110,7 +110,7 @@ describe('Form Components', () => {
     );
     const label = screen.getByText('Test Label');
     expect(label).toBeInTheDocument();
-    expect(label).toHaveClass('text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70');
+    expect(label).toHaveClass('flex items-center gap-2 text-sm leading-none font-medium peer-disabled:cursor-not-allowed peer-disabled:opacity-50');
   });
 
   it('renders FormLabel with custom className', () => {

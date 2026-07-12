@@ -21,7 +21,7 @@ describe('Badge Component', () => {
     render(<Badge variant="destructive">Destructive Badge</Badge>);
     const badge = screen.getByText('Destructive Badge');
     expect(badge).toBeInTheDocument();
-    expect(badge).toHaveClass('bg-destructive');
+    expect(badge).toHaveClass('bg-destructive/10 text-destructive');
   });
 
   it('renders with outline variant', () => {

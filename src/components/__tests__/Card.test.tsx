@@ -7,7 +7,7 @@ describe('Card Component', () => {
     render(<Card data-testid="card">Card Content</Card>);
     const card = screen.getByTestId('card');
     expect(card).toBeInTheDocument();
-    expect(card).toHaveClass('rounded-xl border bg-card text-card-foreground shadow');
+    expect(card).toHaveClass('flex flex-col rounded-4xl bg-card text-card-foreground shadow-md');
   });
 
   it('renders Card with custom className', () => {
@@ -19,7 +19,7 @@ describe('Card Component', () => {
   it('renders CardHeader with default props', () => {
     render(<CardHeader data-testid="card-header">Header Content</CardHeader>);
     const header = screen.getByTestId('card-header');
-    expect(header).toHaveClass('flex flex-col');
+    expect(header).toHaveClass('grid auto-rows-min items-start gap-1.5 px-6');
   });
 
   it('renders CardHeader with custom className', () => {
@@ -31,7 +31,7 @@ describe('Card Component', () => {
   it('renders CardTitle with default props', () => {
     render(<CardTitle>Card Title</CardTitle>);
     const title = screen.getByText('Card Title');
-    expect(title).toHaveClass('font-semibold leading-none tracking-tight');
+    expect(title).toHaveClass('font-heading text-base font-medium');
   });
 
   it('renders CardTitle with custom className', () => {
@@ -55,7 +55,7 @@ describe('Card Component', () => {
   it('renders CardContent with default props', () => {
     render(<CardContent data-testid="card-content">Content</CardContent>);
     const content = screen.getByTestId('card-content');
-    expect(content).toHaveClass('p-6 pt-0');
+    expect(content).toHaveClass('px-6');
   });
 
   it('renders CardContent with custom className', () => {
@@ -67,7 +67,7 @@ describe('Card Component', () => {
   it('renders CardFooter with default props', () => {
     render(<CardFooter data-testid="card-footer">Footer</CardFooter>);
     const footer = screen.getByTestId('card-footer');
-    expect(footer).toHaveClass('flex items-center p-6 pt-0');
+    expect(footer).toHaveClass('flex items-center rounded-b-4xl px-6');
   });
 
   it('renders CardFooter with custom className', () => {

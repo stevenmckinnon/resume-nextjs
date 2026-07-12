@@ -79,6 +79,7 @@ export const ProjectCard = ({
             <Link
               href={website}
               target="_blank"
+              rel="noopener noreferrer"
               className="hover:text-primary flex items-center gap-2 text-sm font-bold tracking-wider uppercase transition-colors"
             >
               <ExternalLinkIcon className="size-4" />
@@ -89,6 +90,7 @@ export const ProjectCard = ({
             <Link
               href={github}
               target="_blank"
+              rel="noopener noreferrer"
               className="hover:text-primary ml-auto flex items-center gap-2 text-sm font-bold tracking-wider uppercase transition-colors"
             >
               <GitHubLogoIcon className="size-4" />

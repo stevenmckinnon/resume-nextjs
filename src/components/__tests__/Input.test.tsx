@@ -7,7 +7,7 @@ describe('Input Component', () => {
     render(<Input />);
     const input = screen.getByRole('textbox');
     expect(input).toBeInTheDocument();
-    expect(input).toHaveClass('flex h-9 w-full rounded-md border border-input');
+    expect(input).toHaveClass('h-9 w-full min-w-0 rounded-3xl border border-transparent bg-input/50');
   });
 
   it('renders with custom className', () => {

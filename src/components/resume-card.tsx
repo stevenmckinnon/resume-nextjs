@@ -5,7 +5,12 @@ import { cn } from "@/lib/utils";
 import { motion } from "framer-motion";
 import { ChevronRightIcon } from "lucide-react";
 import Link from "next/link";
-import { useState, type MouseEvent as ReactMouseEvent } from "react";
+import {
+  useId,
+  useState,
+  type KeyboardEvent as ReactKeyboardEvent,
+  type MouseEvent as ReactMouseEvent,
+} from "react";
 
 interface ResumeCardProps {
   logoUrl: string;
@@ -31,6 +36,7 @@ export const ResumeCard = ({
   index,
 }: ResumeCardProps) => {
   const [isExpanded, setIsExpanded] = useState(index === 0);
+  const descriptionId = useId();
 
   const handleClick = (e: ReactMouseEvent<HTMLDivElement, MouseEvent>) => {
     if (description) {
@@ -39,11 +45,25 @@ export const ResumeCard = ({
     }
   };
 
+  const handleKeyDown = (e: ReactKeyboardEvent<HTMLDivElement>) => {
+    if (!description || e.target !== e.currentTarget) return;
+    if (e.key === "Enter" || e.key === " ") {
+      e.preventDefault();
+      setIsExpanded(!isExpanded);
+    }
+  };
+
   return (
     <div
       onClick={handleClick}
+      onKeyDown={handleKeyDown}
+      role={description ? "button" : undefined}
+      tabIndex={description ? 0 : undefined}
+      aria-expanded={description ? isExpanded : undefined}
+      aria-controls={description ? descriptionId : undefined}
       className={cn(
-        "group hover:border-primary relative cursor-pointer border-l-2 border-transparent pl-4 transition-all duration-300",
+        "group hover:border-primary focus-visible:ring-ring/50 relative border-l-2 border-transparent pl-4 transition-all duration-300 focus-visible:ring-2 focus-visible:outline-none",
+        description && "cursor-pointer",
         isExpanded ? "border-primary" : "border-border/40",
       )}
     >
@@ -64,6 +84,7 @@ export const ResumeCard = ({
                 <Link
                   href={href}
                   target="_blank"
+                  rel="noopener noreferrer"
                   onClick={(e) => e.stopPropagation()}
                   className="decoration-primary underline-offset-4 hover:underline"
                 >
@@ -99,13 +120,15 @@ export const ResumeCard = ({
           )}
 
           <motion.div
-            initial={{ height: 0, opacity: 0 }}
+            id={descriptionId}
+            initial={false}
             animate={{
               height: isExpanded ? "auto" : 0,
               opacity: isExpanded ? 1 : 0,
             }}
             transition={{ duration: 0.3, ease: [0.23, 1, 0.32, 1] }}
             className="overflow-hidden"
+            aria-hidden={!isExpanded}
           >
             <div className="text-muted-foreground/90 border-border/40 mt-4 border-t pt-4 font-sans text-sm leading-relaxed">
               {Array.isArray(description) ? (

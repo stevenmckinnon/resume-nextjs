@@ -8,7 +8,7 @@ import { TooltipProvider } from "@/components/ui/tooltip";
 import { DATA } from "@/data/resume";
 import { cn } from "@/lib/utils";
 import { Analytics } from "@vercel/analytics/next";
-import type { Metadata } from "next";
+import type { Metadata, Viewport } from "next";
 import { Manrope, Syne } from "next/font/google";
 
 import "./globals.css";
@@ -27,6 +27,13 @@ const fontMono = Syne({
   display: "swap",
   preload: false,
 });
+
+export const viewport: Viewport = {
+  themeColor: [
+    { media: "(prefers-color-scheme: light)", color: "#ffffff" },
+    { media: "(prefers-color-scheme: dark)", color: "#0a0a0a" },
+  ],
+};
 
 export const metadata: Metadata = {
   metadataBase: new URL(DATA.url),
@@ -95,32 +102,26 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en" suppressHydrationWarning>
-      <head>
-        <meta name="theme-color" content="var(--background)" />
-      </head>
-
       <body
         className={cn(
-          "bg-background selection:bg-primary selection:text-primary-foreground relative mx-auto min-h-dvh pb-16 font-sans antialiased sm:pb-24",
+          `bg-background selection:bg-primary selection:text-primary-foreground relative mx-auto min-h-dvh pb-16 font-sans antialiased sm:pb-24`,
           fontSans.variable,
           fontMono.variable,
         )}
       >
         <ThemeProvider enableSystem attribute="class" defaultTheme="dark">
           <TooltipProvider delayDuration={0}>
-            {/* Background layers */}
-            <div className="bg-background fixed inset-0 -z-10 h-full w-full" />
-            <GradientOrbs />
-            <div className="pointer-events-none fixed inset-0 -z-10 h-full w-full bg-[linear-gradient(to_right,#80808008_1px,transparent_1px),linear-gradient(to_bottom,#80808008_1px,transparent_1px)] mask-[radial-gradient(ellipse_60%_50%_at_50%_0%,#000_70%,transparent_100%)] bg-size-[24px_24px]" />
+            <a
+              href="#content"
+              className="sr-only focus:not-sr-only focus:bg-background focus:text-foreground focus:border-border focus:fixed focus:top-4 focus:left-4 focus:z-100 focus:rounded-md focus:border focus:px-4 focus:py-2 focus:shadow-lg"
+            >
+              Skip to content
+            </a>
 
-            {/* Noise texture overlay */}
-            <div
-              className="pointer-events-none fixed inset-0 -z-10 opacity-[0.015] dark:opacity-[0.03]"
-              style={{
-                backgroundImage:
-                  "url(\"data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)'/%3E%3C/svg%3E\")",
-              }}
-            />
+            {/* Background layers */}
+            <div className="bg-background fixed inset-0 -z-10 size-full" />
+            <GradientOrbs />
+            <div className="pointer-events-none fixed inset-0 -z-10 size-full bg-[linear-gradient(to_right,#80808008_1px,transparent_1px),linear-gradient(to_bottom,#80808008_1px,transparent_1px)] mask-[radial-gradient(ellipse_60%_50%_at_50%_0%,#000_70%,transparent_100%)] bg-size-[24px_24px]" />
 
             <ScrollProgress className="top-0 z-50" />
             <main id="content" className="relative flex h-full flex-col">

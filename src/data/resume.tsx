@@ -93,10 +93,11 @@ export const DATA: Resume = {
       logoUrl: "/jpm.png",
       start: "February 2024",
       description: [
-        `Lead an 8-person front-end team delivering a pattern and component library built on the firm's design system, plus business intelligence tooling, used by 20+ applications across Risk Technology.`,
-        `Built application scaffolding that lets teams bootstrap new projects from pre-approved patterns instead of starting from scratch.`,
-        `Act as a line of business lead for UI, setting the standards teams follow for accessible front-end development.`,
-        `Manage stakeholder relationships and mentor engineers, pushing "sensible defaults" that standardise how teams build applications.`,
+        `Lead an 8-person front-end engineering team, overseeing design and delivery of UI libraries, reusable component systems, and business intelligence tooling adopted across 20+ applications firm-wide, while mentoring engineers and managing stakeholder relationships.`,
+        `Architected application scaffolding frameworks enabling teams to bootstrap new projects using consistent, pre-approved patterns, cutting typical setup time from weeks to days.`,
+        `Serve as line of business lead for UI development within Risk Technology, steering technology choices and championing "sensible defaults" to standardise front-end development practices across teams.`,
+        `Sit on the AI working group for Risk Technology, helping steer AI use and reuse, and establishing standards and best practices for AI adoption across the area.`,
+        `Consolidated 10+ existing internal microsites into a single inner-sourced documentation pipeline with a consistent design language and searchable capability index, covering UI components, AI skills, MCPs, and APIs, reducing duplication and improving reuse across teams.`,
       ],
     },
     {

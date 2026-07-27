@@ -28,24 +28,34 @@ const eslintConfig = [
       "better-tailwindcss": eslintPluginBetterTailwindcss,
     },
     rules: {
-      // enable all recommended rules to report a warning
       ...eslintPluginBetterTailwindcss.configs["recommended-warn"].rules,
-      // enable all recommended rules to report an error
       ...eslintPluginBetterTailwindcss.configs["recommended-error"].rules,
 
-      // or configure rules individually
-      "better-tailwindcss/enforce-consistent-line-wrapping": [
-        "warn",
-        { printWidth: 100 },
-      ],
+      // Formatting of class strings belongs to prettier-plugin-tailwindcss.
+      // These three rules format too, and their output differs from
+      // prettier's, so with both enabled a file never reaches a fixed point:
+      // `eslint --fix` rewraps to multiline and reorders, prettier collapses
+      // and reorders back, forever. ESLint keeps only the rules that catch
+      // real defects (unknown, conflicting, duplicate, deprecated classes),
+      // which prettier cannot detect.
+      "better-tailwindcss/enforce-consistent-class-order": "off",
+      "better-tailwindcss/enforce-consistent-line-wrapping": "off",
+      "better-tailwindcss/no-unnecessary-whitespace": "off",
     },
     settings: {
       "better-tailwindcss": {
-        // tailwindcss 4: the path to the entry file of the css based tailwind config (eg: `src/global.css`)
+        // Tailwind v4: resolve the theme from the CSS entry point. There is no
+        // tailwind.config.js in this project, so no v3 config is set.
         entryPoint: "src/app/globals.css",
-        // tailwindcss 3: the path to the tailwind config file (eg: `tailwind.config.js`)
-        tailwindConfig: "tailwind.config.js",
       },
+    },
+  },
+  {
+    // Tests pass fixture classNames like "custom-class" to assert className
+    // merging. They are deliberately not Tailwind utilities.
+    files: ["**/__tests__/**/*.{ts,tsx}", "**/*.test.{ts,tsx}"],
+    rules: {
+      "better-tailwindcss/no-unknown-classes": "off",
     },
   },
   {

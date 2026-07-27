@@ -4,8 +4,18 @@ import type { ContributionWeek } from "@/lib/github";
 import { cn } from "@/lib/utils";
 
 const MONTH_NAMES = [
-  "Jan", "Feb", "Mar", "Apr", "May", "Jun",
-  "Jul", "Aug", "Sep", "Oct", "Nov", "Dec",
+  "Jan",
+  "Feb",
+  "Mar",
+  "Apr",
+  "May",
+  "Jun",
+  "Jul",
+  "Aug",
+  "Sep",
+  "Oct",
+  "Nov",
+  "Dec",
 ];
 
 const DAY_LABELS = ["", "Mon", "", "Wed", "", "Fri", ""];
@@ -50,7 +60,7 @@ function getMostActiveMonth(weeks: ContributionWeek[]): string {
 function Stat({ label, value }: { label: string; value: string | number }) {
   return (
     <div className="flex flex-col gap-1">
-      <span className="font-display text-3xl font-black">{value}</span>
+      <span className="text-3xl font-black">{value}</span>
       <span className="text-muted-foreground font-mono text-xs tracking-widest uppercase">
         {label}
       </span>
@@ -93,7 +103,7 @@ export async function GitHubActivity() {
               return (
                 <div key={i} className="w-3 shrink-0">
                   {isNewMonth && (
-                    <span className="font-mono text-[10px] text-muted-foreground">
+                    <span className="text-muted-foreground font-mono text-[10px]">
                       {MONTH_NAMES[date.getMonth()]}
                     </span>
                   )}
@@ -108,7 +118,7 @@ export async function GitHubActivity() {
             <div className="flex w-8 flex-col gap-1">
               {DAY_LABELS.map((label, i) => (
                 <div key={i} className="flex h-3 items-center">
-                  <span className="font-mono text-[10px] text-muted-foreground">
+                  <span className="text-muted-foreground font-mono text-[10px]">
                     {label}
                   </span>
                 </div>
@@ -123,7 +133,7 @@ export async function GitHubActivity() {
                     key={day.date}
                     title={`${day.date}: ${day.contributionCount} contribution${day.contributionCount !== 1 ? "s" : ""}`}
                     className={cn(
-                      "h-3 w-3 rounded-sm",
+                      "size-3 rounded-sm",
                       getIntensityClass(day.contributionCount),
                     )}
                   />
@@ -134,16 +144,16 @@ export async function GitHubActivity() {
 
           {/* Legend */}
           <div className="mt-1 flex items-center justify-end gap-2">
-            <span className="font-mono text-[10px] text-muted-foreground">
+            <span className="text-muted-foreground font-mono text-[10px]">
               Less
             </span>
             {[0, 3, 6, 9, 12].map((count) => (
               <div
                 key={count}
-                className={cn("h-3 w-3 rounded-sm", getIntensityClass(count))}
+                className={cn("size-3 rounded-sm", getIntensityClass(count))}
               />
             ))}
-            <span className="font-mono text-[10px] text-muted-foreground">
+            <span className="text-muted-foreground font-mono text-[10px]">
               More
             </span>
           </div>

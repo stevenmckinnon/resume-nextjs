@@ -15,10 +15,10 @@ export const DATA: Resume = {
   location: "Glasgow, Scotland",
   locationLink: "https://www.google.com/maps/place/glasgow",
   description:
-    "Senior Lead Front-End Engineer at JPMorgan Chase. I lead the team behind the pattern library and UI platforms used across Risk Technology.",
+    "Senior Lead Front-End Engineer at JPMorgan Chase, building the UI foundations other teams ship on.",
   summary: `Front-end engineer for ${calculateYearsOfExperience(
     "2014-06-30",
-  )}+ years, 8 of them at JPMorgan Chase. I lead an 8-engineer team building Risk Technology's UI infrastructure: a pattern and component library on top of the firm's design system, plus BI tooling and application scaffolding, used by 20+ internal applications. I build accessible components that other teams ship on.`,
+  )}+ years, 8 of them at JPMorgan Chase. I lead an 8-engineer team building Risk Technology's UI infrastructure: a pattern and component library on top of the firm's design system, plus BI tooling and application scaffolding, used by 20+ internal applications. I care most about the parts that are hard to retrofit later — accessibility, API design, and sensible defaults.`,
   avatarUrl: "/me.jpg",
   skills: [
     {

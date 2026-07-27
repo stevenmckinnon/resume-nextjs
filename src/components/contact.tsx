@@ -1,7 +1,7 @@
 "use client";
 
 import BlurFade from "@/components/magicui/blur-fade";
-import { MagneticButton } from "@/components/magicui/magnetic-button";
+import { SectionHeading } from "@/components/section-heading";
 import { Button } from "@/components/ui/button";
 import {
   Form,
@@ -17,7 +17,7 @@ import { toast } from "sonner";
 import { cn } from "@/lib/utils";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { motion } from "framer-motion";
-import { BadgeCheck, Loader2, Send, Sparkles } from "lucide-react";
+import { BadgeCheck, Clock, Loader2, Send } from "lucide-react";
 import { useEffect, useRef, useState } from "react";
 import { useForm } from "react-hook-form";
 import * as z from "zod";
@@ -47,7 +47,7 @@ export type ContactFormData = z.infer<typeof schema>;
 
 const BLUR_FADE_DELAY = 0.04;
 
-export const Contact = () => {
+export const Contact = ({ number }: { number: number }) => {
   const [loading, setLoading] = useState(false);
   const [submitted, setSubmitted] = useState(false);
   const confettiRef = useRef<ConfettiRef>(null);
@@ -119,19 +119,19 @@ export const Contact = () => {
           >
             <BadgeCheck className="text-primary size-12" />
           </motion.div>
-          <h2 className="font-display relative text-3xl font-bold tracking-tighter sm:text-5xl">
-            Message Sent!
+          <h2 className="relative text-3xl font-bold tracking-tighter sm:text-5xl">
+            Message sent
           </h2>
-          <p className="text-muted-foreground max-w-md font-mono text-sm">
-            Thanks for getting in touch. I&apos;ll reply within a day.
+          <p className="text-muted-foreground max-w-md text-sm">
+            Thanks for getting in touch — I&apos;ll reply within 24 hours.
           </p>
           <Button
             onClick={() => setSubmitted(false)}
             variant="outline"
             size="lg"
-            className="lg:h-14 lg:text-lg"
+            className="active:scale-[0.96] lg:h-14 lg:text-lg"
           >
-            Send Another
+            Send another
           </Button>
         </motion.div>
         <Confetti
@@ -150,14 +150,7 @@ export const Contact = () => {
       <div className="relative grid grid-cols-1 gap-12 lg:grid-cols-2">
         <div className="flex flex-col justify-start space-y-6">
           <BlurFade delay={BLUR_FADE_DELAY * 2}>
-            <div className="border-primary/40 flex flex-row items-center gap-4 border-b pb-4 md:flex-col md:items-start md:border-b-0 md:border-l-4 md:pb-0 md:pl-8">
-              <span className="text-primary font-mono text-sm tracking-widest uppercase opacity-70">
-                08
-              </span>
-              <h2 className="font-display text-foreground text-xl font-black tracking-tight wrap-break-word uppercase md:text-2xl md:break-normal lg:text-3xl">
-                Contact
-              </h2>
-            </div>
+            <SectionHeading title="Contact" number={number} />
           </BlurFade>
           <BlurFade delay={BLUR_FADE_DELAY * 3}>
             <p className="text-muted-foreground max-w-md text-xl font-light">
@@ -166,7 +159,7 @@ export const Contact = () => {
           </BlurFade>
           <BlurFade delay={BLUR_FADE_DELAY * 4}>
             <div className="border-primary/20 bg-primary/5 flex items-center gap-3 rounded-lg border px-4 py-3">
-              <Sparkles className="text-primary h-5 w-5" />
+              <Clock className="text-primary size-5" strokeWidth={1.5} />
               <span className="text-muted-foreground text-sm">
                 I usually reply within{" "}
                 <span className="text-foreground font-semibold">24 hours</span>
@@ -178,15 +171,14 @@ export const Contact = () => {
         <div className="relative">
           <Form {...form}>
             <BlurFade delay={BLUR_FADE_DELAY * 4}>
-              <motion.form
+              {/* Panel radius is concentric with the inputs inside it: Input is
+                  rounded-lg (--radius), plus this panel's p-4. */}
+              <form
                 onSubmit={form.handleSubmit(onSubmit)}
-                className="group/form border-border/50 bg-card/50 hover:border-primary/30 space-y-6 rounded-2xl border p-6 backdrop-blur-sm transition-all duration-500 hover:shadow-[0_0_40px_color-mix(in_srgb,var(--color-primary)_10%,transparent)]"
+                className="border-border/50 bg-card/50 focus-within:border-primary/30 space-y-6 rounded-[calc(var(--radius)+1rem)] border p-4 backdrop-blur-sm transition-[border-color] duration-300"
                 noValidate
               >
-                {/* Form glow effect */}
-                <div className="from-primary/20 to-secondary/20 pointer-events-none absolute -inset-px mb-0 rounded-2xl bg-linear-to-br via-transparent opacity-0 transition-opacity duration-500 group-hover/form:opacity-100" />
-
-                <div className="relative grid grid-cols-1 gap-6 sm:grid-cols-2">
+                <div className="grid grid-cols-1 gap-6 sm:grid-cols-2">
                   <FormField
                     control={form.control}
                     name="name"
@@ -198,7 +190,7 @@ export const Contact = () => {
                             autoComplete="name"
                             placeholder="Your name"
                             required
-                            className="transition-all duration-300 focus:shadow-[0_0_20px_color-mix(in_srgb,var(--color-primary)_10%,transparent)]"
+                            className="transition-[box-shadow,border-color] duration-150 focus:shadow-[0_0_16px_color-mix(in_srgb,var(--color-primary)_10%,transparent)]"
                             {...field}
                           />
                         </FormControl>
@@ -218,7 +210,7 @@ export const Contact = () => {
                             autoComplete="email"
                             placeholder="Your email"
                             required
-                            className="transition-all duration-300 focus:shadow-[0_0_20px_color-mix(in_srgb,var(--color-primary)_10%,transparent)]"
+                            className="transition-[box-shadow,border-color] duration-150 focus:shadow-[0_0_16px_color-mix(in_srgb,var(--color-primary)_10%,transparent)]"
                             {...field}
                           />
                         </FormControl>
@@ -237,7 +229,7 @@ export const Contact = () => {
                         <Input
                           placeholder="What's this about?"
                           required
-                          className="transition-all duration-300 focus:shadow-[0_0_20px_color-mix(in_srgb,var(--color-primary)_10%,transparent)]"
+                          className="transition-[box-shadow,border-color] duration-150 focus:shadow-[0_0_16px_color-mix(in_srgb,var(--color-primary)_10%,transparent)]"
                           {...field}
                         />
                       </FormControl>
@@ -257,7 +249,7 @@ export const Contact = () => {
                             placeholder="Tell me about the role, the team, or what you're building..."
                             required
                             maxLength={1000}
-                            className="min-h-[150px] transition-all duration-300 focus:shadow-[0_0_20px_rgba(var(--primary),0.1)]"
+                            className="min-h-[150px] transition-[box-shadow,border-color] duration-150 focus:shadow-[0_0_16px_color-mix(in_srgb,var(--color-primary)_10%,transparent)]"
                             {...field}
                           />
                           <span
@@ -277,35 +269,25 @@ export const Contact = () => {
                   )}
                 />
 
-                <MagneticButton strength={20} className="w-full">
-                  <Button
-                    type="submit"
-                    disabled={loading}
-                    size="lg"
-                    className="group relative w-full overflow-hidden transition-all duration-300 lg:h-14 lg:text-lg"
-                  >
-                    {/* Button gradient animation */}
-                    <motion.div
-                      className="from-primary via-secondary to-primary absolute inset-0 bg-linear-to-r bg-size-[200%_100%]"
-                      animate={{
-                        backgroundPosition: loading ? ["0%", "100%"] : "0%",
-                      }}
-                      transition={{
-                        duration: 1,
-                        repeat: loading ? Infinity : 0,
-                      }}
-                    />
-                    <span className="relative z-10 flex items-center justify-center gap-2">
-                      {loading ? (
-                        <Loader2 className="h-5 w-5 animate-spin" />
-                      ) : (
-                        <Send className="h-5 w-5" />
-                      )}
-                      {loading ? "Sending..." : "Send Message"}
-                    </span>
-                  </Button>
-                </MagneticButton>
-              </motion.form>
+                <Button
+                  type="submit"
+                  disabled={loading}
+                  size="lg"
+                  className="w-full active:scale-[0.96] lg:h-14 lg:text-lg"
+                >
+                  <span className="flex items-center justify-center gap-2">
+                    {loading ? (
+                      <Loader2
+                        className="size-5 animate-spin"
+                        strokeWidth={2}
+                      />
+                    ) : (
+                      <Send className="size-5" strokeWidth={2} />
+                    )}
+                    {loading ? "Sending…" : "Send message"}
+                  </span>
+                </Button>
+              </form>
             </BlurFade>
           </Form>
         </div>

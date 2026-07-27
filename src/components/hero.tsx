@@ -1,6 +1,5 @@
 "use client";
 
-import { MagneticButton } from "@/components/magicui/magnetic-button";
 import { SpinnablePhoto } from "@/components/spinnable-photo";
 import { Button } from "@/components/ui/button";
 import { DATA } from "@/data/resume";
@@ -27,31 +26,24 @@ export const Hero = () => {
   const scale = useTransform(scrollYProgress, [0, 1], [1, 1.1]);
 
   // Split name for styling
-  const firstName = DATA.name.split(" ")[0].toUpperCase();
-  const lastName = DATA.name.split(" ")[1].toUpperCase();
+  const [firstName, lastName] = DATA.name.toUpperCase().split(" ");
 
-  // Simplified animation - removed rotateX for iOS performance
-  const letterAnimation: Variants = {
-    hidden: { y: 50, opacity: 0 },
+  // One entrance step. Chunks are staggered by the container below, so the
+  // sequence reads name → role → actions → socials rather than letter-by-letter.
+  const chunk: Variants = {
+    hidden: { y: 16, opacity: 0 },
     visible: {
       y: 0,
       opacity: 1,
-      transition: {
-        type: "spring",
-        damping: 20,
-        stiffness: 300,
-      },
+      transition: { type: "spring", duration: 0.6, bounce: 0 },
     },
   };
 
-  const containerAnimation: Variants = {
+  const stack: Variants = {
     hidden: { opacity: 0 },
     visible: {
       opacity: 1,
-      transition: {
-        staggerChildren: 0.04,
-        delayChildren: 0.1,
-      },
+      transition: { staggerChildren: 0.1, delayChildren: 0.1 },
     },
   };
 
@@ -59,134 +51,93 @@ export const Hero = () => {
     <section
       ref={heroRef}
       id="hero"
-      className="relative flex min-h-dvh flex-col justify-center overflow-hidden px-4 py-12 md:px-8 md:py-24 lg:px-16 lg:py-32"
+      className="relative flex min-h-dvh flex-col justify-center overflow-hidden py-20 md:py-24"
     >
-      {/* Background large text element for depth */}
-      <div className="font-display pointer-events-none absolute top-0 right-0 z-0 translate-x-[20%] -translate-y-[10%] text-[30vw] leading-none font-black tracking-tighter opacity-[0.02] select-none dark:opacity-[0.04]">
-        SM
+      {/* Oversized initials, purely decorative depth */}
+      <div className="pointer-events-none absolute top-0 right-0 z-0 translate-x-[20%] -translate-y-[10%] text-[30vw] leading-none font-black tracking-tighter opacity-[0.02] select-none dark:opacity-[0.04]">
+        {DATA.initials}
       </div>
 
-      {/* Decorative grid lines */}
-      <div className="pointer-events-none absolute inset-0 bg-[linear-gradient(to_right,var(--color-primary)/3_1px,transparent_1px),linear-gradient(to_bottom,var(--color-primary)/3_1px,transparent_1px)] mask-[radial-gradient(ellipse_80%_50%_at_50%_0%,#000_70%,transparent_110%)] bg-size-[4rem_4rem] dark:opacity-30" />
-
-      <div className="z-10 mx-auto grid w-full max-w-[1400px] grid-cols-1 items-center gap-8 md:grid-cols-2 md:gap-12 lg:grid-cols-2 lg:gap-24">
+      <div className="z-10 mx-auto grid w-full max-w-[1200px] grid-cols-1 items-center gap-12 px-6 md:grid-cols-2 md:gap-16 md:px-12 lg:px-24">
         <motion.div
-          className="order-2 flex flex-col items-center space-y-6 text-center md:order-1 md:items-start md:space-y-8 md:text-left lg:order-1"
-          variants={containerAnimation}
+          className="order-2 flex flex-col items-start space-y-8 text-left md:order-1"
+          variants={stack}
           initial="hidden"
           animate="visible"
-          viewport={{ once: true }}
         >
-          {/* Name Heading */}
-          <div className="relative">
-            <div className="overflow-hidden">
-              <motion.h1
-                aria-label={DATA.name}
-                className="font-display text-foreground text-5xl leading-[0.85] font-black tracking-tighter md:text-6xl lg:text-7xl xl:text-8xl"
-              >
-                <span className="block" aria-hidden="true">
-                  {firstName.split("").map((char, i) => (
-                    <motion.span
-                      key={`first-${char}-${i}`}
-                      variants={letterAnimation}
-                      className="from-foreground to-foreground/70 inline-block bg-linear-to-b bg-clip-text text-transparent"
-                    >
-                      {char}
-                    </motion.span>
-                  ))}
-                </span>
-                <span className="text-primary block" aria-hidden="true">
-                  {lastName.split("").map((char, i) => (
-                    <motion.span
-                      key={`last-${char}-${i}`}
-                      variants={letterAnimation}
-                      className="inline-block"
-                    >
-                      {char}
-                    </motion.span>
-                  ))}
-                </span>
-              </motion.h1>
-            </div>
-          </div>
+          {/* Name */}
+          <motion.h1
+            variants={chunk}
+            aria-label={DATA.name}
+            className="text-foreground text-5xl leading-[0.85] font-black tracking-tighter md:text-6xl lg:text-7xl xl:text-8xl"
+          >
+            <span
+              className="from-foreground to-foreground/70 block bg-linear-to-b bg-clip-text text-transparent"
+              aria-hidden="true"
+            >
+              {firstName}
+            </span>
+            <span className="text-primary block" aria-hidden="true">
+              {lastName}
+            </span>
+          </motion.h1>
 
-          {/* Description */}
-          <motion.div variants={letterAnimation} className="max-w-xl">
-            <p className="text-muted-foreground border-primary/30 pl-6 text-lg leading-relaxed font-light md:text-xl lg:border-l-2 lg:text-2xl">
-              {DATA.description}
-            </p>
+          {/* Role */}
+          <motion.p
+            variants={chunk}
+            className="border-primary/30 text-muted-foreground max-w-xl border-l-2 pl-6 text-lg/relaxed font-light md:text-xl lg:text-2xl"
+          >
+            {DATA.description}
+          </motion.p>
+
+          {/* Actions */}
+          <motion.div variants={chunk} className="flex flex-wrap gap-4">
+            <Button
+              size="lg"
+              nativeButton={false}
+              className="active:scale-[0.96] lg:h-14 lg:text-lg"
+              render={<Link href="#contact">Get in touch</Link>}
+            />
+
+            <Button
+              variant="outline"
+              size="lg"
+              nativeButton={false}
+              className="group active:scale-[0.96] lg:h-14 lg:text-lg"
+              render={
+                <a href="/api/cv" download="Steve McKinnon CV.pdf">
+                  <Download className="mr-2 size-4 transition-transform group-hover:-translate-y-0.5" />
+                  Download CV
+                </a>
+              }
+            />
           </motion.div>
 
-          {/* CTAs with Magnetic Effect */}
+          {/* Socials */}
           <motion.div
-            variants={letterAnimation}
-            className="flex flex-wrap justify-center gap-4 pt-4 md:justify-start"
+            variants={chunk}
+            className="-ml-3 flex items-center gap-1"
           >
-            <MagneticButton strength={30}>
-              <Button
-                size="lg"
-                nativeButton={false}
-                className="group relative overflow-hidden lg:h-14 lg:text-lg"
-                render={
-                  <Link href="#contact">
-                    <span className="relative z-10">Get in Touch</span>
-                  </Link>
-                }
-              />
-            </MagneticButton>
-
-            <MagneticButton strength={30}>
-              <Button
-                variant="outline"
-                size="lg"
-                nativeButton={false}
-                className="group lg:h-14 lg:text-lg"
-                render={
-                  <a href="/api/cv" download="Steve McKinnon CV.pdf">
-                    <Download className="mr-2 h-4 w-4 transition-transform group-hover:-translate-y-1" />
-                    Download CV
-                  </a>
-                }
-              />
-            </MagneticButton>
-          </motion.div>
-
-          {/* Socials - Horizontal list with hover effects */}
-          <motion.div
-            variants={letterAnimation}
-            className="flex items-center justify-center gap-1 pt-8 md:justify-start"
-          >
-            {socials.map((social, index) => (
-              <motion.div
+            {socials.map((social) => (
+              <Link
                 key={social.name}
-                initial={{ opacity: 0, y: 20 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ delay: 0.8 + index * 0.1 }}
+                href={social.url}
+                target="_blank"
+                rel="noopener noreferrer"
+                className={cn(
+                  "group relative flex items-center justify-center rounded-full p-3",
+                  "text-muted-foreground transition-colors duration-150",
+                  "hover:bg-primary/10 hover:text-primary",
+                )}
               >
-                <Link
-                  href={social.url}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className={cn(
-                    "group relative flex items-center justify-center rounded-full p-3",
-                    "text-muted-foreground transition-all duration-300",
-                    "hover:bg-primary/10 hover:text-primary",
-                  )}
-                >
-                  <social.icon className="h-5 w-5 transition-transform group-hover:scale-110" />
-                  <span className="sr-only">{social.name}</span>
-
-                  {/* Tooltip */}
-                  <span className="bg-card text-foreground pointer-events-none absolute -bottom-8 left-1/2 -translate-x-1/2 rounded px-2 py-1 font-mono text-xs whitespace-nowrap opacity-0 shadow-lg transition-opacity group-hover:opacity-100">
-                    {social.name}
-                  </span>
-                </Link>
-              </motion.div>
+                <social.icon className="size-5" />
+                <span className="sr-only">{social.name}</span>
+              </Link>
             ))}
           </motion.div>
         </motion.div>
 
-        {/* Profile Photo with touch-to-spin on mobile */}
+        {/* Profile Photo with drag-to-spin */}
         <SpinnablePhoto
           src={DATA.avatarUrl}
           alt={DATA.name}

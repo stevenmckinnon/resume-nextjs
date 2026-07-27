@@ -1,51 +1,53 @@
-import { describe, it, expect, vi } from 'vitest';
-import { Textarea } from '@/components/ui/textarea';
-import { render, screen, fireEvent } from '@/test/utils';
+import { describe, it, expect, vi } from "vitest";
+import { Textarea } from "@/components/ui/textarea";
+import { render, screen, fireEvent } from "@/test/utils";
 
-describe('Textarea Component', () => {
-  it('renders with default props', () => {
+describe("Textarea Component", () => {
+  it("renders with default props", () => {
     render(<Textarea />);
-    const textarea = screen.getByRole('textbox');
+    const textarea = screen.getByRole("textbox");
     expect(textarea).toBeInTheDocument();
-    expect(textarea).toHaveClass('flex field-sizing-content min-h-16 w-full resize-none rounded-2xl border border-transparent bg-input/50');
+    expect(textarea).toHaveClass(
+      "flex field-sizing-content min-h-16 w-full resize-none rounded-lg border border-transparent bg-input/50",
+    );
   });
 
-  it('renders with custom className', () => {
+  it("renders with custom className", () => {
     render(<Textarea className="custom-textarea" />);
-    const textarea = screen.getByRole('textbox');
-    expect(textarea).toHaveClass('custom-textarea');
+    const textarea = screen.getByRole("textbox");
+    expect(textarea).toHaveClass("custom-textarea");
   });
 
-  it('renders with placeholder', () => {
+  it("renders with placeholder", () => {
     render(<Textarea placeholder="Enter text" />);
-    const textarea = screen.getByPlaceholderText('Enter text');
+    const textarea = screen.getByPlaceholderText("Enter text");
     expect(textarea).toBeInTheDocument();
   });
 
-  it('handles value changes', () => {
+  it("handles value changes", () => {
     const handleChange = vi.fn();
     render(<Textarea onChange={handleChange} />);
-    const textarea = screen.getByRole('textbox');
-    
-    fireEvent.change(textarea, { target: { value: 'test value' } });
+    const textarea = screen.getByRole("textbox");
+
+    fireEvent.change(textarea, { target: { value: "test value" } });
     expect(handleChange).toHaveBeenCalledTimes(1);
   });
 
-  it('can be disabled', () => {
+  it("can be disabled", () => {
     render(<Textarea disabled />);
-    const textarea = screen.getByRole('textbox');
+    const textarea = screen.getByRole("textbox");
     expect(textarea).toBeDisabled();
   });
 
-  it('accepts rows attribute', () => {
+  it("accepts rows attribute", () => {
     render(<Textarea rows={5} />);
-    const textarea = screen.getByRole('textbox');
-    expect(textarea).toHaveAttribute('rows', '5');
+    const textarea = screen.getByRole("textbox");
+    expect(textarea).toHaveAttribute("rows", "5");
   });
 
-  it('forwards ref correctly', () => {
+  it("forwards ref correctly", () => {
     const ref = { current: null };
     render(<Textarea ref={ref} />);
     expect(ref.current).not.toBeNull();
   });
-}); 
+});

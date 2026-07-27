@@ -1,7 +1,5 @@
 "use client";
 
-import { useWebHaptics } from "web-haptics/react";
-
 import { cn } from "@/lib/utils";
 import {
   motion,
@@ -35,9 +33,7 @@ export const SpinnablePhoto = ({
   parallax,
 }: SpinnablePhotoProps) => {
   const [hasMounted, setHasMounted] = useState(false);
-  const isDesktop =
-    typeof window !== "undefined" && !("ontouchstart" in window);
-  const { trigger } = useWebHaptics({ debug: isDesktop });
+  const [canGrab, setCanGrab] = useState(false);
 
   useEffect(() => {
     setHasMounted(true);
@@ -45,12 +41,18 @@ export const SpinnablePhoto = ({
 
   const imageContainerRef = useRef<HTMLDivElement>(null);
   const hapticButtonRef = useRef<HTMLButtonElement>(null);
-  const pendingHapticRef = useRef<Array<{ duration: number; intensity: number }> | null>(null);
+  const pendingHapticRef = useRef<Array<{
+    duration: number;
+    intensity: number;
+  }> | null>(null);
 
-  const fireHaptic = useCallback((pattern: Array<{ duration: number; intensity: number }>) => {
-    pendingHapticRef.current = pattern;
-    hapticButtonRef.current?.click();
-  }, []);
+  const fireHaptic = useCallback(
+    (pattern: Array<{ duration: number; intensity: number }>) => {
+      pendingHapticRef.current = pattern;
+      hapticButtonRef.current?.click();
+    },
+    [],
+  );
 
   const rotation = useMotionValue(INITIAL_ROTATION);
   const smoothRotation = useSpring(rotation, { stiffness: 100, damping: 30 });
@@ -275,6 +277,20 @@ export const SpinnablePhoto = ({
     [moveDrag],
   );
 
+  // Only the outer band of the photo starts a spin (the centre stays free so
+  // touch devices can scroll through it). Show the grab cursor only there, so
+  // the affordance matches what actually happens on press.
+  const handleHoverMove = useCallback(
+    (e: MouseEvent) => {
+      const rect = imageContainerRef.current?.getBoundingClientRect();
+      if (!rect) return;
+      setCanGrab(isNearEdge(e.clientX, e.clientY, rect));
+    },
+    [isNearEdge],
+  );
+
+  const handleHoverLeave = useCallback(() => setCanGrab(false), []);
+
   const handleMouseUp = useCallback(() => {
     endDrag();
   }, [endDrag]);
@@ -293,6 +309,8 @@ export const SpinnablePhoto = ({
 
     // Mouse events - mousedown on element, move/up on document for drag outside
     element.addEventListener("mousedown", handleMouseDown);
+    element.addEventListener("mousemove", handleHoverMove);
+    element.addEventListener("mouseleave", handleHoverLeave);
     document.addEventListener("mousemove", handleMouseMove);
     document.addEventListener("mouseup", handleMouseUp);
 
@@ -301,6 +319,8 @@ export const SpinnablePhoto = ({
       element.removeEventListener("touchmove", handleTouchMove);
       element.removeEventListener("touchend", handleTouchEnd);
       element.removeEventListener("mousedown", handleMouseDown);
+      element.removeEventListener("mousemove", handleHoverMove);
+      element.removeEventListener("mouseleave", handleHoverLeave);
       document.removeEventListener("mousemove", handleMouseMove);
       document.removeEventListener("mouseup", handleMouseUp);
 
@@ -315,6 +335,8 @@ export const SpinnablePhoto = ({
     handleMouseDown,
     handleMouseMove,
     handleMouseUp,
+    handleHoverMove,
+    handleHoverLeave,
   ]);
 
   return (
@@ -328,19 +350,13 @@ export const SpinnablePhoto = ({
       animate={{ opacity: 1, scale: 1 }}
       transition={{ duration: 0.8, delay: 0.3 }}
       className={cn(
-        "relative order-1 mb-8 h-[280px] w-full md:order-2 md:mb-0 md:h-[400px] md:w-full lg:order-2 lg:mb-0 lg:h-[600px] lg:w-full",
+        `relative order-1 mb-8 h-[280px] w-full md:order-2 md:mb-0 md:h-[400px] md:w-full lg:order-2 lg:mb-0 lg:h-[600px] lg:w-full`,
         className,
       )}
     >
       {/* Hidden button used to fire haptics within a trusted user-gesture context */}
       <button
         ref={hapticButtonRef}
-        onClick={() => {
-          if (pendingHapticRef.current) {
-            trigger(pendingHapticRef.current);
-            pendingHapticRef.current = null;
-          }
-        }}
         aria-hidden="true"
         tabIndex={-1}
         className="sr-only"
@@ -353,13 +369,15 @@ export const SpinnablePhoto = ({
       <motion.div
         ref={imageContainerRef}
         className={cn(
-          "border-border bg-card/50 relative mx-auto h-full w-full max-w-[280px] cursor-grab rounded-2xl border-2 p-2 shadow-2xl backdrop-blur-sm transition-shadow duration-500 ease-out active:cursor-grabbing md:mx-0 md:max-w-none",
+          `border-border bg-card/50 relative mx-auto size-full max-w-[280px] rounded-2xl border-2 p-2 shadow-lg backdrop-blur-sm md:mx-0 md:max-w-none`,
+          canGrab ? `cursor-grab active:cursor-grabbing` : "cursor-default",
         )}
         style={{
           rotate: hasMounted ? smoothRotation : undefined,
         }}
       >
-        <div className="relative h-full w-full overflow-hidden rounded-[8px]">
+        {/* Inner radius is concentric with the frame: rounded-2xl minus the p-2. */}
+        <div className="relative size-full overflow-hidden rounded-lg">
           <Image
             alt={alt}
             src={src}
@@ -370,8 +388,7 @@ export const SpinnablePhoto = ({
             draggable={false}
           />
 
-          {/* Overlay gradient */}
-          <div className="from-background/80 pointer-events-none absolute inset-0 bg-linear-to-t via-transparent to-transparent opacity-40" />
+          <div className="image-outline pointer-events-none absolute inset-0" />
         </div>
       </motion.div>
 
@@ -383,9 +400,7 @@ export const SpinnablePhoto = ({
         className="border-border bg-card/90 absolute -right-4 bottom-1/4 hidden rounded-lg border px-4 py-2 shadow-xl backdrop-blur-sm md:block"
       >
         <p className="text-muted-foreground font-mono text-xs">Based in</p>
-        <p className="font-display text-foreground font-bold">
-          Glasgow, Scotland 🏴󠁧󠁢󠁳󠁣󠁴󠁿
-        </p>
+        <p className="text-foreground font-bold">Glasgow, Scotland 🏴󠁧󠁢󠁳󠁣󠁴󠁿</p>
       </motion.div>
     </motion.div>
   );

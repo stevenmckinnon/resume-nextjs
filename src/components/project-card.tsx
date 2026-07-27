@@ -1,7 +1,7 @@
 "use client";
+import { Icons } from "@/components/icons";
 import { iconMap } from "@/types/resume";
-import { GitHubLogoIcon } from "@radix-ui/react-icons";
-import { ExternalLinkIcon } from "lucide-react";
+import { ExternalLink } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
 
@@ -23,23 +23,23 @@ export const ProjectCard = ({
   image,
 }: ProjectCardProps) => {
   return (
-    <div className="group border-border bg-card hover:border-primary relative flex h-full flex-col overflow-hidden rounded-md border transition-all duration-300 hover:shadow-2xl">
+    <div className="group border-border bg-card hover:border-primary relative flex h-full flex-col overflow-hidden rounded-2xl border transition-[border-color,box-shadow] duration-300 hover:shadow-lg">
       {/* Image Section */}
       {image && (
-        <div className="border-border group-hover:border-primary/50 relative aspect-4/3 overflow-hidden border-b transition-colors">
+        <div className="border-border relative aspect-4/3 overflow-hidden border-b">
           <Link
             href={website}
             target="_blank"
             rel="noopener noreferrer"
             className="block cursor-pointer"
           >
-            <div className="bg-primary/20 pointer-events-none absolute inset-0 z-10 opacity-0 mix-blend-multiply transition-opacity group-hover:opacity-100" />
             <Image
               src={image}
               alt={title}
               fill
-              className="object-cover transition-all duration-500 group-hover:scale-105"
+              className="object-cover transition-transform duration-500 group-hover:scale-105"
             />
+            <div className="image-outline pointer-events-none absolute inset-0" />
           </Link>
         </div>
       )}
@@ -47,11 +47,11 @@ export const ProjectCard = ({
       {/* Content Section */}
       <div className="flex flex-1 flex-col space-y-4 p-6">
         <div className="space-y-2">
-          <h3 className="font-display group-hover:text-primary text-2xl font-bold tracking-tight transition-colors">
+          <h3 className="group-hover:text-primary text-2xl font-bold tracking-tight transition-colors">
             {title}
           </h3>
           {description && (
-            <p className="text-muted-foreground font-sans text-sm leading-relaxed">
+            <p className="text-muted-foreground font-sans text-sm/relaxed">
               {description}
             </p>
           )}
@@ -64,7 +64,7 @@ export const ProjectCard = ({
             return (
               <div
                 key={tag}
-                className="text-muted-foreground border-border bg-muted/50 flex items-center gap-1 rounded-md border px-2 py-1 font-mono text-xs"
+                className="border-border bg-muted/50 text-muted-foreground flex items-center gap-1 rounded-md border px-2 py-1 font-mono text-xs"
               >
                 {Icon && <Icon className="size-3" />}
                 <span>{tag}</span>
@@ -80,10 +80,10 @@ export const ProjectCard = ({
               href={website}
               target="_blank"
               rel="noopener noreferrer"
-              className="hover:text-primary flex items-center gap-2 text-sm font-bold tracking-wider uppercase transition-colors"
+              className="hover:text-primary flex items-center gap-2 text-sm font-semibold transition-colors"
             >
-              <ExternalLinkIcon className="size-4" />
-              Live Demo
+              <ExternalLink className="size-4" strokeWidth={2} />
+              Visit site
             </Link>
           )}
           {github && (
@@ -91,9 +91,9 @@ export const ProjectCard = ({
               href={github}
               target="_blank"
               rel="noopener noreferrer"
-              className="hover:text-primary ml-auto flex items-center gap-2 text-sm font-bold tracking-wider uppercase transition-colors"
+              className="hover:text-primary ml-auto flex items-center gap-2 text-sm font-semibold transition-colors"
             >
-              <GitHubLogoIcon className="size-4" />
+              <Icons.github className="size-4" />
               Source
             </Link>
           )}

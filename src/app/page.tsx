@@ -7,6 +7,7 @@ import { Hero } from "@/components/hero";
 import BlurFade from "@/components/magicui/blur-fade";
 import { ProjectCard } from "@/components/project-card";
 import { ResumeCard } from "@/components/resume-card";
+import { SectionHeading } from "@/components/section-heading";
 import { SimpleCard } from "@/components/simple-card";
 import { SkillsSection } from "@/components/skills-section";
 import { DATA } from "@/data/resume";
@@ -22,24 +23,17 @@ const Section = ({
 }: {
   id: string;
   title: string;
-  number: string;
+  number: number;
   children: React.ReactNode;
   className?: string;
 }) => (
   <section
     id={id}
-    className={`mb-24 grid grid-cols-1 gap-8 md:mb-32 md:grid-cols-[300px_1fr] md:gap-16 ${className}`}
+    className={`mb-24 grid grid-cols-1 gap-8 md:mb-32 md:grid-cols-[240px_1fr] md:gap-16 ${className} `}
   >
     <div className="h-fit md:sticky md:top-32">
       <BlurFade delay={BLUR_FADE_DELAY}>
-        <div className="border-primary/40 flex flex-row items-center gap-4 border-b pb-4 md:flex-col md:items-start md:border-b-0 md:border-l-4 md:pb-0 md:pl-8">
-          <span className="text-primary font-mono text-sm tracking-widest uppercase opacity-70">
-            {number}
-          </span>
-          <h2 className="font-display text-foreground text-xl font-black tracking-tight wrap-break-word uppercase md:text-2xl md:break-normal lg:text-3xl">
-            {title}
-          </h2>
-        </div>
+        <SectionHeading title={title} number={number} />
       </BlurFade>
     </div>
     <div className="flex flex-col gap-y-10">{children}</div>
@@ -51,7 +45,7 @@ export default function Page() {
     <>
       <Hero />
       <div className="mx-auto w-full max-w-[1200px] px-6 pb-24 md:px-12 lg:px-24">
-        <Section id="about" title="About" number="01">
+        <Section id="about" title="About" number={1}>
           <BlurFade delay={BLUR_FADE_DELAY * 2}>
             <div className="flex flex-col gap-6">
               <div className="text-muted-foreground flex items-center gap-2">
@@ -63,18 +57,18 @@ export default function Page() {
                   {DATA.location}
                 </Link>
               </div>
-              <div className="prose text-muted-foreground dark:prose-invert max-w-full text-lg leading-relaxed">
+              <div className="text-muted-foreground max-w-full text-lg/relaxed">
                 <Markdown>{DATA.summary}</Markdown>
               </div>
             </div>
           </BlurFade>
         </Section>
 
-        <Section id="skills" title="Skills" number="02">
+        <Section id="skills" title="Skills" number={2}>
           <SkillsSection />
         </Section>
 
-        <Section id="work" title="Experience" number="03">
+        <Section id="work" title="Experience" number={3}>
           {DATA.work.map((work, id) => (
             <BlurFade
               key={`${work.company}-${work.start}`}
@@ -95,7 +89,7 @@ export default function Page() {
           ))}
         </Section>
 
-        <Section id="education" title="Education" number="04">
+        <Section id="education" title="Education" number={4}>
           {DATA.education.map((education, id) => (
             <BlurFade
               key={education.school}
@@ -114,13 +108,10 @@ export default function Page() {
           ))}
         </Section>
 
-        <Section id="projects" title="Projects" number="05">
+        <Section id="projects" title="Projects" number={5}>
           <div className="grid grid-cols-1 gap-8 md:grid-cols-2">
             {DATA.projects?.map((project, id) => (
-              <BlurFade
-                key={project.name}
-                delay={BLUR_FADE_DELAY + id * 0.05}
-              >
+              <BlurFade key={project.name} delay={BLUR_FADE_DELAY + id * 0.05}>
                 <ProjectCard
                   title={project.name}
                   description={project.description}
@@ -134,11 +125,11 @@ export default function Page() {
           </div>
         </Section>
 
-        <Section id="github" title="GitHub" number="06">
+        <Section id="github" title="GitHub" number={6}>
           <GitHubActivity />
         </Section>
 
-        <Section id="other" title="Beyond Code" number="07">
+        <Section id="other" title="Beyond Code" number={7}>
           <div className="flex flex-col gap-4">
             {DATA.otherWork.map((work, id) => (
               <BlurFade
@@ -158,9 +149,7 @@ export default function Page() {
           </div>
         </Section>
 
-        <div className="mt-24">
-          <Contact />
-        </div>
+        <Contact number={8} />
       </div>
     </>
   );

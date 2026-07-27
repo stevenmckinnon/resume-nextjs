@@ -70,7 +70,7 @@ export default function NotFound() {
       </BlurFade>
 
       <BlurFade delay={0.15} animateOnLoad>
-        <h1 className="font-display relative text-[clamp(7rem,25vw,16rem)] leading-none font-black tracking-tighter select-none">
+        <h1 className="relative text-[clamp(7rem,25vw,16rem)] leading-none font-black tracking-tighter select-none">
           <GlitchText text="404" />
         </h1>
       </BlurFade>

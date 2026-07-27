@@ -62,24 +62,20 @@ export const ResumeCard = ({
       aria-expanded={description ? isExpanded : undefined}
       aria-controls={description ? descriptionId : undefined}
       className={cn(
-        "group hover:border-primary focus-visible:ring-ring/50 relative border-l-2 border-transparent pl-4 transition-all duration-300 focus-visible:ring-2 focus-visible:outline-none",
+        `group hover:border-primary focus-visible:ring-ring/50 relative border-l-2 border-transparent pl-4 transition-colors duration-300 focus-visible:ring-2 focus-visible:outline-none`,
         description && "cursor-pointer",
         isExpanded ? "border-primary" : "border-border/40",
       )}
     >
       <div className="flex items-start gap-4">
-        <Avatar className="border-border bg-muted-background dark:bg-foreground size-12 border">
-          <AvatarImage
-            src={logoUrl}
-            alt={altText}
-            className="object-cover transition-all duration-300"
-          />
+        <Avatar className="bg-muted-foreground dark:bg-foreground size-12">
+          <AvatarImage src={logoUrl} alt={altText} className="object-cover" />
           <AvatarFallback>{altText[0]}</AvatarFallback>
         </Avatar>
 
         <div className="flex-1 space-y-1">
           <div className="flex flex-col gap-1 sm:flex-row sm:items-baseline sm:justify-between">
-            <h3 className="font-display text-foreground group-hover:text-primary text-lg font-bold transition-colors">
+            <h3 className="text-foreground group-hover:text-primary text-lg font-bold transition-colors">
               {href ? (
                 <Link
                   href={href}
@@ -118,44 +114,52 @@ export const ResumeCard = ({
               ))}
             </div>
           )}
-
-          <motion.div
-            id={descriptionId}
-            initial={false}
-            animate={{
-              height: isExpanded ? "auto" : 0,
-              opacity: isExpanded ? 1 : 0,
-            }}
-            transition={{ duration: 0.3, ease: [0.23, 1, 0.32, 1] }}
-            className="overflow-hidden"
-            aria-hidden={!isExpanded}
-          >
-            <div className="text-muted-foreground/90 border-border/40 mt-4 border-t pt-4 font-sans text-sm leading-relaxed">
-              {Array.isArray(description) ? (
-                <ul className="space-y-1.5">
-                  {description.map((item, i) => (
-                    <li key={i} className="flex gap-2">
-                      <span className="text-primary mt-1.5 shrink-0 text-[8px]">▸</span>
-                      <span>{item}</span>
-                    </li>
-                  ))}
-                </ul>
-              ) : (
-                description
-              )}
-            </div>
-          </motion.div>
         </div>
 
         {description && (
           <ChevronRightIcon
             className={cn(
-              "text-muted-foreground/50 group-hover:text-primary size-5 transition-transform duration-300",
+              `text-muted-foreground/50 group-hover:text-primary size-5 transition-transform duration-300`,
               isExpanded ? "rotate-90" : "rotate-0",
             )}
           />
         )}
       </div>
+
+      {/* Sits outside the header row so it clears the avatar's 64px offset.
+          On mobile that offset costs a fifth of the available measure; from
+          sm up there is room to spare, so it realigns under the title. */}
+      <motion.div
+        id={descriptionId}
+        initial={false}
+        animate={{
+          height: isExpanded ? "auto" : 0,
+          opacity: isExpanded ? 1 : 0,
+        }}
+        transition={{ duration: 0.3, ease: [0.23, 1, 0.32, 1] }}
+        className="overflow-hidden sm:pl-16"
+        aria-hidden={!isExpanded}
+      >
+        <div className="border-border/40 text-muted-foreground/90 mt-4 border-t pt-4 font-sans text-sm/relaxed">
+          {Array.isArray(description) ? (
+            // Rule above stays full-bleed; the prose is capped so the wide
+            // desktop column doesn't push lines past a readable measure.
+            <ul className="max-w-[68ch] space-y-2">
+              {description.map((item, i) => (
+                <li key={i} className="flex gap-3">
+                  <span
+                    aria-hidden="true"
+                    className="bg-primary/70 mt-2 size-1 shrink-0 rounded-full"
+                  />
+                  <span>{item}</span>
+                </li>
+              ))}
+            </ul>
+          ) : (
+            description
+          )}
+        </div>
+      </motion.div>
     </div>
   );
 };

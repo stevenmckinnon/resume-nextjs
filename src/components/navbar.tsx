@@ -1,5 +1,9 @@
 "use client";
 
+import {
+  useCommandPalette,
+  useShortcutLabel,
+} from "@/components/command-palette";
 import { Dock, DockIcon } from "@/components/magicui/dock";
 import { ModeToggle } from "@/components/mode-toggle";
 import { buttonVariants } from "@/components/ui/button";
@@ -17,12 +21,15 @@ import {
   useMotionValueEvent,
   useScroll,
 } from "framer-motion";
+import { SearchIcon } from "lucide-react";
 import Link from "next/link";
 import { useEffect, useState } from "react";
 
 export default function Navbar() {
   const { scrollY } = useScroll();
   const [isVisible, setIsVisible] = useState(false);
+  const commandPalette = useCommandPalette();
+  const shortcutLabel = useShortcutLabel();
 
   const checkVisibility = (latestScrollY: number) => {
     if (typeof window !== "undefined") {
@@ -77,6 +84,32 @@ export default function Navbar() {
                 </Tooltip>
               </DockIcon>
             ))}
+            <Separator
+              orientation="vertical"
+              className="h-full bg-white/20 dark:bg-gray-700/20"
+            />
+            <DockIcon>
+              <Tooltip>
+                <TooltipTrigger
+                  render={
+                    <button
+                      type="button"
+                      onClick={commandPalette.open}
+                      className={cn(
+                        buttonVariants({ variant: "ghost", size: "icon" }),
+                        "hover:bg-muted/80 size-12 cursor-pointer rounded-full bg-transparent transition-colors duration-300",
+                      )}
+                    >
+                      <SearchIcon className="size-4" />
+                      <span className="sr-only">Open command palette</span>
+                    </button>
+                  }
+                />
+                <TooltipContent>
+                  <p>Search · {shortcutLabel}</p>
+                </TooltipContent>
+              </Tooltip>
+            </DockIcon>
             <Separator
               orientation="vertical"
               className="hidden h-full bg-white/20 sm:block dark:bg-gray-700/20"

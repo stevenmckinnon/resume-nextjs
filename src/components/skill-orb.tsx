@@ -13,7 +13,7 @@ interface SkillOrbProps {
 export const SkillOrb = ({ name, icon: Icon, className }: SkillOrbProps) => (
   <div
     className={cn(
-      `border-border/60 bg-card/60 flex items-center gap-2 rounded-full border px-4 py-2 backdrop-blur-sm`,
+      `border-border/60 bg-card/60 flex items-center gap-2 rounded-md border px-3 py-1.5 backdrop-blur-sm`,
       className,
     )}
   >

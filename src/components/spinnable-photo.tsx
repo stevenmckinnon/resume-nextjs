@@ -350,7 +350,7 @@ export const SpinnablePhoto = ({
       animate={{ opacity: 1, scale: 1 }}
       transition={{ duration: 0.8, delay: 0.3 }}
       className={cn(
-        `relative order-1 mb-8 h-[280px] w-full md:order-2 md:mb-0 md:h-[400px] md:w-full lg:order-2 lg:mb-0 lg:h-[600px] lg:w-full`,
+        `relative order-1 h-[260px] w-full md:order-2 md:h-[400px] lg:h-[600px]`,
         className,
       )}
     >

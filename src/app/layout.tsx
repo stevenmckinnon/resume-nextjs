@@ -14,9 +14,15 @@ import { Manrope, Syne } from "next/font/google";
 
 import "./globals.css";
 
+// These deliberately do NOT claim the --font-sans / --font-mono names. Those are
+// Tailwind theme tokens, and a token defined as `var(--font-sans)` that resolves
+// against a property of the same name is a circular reference: the declaration
+// is dropped and the typeface silently never applies. Keep the loader variables
+// and the theme tokens on separate names, and map one to the other in
+// globals.css.
 const fontSans = Manrope({
   subsets: ["latin"],
-  variable: "--font-sans",
+  variable: "--font-manrope",
   display: "swap",
   preload: true,
   weight: ["400", "500", "600", "700", "800"],
@@ -24,7 +30,7 @@ const fontSans = Manrope({
 
 const fontMono = Syne({
   subsets: ["latin"],
-  variable: "--font-mono",
+  variable: "--font-syne",
   display: "swap",
   preload: false,
 });
@@ -102,14 +108,14 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en" suppressHydrationWarning>
-      <body
-        className={cn(
-          `bg-background selection:bg-primary selection:text-primary-foreground relative mx-auto min-h-dvh pb-16 font-sans antialiased sm:pb-24`,
-          fontSans.variable,
-          fontMono.variable,
-        )}
-      >
+    // The font variables live on <html> rather than <body> so the
+    // `html { @apply font-sans }` rule in globals.css can resolve them.
+    <html
+      lang="en"
+      className={cn(fontSans.variable, fontMono.variable)}
+      suppressHydrationWarning
+    >
+      <body className="bg-background selection:bg-primary selection:text-primary-foreground relative mx-auto min-h-dvh pb-16 font-sans antialiased sm:pb-24">
         <ThemeProvider enableSystem attribute="class" defaultTheme="dark">
           <TooltipProvider delay={0}>
             <CommandPaletteProvider>

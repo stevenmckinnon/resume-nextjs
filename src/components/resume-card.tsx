@@ -62,9 +62,9 @@ export const ResumeCard = ({
       aria-expanded={description ? isExpanded : undefined}
       aria-controls={description ? descriptionId : undefined}
       className={cn(
-        `group hover:border-primary focus-visible:ring-ring/50 relative border-l-2 border-transparent pl-4 transition-colors duration-300 focus-visible:ring-2 focus-visible:outline-none`,
+        `group hover:border-primary-accent focus-visible:ring-ring/50 relative border-l-2 border-transparent pl-4 transition-colors duration-300 focus-visible:ring-2 focus-visible:outline-none`,
         description && "cursor-pointer",
-        isExpanded ? "border-primary" : "border-border/40",
+        isExpanded ? "border-primary-accent" : "border-border/40",
       )}
     >
       <div className="flex items-start gap-4">
@@ -75,7 +75,7 @@ export const ResumeCard = ({
 
         <div className="flex-1 space-y-1">
           <div className="flex flex-col gap-1 sm:flex-row sm:items-baseline sm:justify-between">
-            <h3 className="text-foreground group-hover:text-primary text-lg font-bold transition-colors">
+            <h3 className="text-foreground group-hover:text-primary-accent text-lg font-bold transition-colors">
               {href ? (
                 <Link
                   href={href}
@@ -119,7 +119,7 @@ export const ResumeCard = ({
         {description && (
           <ChevronRightIcon
             className={cn(
-              `text-muted-foreground/50 group-hover:text-primary size-5 transition-transform duration-300`,
+              `text-muted-foreground/50 group-hover:text-primary-accent size-5 transition-transform duration-300`,
               isExpanded ? "rotate-90" : "rotate-0",
             )}
           />
@@ -149,7 +149,7 @@ export const ResumeCard = ({
                 <li key={i} className="flex gap-3">
                   <span
                     aria-hidden="true"
-                    className="bg-primary/70 mt-2 size-1 shrink-0 rounded-full"
+                    className="bg-primary-accent/70 mt-2 size-1 shrink-0 rounded-full"
                   />
                   <span>{item}</span>
                 </li>

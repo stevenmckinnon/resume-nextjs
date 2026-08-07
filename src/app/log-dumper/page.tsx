@@ -163,7 +163,7 @@ const DemoContent = () => {
             className="mb-6 inline-flex items-center justify-center"
           >
             <div className="bg-primary/10 rounded-full p-4">
-              <Logs className="text-primary h-12 w-12" />
+              <Logs className="text-primary-accent h-12 w-12" />
             </div>
           </motion.div>
           <h1 className="mb-4 text-5xl font-bold tracking-tight md:text-6xl lg:text-7xl">

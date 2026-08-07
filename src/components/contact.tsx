@@ -109,7 +109,7 @@ export const Contact = ({ number }: { number: number }) => {
           initial={{ scale: 0.8, opacity: 0 }}
           animate={{ scale: 1, opacity: 1 }}
           transition={{ type: "spring", duration: 0.6 }}
-          className="border-primary bg-card relative z-10 flex flex-col items-center gap-6 rounded-2xl border-2 p-12 text-center shadow-[0_0_60px_color-mix(in_srgb,var(--color-primary)_20%,transparent)]"
+          className="border-primary-accent bg-card relative z-10 flex flex-col items-center gap-6 rounded-2xl border-2 p-12 text-center shadow-[0_0_60px_color-mix(in_srgb,var(--color-primary)_20%,transparent)]"
         >
           <motion.div
             initial={{ scale: 0 }}
@@ -117,7 +117,7 @@ export const Contact = ({ number }: { number: number }) => {
             transition={{ delay: 0.2, type: "spring" }}
             className="bg-primary/10 rounded-full p-4"
           >
-            <BadgeCheck className="text-primary size-12" />
+            <BadgeCheck className="text-primary-accent size-12" />
           </motion.div>
           <h2 className="relative text-3xl font-bold tracking-tighter sm:text-5xl">
             Message sent
@@ -158,8 +158,8 @@ export const Contact = ({ number }: { number: number }) => {
             </p>
           </BlurFade>
           <BlurFade delay={BLUR_FADE_DELAY * 4}>
-            <div className="border-primary/20 bg-primary/5 flex items-center gap-3 rounded-lg border px-4 py-3">
-              <Clock className="text-primary size-5" strokeWidth={1.5} />
+            <div className="border-primary-accent/20 bg-primary/5 flex items-center gap-3 rounded-lg border px-4 py-3">
+              <Clock className="text-primary-accent size-5" strokeWidth={1.5} />
               <span className="text-muted-foreground text-sm">
                 I usually reply within{" "}
                 <span className="text-foreground font-semibold">24 hours</span>
@@ -175,7 +175,7 @@ export const Contact = ({ number }: { number: number }) => {
                   rounded-lg (--radius), plus this panel's p-4. */}
               <form
                 onSubmit={form.handleSubmit(onSubmit)}
-                className="border-border/50 bg-card/50 focus-within:border-primary/30 space-y-6 rounded-[calc(var(--radius)+1rem)] border p-4 backdrop-blur-sm transition-[border-color] duration-300"
+                className="border-border/50 bg-card/50 focus-within:border-primary-accent/30 space-y-6 rounded-[calc(var(--radius)+1rem)] border p-4 backdrop-blur-sm transition-[border-color] duration-300"
                 noValidate
               >
                 <div className="grid grid-cols-1 gap-6 sm:grid-cols-2">

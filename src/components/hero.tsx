@@ -51,16 +51,16 @@ export const Hero = () => {
     <section
       ref={heroRef}
       id="hero"
-      className="relative flex min-h-dvh flex-col justify-center overflow-hidden py-20 md:py-24"
+      className="relative flex min-h-dvh flex-col justify-center overflow-hidden py-12 md:py-24"
     >
       {/* Oversized initials, purely decorative depth */}
       <div className="pointer-events-none absolute top-0 right-0 z-0 translate-x-[20%] -translate-y-[10%] text-[30vw] leading-none font-black tracking-tighter opacity-[0.02] select-none dark:opacity-[0.04]">
         {DATA.initials}
       </div>
 
-      <div className="z-10 mx-auto grid w-full max-w-[1200px] grid-cols-1 items-center gap-12 px-6 md:grid-cols-2 md:gap-16 md:px-12 lg:px-24">
+      <div className="z-10 mx-auto grid w-full max-w-[1200px] grid-cols-1 items-center gap-8 px-6 md:grid-cols-2 md:gap-16 md:px-12 lg:px-24">
         <motion.div
-          className="order-2 flex flex-col items-start space-y-8 text-left md:order-1"
+          className="order-2 flex flex-col items-start space-y-6 text-left md:order-1 md:space-y-8"
           variants={stack}
           initial="hidden"
           animate="visible"
@@ -85,7 +85,7 @@ export const Hero = () => {
           {/* Role */}
           <motion.p
             variants={chunk}
-            className="border-primary/30 text-muted-foreground max-w-xl border-l-2 pl-6 text-lg/relaxed font-light md:text-xl lg:text-2xl"
+            className="border-primary-accent/30 text-muted-foreground max-w-xl border-l-2 pl-6 text-lg/relaxed font-light md:text-xl lg:text-2xl"
           >
             {DATA.description}
           </motion.p>
@@ -127,7 +127,7 @@ export const Hero = () => {
                 className={cn(
                   "group relative flex items-center justify-center rounded-full p-3",
                   "text-muted-foreground transition-colors duration-150",
-                  "hover:bg-primary/10 hover:text-primary",
+                  "hover:bg-primary/10 hover:text-primary-accent",
                 )}
               >
                 <social.icon className="size-5" />

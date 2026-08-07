@@ -50,7 +50,7 @@ function GlitchText({ text }: { text: string }) {
     <span
       className={
         isGlitching
-          ? "text-primary/80 transition-none"
+          ? "text-primary-accent/80 transition-none"
           : "transition-colors duration-300"
       }
     >
@@ -64,7 +64,7 @@ export default function NotFound() {
     <div className="relative flex min-h-dvh flex-col items-center justify-center px-6">
       {/* Section label — mimics the site's section numbering */}
       <BlurFade delay={0.05} animateOnLoad>
-        <span className="text-primary mb-6 block font-mono text-sm tracking-widest uppercase opacity-70">
+        <span className="text-primary-accent mb-6 block font-mono text-sm tracking-widest uppercase">
           Error
         </span>
       </BlurFade>
@@ -76,7 +76,7 @@ export default function NotFound() {
       </BlurFade>
 
       <BlurFade delay={0.25} animateOnLoad>
-        <div className="border-primary/40 my-8 w-24 border-t" />
+        <div className="border-primary-accent/40 my-8 w-24 border-t" />
       </BlurFade>
 
       <BlurFade delay={0.35} animateOnLoad>
@@ -94,7 +94,7 @@ export default function NotFound() {
         >
           <Link
             href="/"
-            className="text-primary hover:text-primary/70 flex items-center gap-2 font-mono text-sm tracking-widest uppercase transition-colors"
+            className="text-primary-accent hover:text-primary-accent/70 flex items-center gap-2 font-mono text-sm tracking-widest uppercase transition-colors"
           >
             <span className="text-xs">←</span>
             Back to home

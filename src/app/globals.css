@@ -27,48 +27,11 @@ html {
   }
 }
 
+/* Keyframes and animation tokens only. Every colour, radius and font token is
+   defined once, in the `@theme inline` block further down — this block used to
+   carry a second, `hsl()`-wrapped copy of all of them that the later block
+   silently overrode. */
 @theme {
-  --font-sans:
-    var(--font-sans), ui-sans-serif, system-ui, sans-serif, "Apple Color Emoji",
-    "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
-
-  --color-border: hsl(var(--border));
-  --color-input: hsl(var(--input));
-  --color-ring: hsl(var(--ring));
-  --color-background: hsl(var(--background));
-  --color-foreground: hsl(var(--foreground));
-
-  --color-primary: hsl(var(--primary));
-  --color-primary-foreground: hsl(var(--primary-foreground));
-
-  --color-secondary: hsl(var(--secondary));
-  --color-secondary-foreground: hsl(var(--secondary-foreground));
-
-  --color-destructive: hsl(var(--destructive));
-  --color-destructive-foreground: hsl(var(--destructive-foreground));
-
-  --color-muted: hsl(var(--muted));
-  --color-muted-foreground: hsl(var(--muted-foreground));
-
-  --color-accent: hsl(var(--accent));
-  --color-accent-foreground: hsl(var(--accent-foreground));
-
-  --color-popover: hsl(var(--popover));
-  --color-popover-foreground: hsl(var(--popover-foreground));
-
-  --color-card: hsl(var(--card));
-  --color-card-foreground: hsl(var(--card-foreground));
-
-  --color-color-1: hsl(var(--color-1));
-  --color-color-2: hsl(var(--color-2));
-  --color-color-3: hsl(var(--color-3));
-  --color-color-4: hsl(var(--color-4));
-  --color-color-5: hsl(var(--color-5));
-
-  --radius-lg: var(--radius);
-  --radius-md: calc(var(--radius) - 2px);
-  --radius-sm: calc(var(--radius) - 4px);
-
   --animate-accordion-down: accordion-down 0.2s ease-out;
   --animate-accordion-up: accordion-up 0.2s ease-out;
   --animate-ripple: ripple var(--duration, 2s) ease calc(var(--i, 0) * 0.2s)
@@ -276,89 +239,6 @@ html {
   }
 }
 
-@layer base {
-  :root {
-    --background: 0 0% 100%;
-    --foreground: 220 70% 13%;
-
-    --card: 0 0% 100%;
-    --card-foreground: 220 70% 13%;
-
-    --popover: 0 0% 100%;
-    --popover-foreground: 220 70% 13%;
-
-    --primary: 220 70% 13%;
-    --primary-foreground: 0 0% 98%;
-
-    --secondary: 217 70% 95%;
-    --secondary-foreground: 220 70% 13%;
-
-    --muted: 217 70% 95%;
-    --muted-foreground: 220 40% 40%;
-
-    --accent: 217 70% 95%;
-    --accent-foreground: 220 70% 13%;
-
-    --destructive: 0 84.2% 60.2%;
-    --destructive-foreground: 0 0% 98%;
-
-    --border: 217 70% 85%;
-    --input: 217 70% 85%;
-    --ring: 220 70% 40%;
-
-    --radius: 0.5rem;
-
-    --color-1: 0 100% 63%;
-    --color-2: 270 100% 63%;
-    --color-3: 210 100% 63%;
-    --color-4: 195 100% 63%;
-    --color-5: 90 100% 63%;
-  }
-
-  .dark {
-    --background: 220 70% 13%;
-    --foreground: 0 0% 98%;
-
-    --card: 220 70% 13%;
-    --card-foreground: 0 0% 98%;
-
-    --popover: 220 70% 13%;
-    --popover-foreground: 0 0% 98%;
-
-    --primary: 0 0% 98%;
-    --primary-foreground: 0 0% 9%;
-
-    --secondary: 217 70% 18%;
-    --secondary-foreground: 0 0% 98%;
-
-    --muted: 217 70% 18%;
-    --muted-foreground: 215 20% 75%;
-
-    --accent: 217 70% 18%;
-    --accent-foreground: 0 0% 98%;
-
-    --destructive: 0 62.8% 30.6%;
-    --destructive-foreground: 0 0% 98%;
-
-    --border: 217 70% 25%;
-    --input: 217 70% 25%;
-    --ring: 224 76% 83%;
-    --color-1: 0 100% 63%;
-    --color-2: 270 100% 63%;
-    --color-3: 210 100% 63%;
-    --color-4: 195 100% 63%;
-    --color-5: 90 100% 63%;
-  }
-}
-
-@layer base {
-  * {
-    @apply border-border;
-  }
-  body {
-    @apply bg-background text-foreground;
-  }
-}
 
 h3 code {
   @apply text-lg! md:text-xl!;
@@ -433,9 +313,16 @@ code[data-line-numbers-max-digits="3"] > [data-line]::before {
 */
 
 @theme inline {
-  --font-sans: DM Sans, sans-serif;
-  --font-mono: Space Mono, monospace;
-  --font-serif: DM Sans, sans-serif;
+  /* Mapped from the next/font loader variables set on <html> in layout.tsx.
+     These used to name DM Sans and Space Mono, neither of which the app loads,
+     so every utility fell through to the generic system fallback. */
+  --font-sans:
+    var(--font-manrope), ui-sans-serif, system-ui, sans-serif,
+    "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
+  --font-mono: var(--font-syne), ui-monospace, monospace;
+  --font-serif:
+    var(--font-manrope), ui-sans-serif, system-ui, sans-serif,
+    "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
   /* Must match the :root/.dark --radius below. This value bakes the whole
      rounded-* utility scale at build time, so if it drifts from the runtime
      token, `rounded-lg` and `calc(var(--radius))` silently disagree and any
@@ -489,6 +376,7 @@ code[data-line-numbers-max-digits="3"] > [data-line]::before {
   --color-secondary: var(--secondary);
   --color-primary-foreground: var(--primary-foreground);
   --color-primary: var(--primary);
+  --color-primary-accent: var(--primary-accent);
   --color-popover-foreground: var(--popover-foreground);
   --color-popover: var(--popover);
   --color-card-foreground: var(--card-foreground);
@@ -504,7 +392,9 @@ code[data-line-numbers-max-digits="3"] > [data-line]::before {
   --radius-md: calc(var(--radius) - 2px);
   --radius-lg: var(--radius);
   --radius-xl: calc(var(--radius) + 4px);
-  --font-heading: var(--font-sans);
+  --font-heading:
+    var(--font-manrope), ui-sans-serif, system-ui, sans-serif,
+    "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
   --radius-2xl: calc(var(--radius) + 8px);
   --radius-3xl: calc(var(--radius) + 12px);
   --radius-4xl: calc(var(--radius) + 16px);
@@ -521,6 +411,12 @@ code[data-line-numbers-max-digits="3"] > [data-line]::before {
   --popover-foreground: oklch(0.145 0 0);
   --primary: oklch(0.505 0.213 27.518);
   --primary-foreground: oklch(0.971 0.013 17.38);
+  /* `--primary` is the solid fill (buttons, chips). `--primary-accent` is the
+     same brand red used AS FOREGROUND on a page or card surface. They are
+     separate because one value cannot serve both on a dark background: dark
+     enough for near-white button text to pass AA is far too dark to read as
+     text itself. On white the fill is already 6.4:1, so light mode shares it. */
+  --primary-accent: var(--primary);
   --secondary: oklch(0.967 0.001 286.375);
   --secondary-foreground: oklch(0.21 0.006 285.885);
   --muted: oklch(0.97 0 0);
@@ -546,9 +442,6 @@ code[data-line-numbers-max-digits="3"] > [data-line]::before {
   --sidebar-accent-foreground: oklch(0.205 0 0);
   --sidebar-border: oklch(0.922 0 0);
   --sidebar-ring: oklch(0.708 0 0);
-  --font-sans: DM Sans, sans-serif;
-  --font-serif: DM Sans, sans-serif;
-  --font-mono: Space Mono, monospace;
   --shadow-color: #1a1a1a;
   --shadow-opacity: 0.05;
   --shadow-blur: 0px;
@@ -592,8 +485,14 @@ code[data-line-numbers-max-digits="3"] > [data-line]::before {
   --card-foreground: oklch(0.985 0 0);
   --popover: oklch(0.205 0 0);
   --popover-foreground: oklch(0.985 0 0);
-  --primary: oklch(0.444 0.177 26.899);
+  /* Lifted from oklch(0.444 …), which sat at 2.4:1 against the page and read as
+     near-maroon. 3.5:1 clears the 3:1 bar for a UI component boundary, and the
+     near-white label on it is 5.1:1. */
+  --primary: oklch(0.54 0.21 27);
   --primary-foreground: oklch(0.971 0.013 17.38);
+  /* 5.4:1 on --background and 4.9:1 on --card. The fill above is 3.5:1, still
+     too low for text, which is why the two are separate tokens. */
+  --primary-accent: oklch(0.64 0.19 27);
   --secondary: oklch(0.274 0.006 286.033);
   --secondary-foreground: oklch(0.985 0 0);
   --muted: oklch(0.269 0 0);
@@ -621,9 +520,6 @@ code[data-line-numbers-max-digits="3"] > [data-line]::before {
   --sidebar-accent-foreground: oklch(0.985 0 0);
   --sidebar-border: oklch(1 0 0 / 10%);
   --sidebar-ring: oklch(0.556 0 0);
-  --font-sans: DM Sans, sans-serif;
-  --font-serif: DM Sans, sans-serif;
-  --font-mono: Space Mono, monospace;
   --shadow-color: #1a1a1a;
   --shadow-opacity: 0.05;
   --shadow-blur: 0px;
@@ -657,11 +553,3 @@ code[data-line-numbers-max-digits="3"] > [data-line]::before {
   ---break---
 */
 
-@layer base {
-  * {
-    @apply border-border outline-ring/50;
-  }
-  body {
-    @apply bg-background text-foreground;
-  }
-}

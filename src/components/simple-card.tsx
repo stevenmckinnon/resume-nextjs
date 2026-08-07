@@ -26,7 +26,7 @@ export const SimpleCard = ({
       rel="noopener noreferrer"
       className="group block"
     >
-      <div className="border-border/50 bg-card hover:border-primary flex items-center gap-4 rounded-2xl border p-4 transition-colors duration-300">
+      <div className="border-border/50 bg-card hover:border-primary-accent flex items-center gap-4 rounded-2xl border p-4 transition-colors duration-300">
         <Avatar className="bg-muted-foreground dark:bg-foreground size-12">
           <AvatarImage src={logoUrl} alt={altText} className="object-cover" />
           <AvatarFallback>{altText[0]}</AvatarFallback>
@@ -34,7 +34,7 @@ export const SimpleCard = ({
         <div className="min-w-0 flex-1">
           <div className="flex flex-col gap-1">
             <div className="flex flex-col gap-1 md:flex-row md:items-baseline md:justify-between">
-              <h3 className="group-hover:text-primary truncate text-base font-bold transition-colors">
+              <h3 className="group-hover:text-primary-accent truncate text-base font-bold transition-colors">
                 {title}
               </h3>
               <span className="text-muted-foreground shrink-0 font-mono text-xs">

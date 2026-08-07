@@ -43,7 +43,7 @@ describe('Button Component', () => {
     render(<Button variant="link">Link</Button>);
     const button = screen.getByRole('button', { name: 'Link' });
     expect(button).toBeInTheDocument();
-    expect(button).toHaveClass('text-primary');
+    expect(button).toHaveClass('text-primary-accent');
   });
 
   it('renders with small size', () => {

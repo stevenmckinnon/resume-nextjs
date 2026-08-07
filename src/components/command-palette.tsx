@@ -425,7 +425,7 @@ function CommandItem({
           announced on top of the label. */}
       <Icon
         aria-hidden
-        className="text-muted-foreground group-data-highlighted:text-primary size-4 shrink-0 transition-colors"
+        className="text-muted-foreground group-data-highlighted:text-primary-accent size-4 shrink-0 transition-colors"
       />
       <span className="min-w-0 flex-1 truncate">{command.label}</span>
       {command.hint && (

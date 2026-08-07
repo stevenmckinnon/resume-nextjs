@@ -52,7 +52,7 @@ export default function Page() {
                 <MapPin className="size-4" />
                 <Link
                   href={DATA.locationLink}
-                  className="hover:text-primary transition-colors hover:underline"
+                  className="hover:text-primary-accent transition-colors hover:underline"
                 >
                   {DATA.location}
                 </Link>

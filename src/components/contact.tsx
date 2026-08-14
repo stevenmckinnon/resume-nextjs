@@ -47,7 +47,7 @@ export type ContactFormData = z.infer<typeof schema>;
 
 const BLUR_FADE_DELAY = 0.04;
 
-export const Contact = ({ number }: { number: number }) => {
+export const Contact = () => {
   const [loading, setLoading] = useState(false);
   const [submitted, setSubmitted] = useState(false);
   const confettiRef = useRef<ConfettiRef>(null);
@@ -123,7 +123,7 @@ export const Contact = ({ number }: { number: number }) => {
             Message sent
           </h2>
           <p className="text-muted-foreground max-w-md text-sm">
-            Thanks for getting in touch — I&apos;ll reply within 24 hours.
+            Thanks for getting in touch. I&apos;ll reply within 24 hours.
           </p>
           <Button
             onClick={() => setSubmitted(false)}
@@ -150,7 +150,7 @@ export const Contact = ({ number }: { number: number }) => {
       <div className="relative grid grid-cols-1 gap-12 lg:grid-cols-2">
         <div className="flex flex-col justify-start space-y-6">
           <BlurFade delay={BLUR_FADE_DELAY * 2}>
-            <SectionHeading title="Contact" number={number} />
+            <SectionHeading title="Contact" />
           </BlurFade>
           <BlurFade delay={BLUR_FADE_DELAY * 3}>
             <p className="text-muted-foreground max-w-md text-xl font-light">
@@ -257,7 +257,7 @@ export const Contact = ({ number }: { number: number }) => {
                               "absolute right-3 bottom-3 font-mono text-[10px] transition-colors",
                               field.value.length > 900
                                 ? "text-destructive"
-                                : "text-muted-foreground/50",
+                                : "text-muted-foreground",
                             )}
                           >
                             {field.value.length}/1000

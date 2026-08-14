@@ -18,7 +18,11 @@ export const DATA: Resume = {
     "Senior Lead Front-End Engineer at JPMorgan Chase, building the UI foundations other teams ship on.",
   summary: `Front-end engineer for ${calculateYearsOfExperience(
     "2014-06-30",
-  )}+ years, 8 of them at JPMorgan Chase. I lead an 8-engineer team building Risk Technology's UI infrastructure: a pattern and component library on top of the firm's design system, plus BI tooling and application scaffolding, used by 20+ internal applications. I care most about the parts that are hard to retrofit later — accessibility, API design, and sensible defaults.`,
+  )}+ years, 8 of them at JPMorgan Chase.
+
+I lead an 8-engineer team building Risk Technology's UI infrastructure: a pattern and component library on top of the firm's design system, plus BI tooling and application scaffolding. Twenty-plus internal applications ship on it.
+
+I care most about the parts that are hard to retrofit later: accessibility, API design, and sensible defaults.`,
   avatarUrl: "/me.jpg",
   skills: [
     {
@@ -93,11 +97,11 @@ export const DATA: Resume = {
       logoUrl: "/jpm.png",
       start: "February 2024",
       description: [
-        `Lead an 8-person front-end engineering team, overseeing design and delivery of UI libraries, reusable component systems, and business intelligence tooling adopted across 20+ applications firm-wide, while mentoring engineers and managing stakeholder relationships.`,
-        `Architected application scaffolding frameworks enabling teams to bootstrap new projects using consistent, pre-approved patterns, cutting typical setup time from weeks to days.`,
-        `Serve as line of business lead for UI development within Risk Technology, steering technology choices and championing "sensible defaults" to standardise front-end development practices across teams.`,
-        `Sit on the AI working group for Risk Technology, helping steer AI use and reuse, and establishing standards and best practices for AI adoption across the area.`,
-        `Consolidated 10+ existing internal microsites into a single inner-sourced documentation pipeline with a consistent design language and searchable capability index, covering UI components, AI skills, MCPs, and APIs, reducing duplication and improving reuse across teams.`,
+        `I lead eight engineers. We build the component library and BI tooling that 20+ applications across the firm ship on.`,
+        `Built the scaffolding that turns a new project's setup from weeks into days. Pre-approved patterns, no blank page.`,
+        `UI lead for Risk Technology: I set the technology direction and argue for sensible defaults.`,
+        `On the Risk Technology AI working group, setting the standards for how the area adopts and reuses AI.`,
+        `Collapsed 10+ internal microsites into one documentation pipeline with a searchable index of components, AI skills, MCPs and APIs.`,
       ],
     },
     {
@@ -110,10 +114,10 @@ export const DATA: Resume = {
       start: "March 2022",
       end: "February 2024",
       description: [
-        `Built a multi-tenant corporate gifting platform in React and TypeScript that companies use to send curated gifts to employees and clients.`,
-        `Wrote the tested, documented component library and hooks the whole application is built on.`,
-        `Shipped a gift recipient app and email system that restyles itself to each client's branding.`,
-        `Worked with product and design to turn client requirements into shipped features.`,
+        `Built the multi-tenant gifting platform companies use to send curated gifts to staff and clients. React and TypeScript.`,
+        `Wrote the component library and hooks the whole application sits on. Tested and documented.`,
+        `Shipped a recipient app and email system that restyles itself to each client's branding.`,
+        `Worked directly with product and design to turn requirements into shipped features.`,
       ],
     },
     {
@@ -126,10 +130,10 @@ export const DATA: Resume = {
       start: "January 2021",
       end: "March 2022",
       description: [
-        `Developed Evotix's next-generation health and safety application in React and TypeScript.`,
-        `Built a JSON-to-form renderer and component library that lets clients configure complex custom forms without a developer.`,
-        `Held the product to accessibility and internationalisation standards throughout.`,
-        `Paired with product and UX throughout development to validate features against customer needs.`,
+        `Built Evotix's next-generation health and safety application in React and TypeScript.`,
+        `Wrote a JSON-to-form renderer so clients could configure complex forms without a developer.`,
+        `Held it to accessibility and internationalisation standards from the start, not as a retrofit.`,
+        `Paired with product and UX throughout to validate features against real customer needs.`,
       ],
     },
     {
@@ -142,8 +146,8 @@ export const DATA: Resume = {
       start: "May 2019",
       end: "December 2020",
       description: [
-        `Built an Electron and OpenFin desktop platform for Windows, used by development teams and end users across the firm.`,
-        `Delivered multi-window layouts and client-side interoperability in TypeScript, React, and Redux.`,
+        `Built an Electron and OpenFin desktop platform used by dev teams and end users across the firm.`,
+        `Delivered multi-window layouts and client-side interop in TypeScript, React and Redux.`,
       ],
     },
     {
@@ -156,11 +160,11 @@ export const DATA: Resume = {
       start: "June 2014",
       end: "May 2019",
       description: [
-        `Built a GraphQL playground and a company news aggregator, running usability sessions with end users to shape both products.`,
-        `Owned front-end design from wireframes and proofs of concept through to production.`,
-        `Built an automated end-to-end test suite with Selenium and BDD.`,
-        `Took on full-stack work, from requirements gathering and design decisions to deployment pipelines and environment stability.`,
-        `Ran Scrum delivery and trained new team members on front-end technologies.`,
+        `Built a GraphQL playground and a company news aggregator, running usability sessions to shape both.`,
+        `Owned front-end design end to end: wireframes, proofs of concept, production.`,
+        `Built the automated end-to-end suite in Selenium and BDD.`,
+        `Went full-stack when it was needed: requirements, deployment pipelines, environment stability.`,
+        `Ran Scrum delivery and trained new starts on front-end.`,
       ],
     },
   ],

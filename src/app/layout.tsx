@@ -2,6 +2,7 @@ import { WebMCP } from "@/components/webmcp";
 import { CommandPaletteProvider } from "@/components/command-palette";
 import { GradientOrbs } from "@/components/magicui/gradient-orbs";
 import { ScrollProgress } from "@/components/magicui/scroll-progress";
+import { MotionProvider } from "@/components/motion-provider";
 import Navbar from "@/components/navbar";
 import { ThemeProvider } from "@/components/theme-provider";
 import { Toaster } from "@/components/ui/sonner";
@@ -117,7 +118,8 @@ export default function RootLayout({
     >
       <body className="bg-background selection:bg-primary selection:text-primary-foreground relative mx-auto min-h-dvh pb-16 font-sans antialiased sm:pb-24">
         <ThemeProvider enableSystem attribute="class" defaultTheme="dark">
-          <TooltipProvider delay={0}>
+          <MotionProvider>
+            <TooltipProvider delay={0}>
             <CommandPaletteProvider>
               <a
                 href="#content"
@@ -135,10 +137,11 @@ export default function RootLayout({
               <main id="content" className="relative flex h-full flex-col">
                 {children}
               </main>
-              <Navbar />
-              <Toaster />
-            </CommandPaletteProvider>
-          </TooltipProvider>
+                <Navbar />
+                <Toaster />
+              </CommandPaletteProvider>
+            </TooltipProvider>
+          </MotionProvider>
         </ThemeProvider>
         <Analytics />
         <WebMCP />

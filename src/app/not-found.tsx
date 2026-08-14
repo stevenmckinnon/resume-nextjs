@@ -5,7 +5,7 @@ import { motion } from "framer-motion";
 import Link from "next/link";
 import { useEffect, useState } from "react";
 
-const GLITCH_CHARS = "!<>-_\\/[]{}—=+*^?#01";
+const GLITCH_CHARS = "!<>-_\\/[]{}=+*^?#01";
 
 function GlitchText({ text }: { text: string }) {
   const [display, setDisplay] = useState(text);
@@ -80,8 +80,8 @@ export default function NotFound() {
       </BlurFade>
 
       <BlurFade delay={0.35} animateOnLoad>
-        <p className="text-muted-foreground max-w-sm text-center font-sans text-base leading-relaxed">
-          This page doesn&apos;t exist — or it did, and something went wrong.
+        <p className="text-muted-foreground max-w-sm text-center font-sans text-base/relaxed">
+          This page doesn&apos;t exist. Or it did, and something went wrong.
           Either way, there&apos;s nothing to see here.
         </p>
       </BlurFade>

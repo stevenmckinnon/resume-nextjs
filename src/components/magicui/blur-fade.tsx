@@ -9,6 +9,15 @@ interface BlurFadeProps {
   delay?: number;
   duration?: number;
   animateOnLoad?: boolean;
+  /** Distance in px the content rises from. */
+  yOffset?: number;
+  /**
+   * Opt-in. Defaults to no blur: a `filter` animation forces a repaint on
+   * every frame, and applying the same 4px blur to headings, photographs and
+   * list items alike made every entrance on the page read identically — which
+   * is the same as no art direction at all.
+   */
+  blur?: string;
 }
 
 const BlurFade = ({
@@ -17,6 +26,8 @@ const BlurFade = ({
   delay = 0,
   duration = 0.5,
   animateOnLoad = false,
+  yOffset = 8,
+  blur = "0px",
 }: BlurFadeProps) => {
   const ref = useRef<HTMLDivElement>(null);
   // Only the bottom edge is inset. Content rising from below still waits until
@@ -60,7 +71,7 @@ const BlurFade = ({
   const shouldAnimate = animateOnLoad || isInView;
 
   const variants: Variants = {
-    hidden: { y: 8, opacity: 0, filter: "blur(4px)" },
+    hidden: { y: yOffset, opacity: 0, filter: `blur(${blur})` },
     visible: { y: 0, opacity: 1, filter: "blur(0px)" },
   };
 

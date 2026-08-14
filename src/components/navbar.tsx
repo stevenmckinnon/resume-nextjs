@@ -59,7 +59,13 @@ export default function Navbar() {
           className="pointer-events-none fixed inset-x-0 bottom-0 z-30 mx-auto mb-4 flex h-full max-h-14 origin-bottom"
         >
           <div className="bg-background/80 dark:bg-background/80 fixed inset-x-0 bottom-0 h-16 w-full backdrop-blur-xl [-webkit-mask-image:linear-gradient(to_top,black,transparent)]"></div>
-          <Dock className="pointer-events-auto relative z-50 mx-auto flex h-full min-h-full transform-gpu items-center rounded-full border border-white/20 bg-white/10 px-1 [box-shadow:inset_0_1px_0_rgba(255,255,255,0.2),0_8px_32px_rgba(0,0,0,0.1),0_0_0_1px_rgba(255,255,255,0.1)] backdrop-blur-xl dark:border-gray-700/20 dark:bg-gray-900/10 dark:[box-shadow:inset_0_1px_0_rgba(255,255,255,0.1),0_8px_32px_rgba(0,0,0,0.3),0_0_0_1px_rgba(255,255,255,0.05)]">
+          {/* Themed tokens, not hardcoded white. This used to be
+              `bg-white/10 border-white/20`, which in light mode is a white
+              surface with a white edge on a white page — the dock had no
+              boundary at all and was held together purely by its drop shadow.
+              Elevation now comes from --shadow-lg rather than a hand-rolled
+              rgba stack. */}
+          <Dock className="border-border bg-background/70 pointer-events-auto relative z-50 mx-auto flex h-full min-h-full transform-gpu items-center rounded-full border px-1 shadow-lg backdrop-blur-xl">
             {DATA.navbar.map((item) => (
               <DockIcon key={item.href}>
                 <Tooltip>
@@ -86,7 +92,7 @@ export default function Navbar() {
             ))}
             <Separator
               orientation="vertical"
-              className="h-full bg-white/20 dark:bg-gray-700/20"
+              className="bg-border h-full"
             />
             <DockIcon>
               <Tooltip>
@@ -112,7 +118,7 @@ export default function Navbar() {
             </DockIcon>
             <Separator
               orientation="vertical"
-              className="hidden h-full bg-white/20 sm:block dark:bg-gray-700/20"
+              className="bg-border hidden h-full sm:block"
             />
             {Object.entries(DATA.contact.social)
               .filter(([_, social]) => social.navbar)
@@ -143,7 +149,7 @@ export default function Navbar() {
               ))}
             <Separator
               orientation="vertical"
-              className="h-full bg-white/20 py-2 dark:bg-gray-700/20"
+              className="bg-border h-full py-2"
             />
             <DockIcon>
               <Tooltip>

@@ -5,10 +5,10 @@ import { Contact } from "@/components/contact";
 import { GitHubActivity } from "@/components/github-activity";
 import { Hero } from "@/components/hero";
 import BlurFade from "@/components/magicui/blur-fade";
-import { ProjectCard } from "@/components/project-card";
+import { OtherJob } from "@/components/other-job";
+import { ProjectRow } from "@/components/project-row";
 import { ResumeCard } from "@/components/resume-card";
 import { SectionHeading } from "@/components/section-heading";
-import { SimpleCard } from "@/components/simple-card";
 import { SkillsSection } from "@/components/skills-section";
 import { DATA } from "@/data/resume";
 import { BLUR_FADE_DELAY } from "@/lib/utils";
@@ -17,13 +17,13 @@ import { MapPin } from "lucide-react";
 const Section = ({
   id,
   title,
-  number,
+  kicker,
   children,
   className,
 }: {
   id: string;
   title: string;
-  number: number;
+  kicker?: string;
   children: React.ReactNode;
   className?: string;
 }) => (
@@ -33,7 +33,7 @@ const Section = ({
   >
     <div className="h-fit md:sticky md:top-32">
       <BlurFade delay={BLUR_FADE_DELAY}>
-        <SectionHeading title={title} number={number} />
+        <SectionHeading title={title} kicker={kicker} />
       </BlurFade>
     </div>
     <div className="flex flex-col gap-y-10">{children}</div>
@@ -44,8 +44,12 @@ export default function Page() {
   return (
     <>
       <Hero />
-      <div className="mx-auto w-full max-w-[1200px] px-6 pb-24 md:px-12 lg:px-24">
-        <Section id="about" title="About" number={1}>
+      <div className="mx-auto w-full max-w-[1200px] px-6 md:px-12 lg:px-24">
+        <Section
+          id="about"
+          title="About"
+          kicker="Twelve years of front-end. Eight of them at the same bank."
+        >
           <BlurFade delay={BLUR_FADE_DELAY * 2}>
             <div className="flex flex-col gap-6">
               <div className="text-muted-foreground flex items-center gap-2">
@@ -57,18 +61,30 @@ export default function Page() {
                   {DATA.location}
                 </Link>
               </div>
-              <div className="text-muted-foreground max-w-full text-lg/relaxed">
+              {/* The summary is three paragraphs now. Preflight strips the
+                  default <p> margin, so without this they run together as one
+                  block and the deliberate pauses are lost. Capped to a
+                  readable measure rather than the full column width. */}
+              <div className="text-muted-foreground max-w-[62ch] space-y-5 text-lg/relaxed text-pretty">
                 <Markdown>{DATA.summary}</Markdown>
               </div>
             </div>
           </BlurFade>
         </Section>
 
-        <Section id="skills" title="Skills" number={2}>
+        <Section
+          id="skills"
+          title="Skills"
+          kicker="What I reach for, and what I've actually shipped with."
+        >
           <SkillsSection />
         </Section>
 
-        <Section id="work" title="Experience" number={3}>
+        <Section
+          id="work"
+          title="Experience"
+          kicker="Five roles, three companies, one recurring theme."
+        >
           {DATA.work.map((work, id) => (
             <BlurFade
               key={`${work.company}-${work.start}`}
@@ -89,7 +105,11 @@ export default function Page() {
           ))}
         </Section>
 
-        <Section id="education" title="Education" number={4}>
+        <Section
+          id="education"
+          title="Education"
+          kicker="I studied games development and ended up in risk technology."
+        >
           {DATA.education.map((education, id) => (
             <BlurFade
               key={education.school}
@@ -108,48 +128,47 @@ export default function Page() {
           ))}
         </Section>
 
-        <Section id="projects" title="Projects" number={5}>
-          <div className="grid grid-cols-1 gap-8 md:grid-cols-2">
+        {/* Projects drops the 240px rail so the rows get the full column
+            width — at 1200px the rail left them too narrow to read as wide
+            asymmetric rows, which is the whole point of the treatment. */}
+        <section id="projects" className="mb-24 md:mb-32">
+          <BlurFade delay={BLUR_FADE_DELAY}>
+            <div className="border-primary-accent/40 mb-12 flex flex-col gap-2 border-l-2 pl-6 md:mb-20">
+              <h2 className="text-foreground text-2xl font-black tracking-tight uppercase md:text-4xl lg:text-5xl">
+                Projects
+              </h2>
+              <p className="text-muted-foreground max-w-md text-base/relaxed md:text-lg">
+                Things I built because I wanted them to exist.
+              </p>
+            </div>
+          </BlurFade>
+
+          <div className="flex flex-col gap-16 md:gap-24">
             {DATA.projects?.map((project, id) => (
-              <BlurFade key={project.name} delay={BLUR_FADE_DELAY + id * 0.05}>
-                <ProjectCard
+              <BlurFade key={project.name} delay={BLUR_FADE_DELAY}>
+                <ProjectRow
                   title={project.name}
                   description={project.description}
                   website={project.website}
                   github={project.github}
                   tags={project.tags ?? []}
                   image={project.image}
+                  reversed={id % 2 === 1}
                 />
               </BlurFade>
             ))}
           </div>
-        </Section>
+        </section>
 
-        <Section id="github" title="GitHub" number={6}>
-          <GitHubActivity />
-        </Section>
+        <GitHubActivity />
+      </div>
 
-        <Section id="other" title="Beyond Code" number={7}>
-          <div className="flex flex-col gap-4">
-            {DATA.otherWork.map((work, id) => (
-              <BlurFade
-                key={`${work.company}-${work.start}`}
-                delay={BLUR_FADE_DELAY + id * 0.05}
-              >
-                <SimpleCard
-                  logoUrl={work.logoUrl}
-                  altText={work.company}
-                  title={work.company}
-                  subtitle={work.title}
-                  href={work.href}
-                  period={`${work.start} - ${work.end ?? "Present"}`}
-                />
-              </BlurFade>
-            ))}
-          </div>
-        </Section>
+      {/* Deliberately outside the 1200px column — this section runs edge to
+          edge, which it cannot do from inside a max-width container. */}
+      <OtherJob />
 
-        <Contact number={8} />
+      <div className="mx-auto w-full max-w-[1200px] px-6 pb-24 md:px-12 lg:px-24">
+        <Contact />
       </div>
     </>
   );

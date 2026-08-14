@@ -3,6 +3,7 @@
 import * as React from "react";
 import { mergeProps } from "@base-ui/react/merge-props";
 import { useRender } from "@base-ui/react/use-render";
+import { AlertCircle } from "lucide-react";
 
 import {
   Controller,
@@ -181,9 +182,22 @@ const FormMessage = React.forwardRef<
     <p
       ref={ref}
       id={formMessageId}
-      className={cn("text-[0.8rem] font-medium text-destructive", className)}
+      className={cn(
+        "text-destructive flex items-start gap-1.5 text-[0.8rem] font-medium",
+        className,
+      )}
       {...props}
     >
+      {/* The icon carries the error alongside the colour. On a site whose brand
+          colour is also red, red text on its own is not a reliable signal that
+          something is wrong, and it is no signal at all to a red-blind reader. */}
+      {error && (
+        <AlertCircle
+          className="mt-0.5 size-3.5 shrink-0"
+          strokeWidth={2}
+          aria-hidden="true"
+        />
+      )}
       {body}
     </p>
   );

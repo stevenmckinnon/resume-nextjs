@@ -6,6 +6,18 @@ interface GradientOrbsProps {
   className?: string;
 }
 
+/**
+ * One orb, not three.
+ *
+ * The other two were built from `--secondary` and `--accent`, which in this
+ * palette are neutrals — so they were painting grey onto a grey page. Measured
+ * against the page background before their own 60–80px blur, they sat 3 and 2
+ * RGB units away in light mode and 7 and 3 in dark: below the threshold where
+ * a difference is visible at all. They cost two fixed, infinitely animating
+ * `will-change: transform` layers to render nothing.
+ *
+ * CSS animation rather than framer-motion, for iOS performance.
+ */
 export const GradientOrbs = ({ className }: GradientOrbsProps) => {
   return (
     <div
@@ -15,14 +27,7 @@ export const GradientOrbs = ({ className }: GradientOrbsProps) => {
       )}
       aria-hidden="true"
     >
-      {/* Primary orb - using CSS animation instead of framer-motion for better iOS performance */}
       <div className="animate-orb-1 from-primary/20 via-primary/5 absolute -top-[40%] -right-[20%] h-[60vh] w-[60vh] rounded-full bg-linear-to-br to-transparent blur-[80px] will-change-transform" />
-
-      {/* Secondary orb */}
-      <div className="animate-orb-2 from-secondary/15 via-secondary/5 absolute -bottom-[30%] -left-[20%] h-[50vh] w-[50vh] rounded-full bg-linear-to-tr to-transparent blur-[60px] will-change-transform" />
-
-      {/* Accent orb */}
-      <div className="animate-orb-3 from-accent/10 to-primary/5 absolute top-1/2 left-1/2 h-[40vh] w-[40vh] -translate-x-1/2 -translate-y-1/2 rounded-full bg-linear-to-r via-transparent blur-[50px] will-change-transform" />
     </div>
   );
 };

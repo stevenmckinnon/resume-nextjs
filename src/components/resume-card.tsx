@@ -90,7 +90,7 @@ export const ResumeCard = ({
                 title
               )}
             </h3>
-            <span className="text-muted-foreground/80 font-mono text-xs">
+            <span className="text-muted-foreground font-mono text-xs">
               {period}
             </span>
           </div>
@@ -119,7 +119,7 @@ export const ResumeCard = ({
         {description && (
           <ChevronRightIcon
             className={cn(
-              `text-muted-foreground/50 group-hover:text-primary-accent size-5 transition-transform duration-300`,
+              `text-muted-foreground group-hover:text-primary-accent size-5 transition-transform duration-300`,
               isExpanded ? "rotate-90" : "rotate-0",
             )}
           />
@@ -140,7 +140,7 @@ export const ResumeCard = ({
         className="overflow-hidden sm:pl-16"
         aria-hidden={!isExpanded}
       >
-        <div className="border-border/40 text-muted-foreground/90 mt-4 border-t pt-4 font-sans text-sm/relaxed">
+        <div className="border-border/40 text-muted-foreground mt-4 border-t pt-4 font-sans text-sm/relaxed">
           {Array.isArray(description) ? (
             // Rule above stays full-bleed; the prose is capped so the wide
             // desktop column doesn't push lines past a readable measure.

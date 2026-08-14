@@ -106,8 +106,9 @@ const SECTION_COMMANDS: Command[] = [
   },
   {
     value: "other",
-    label: "Beyond Code",
-    keywords: "other interests outside hobbies",
+    label: "The Other Job",
+    keywords:
+      "beyond code other interests outside hobbies wwe wrestling camera photography",
     icon: CompassIcon,
     scrollTo: "other",
   },

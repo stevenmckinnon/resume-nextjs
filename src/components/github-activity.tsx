@@ -18,8 +18,6 @@ const MONTH_NAMES = [
   "Dec",
 ];
 
-const DAY_LABELS = ["", "Mon", "", "Wed", "", "Fri", ""];
-
 function getIntensityClass(count: number): string {
   if (count === 0) return "bg-muted";
   if (count <= 3) return "bg-primary/25";
@@ -54,20 +52,15 @@ function getMostActiveMonth(weeks: ContributionWeek[]): string {
     }
   }
   const sorted = Object.entries(monthTotals).sort((a, b) => b[1] - a[1]);
-  return sorted[0]?.[0] ?? "—";
+  return sorted[0]?.[0] ?? "n/a";
 }
 
-function Stat({ label, value }: { label: string; value: string | number }) {
-  return (
-    <div className="flex flex-col gap-1">
-      <span className="text-3xl font-black">{value}</span>
-      <span className="text-muted-foreground font-mono text-xs tracking-widest uppercase">
-        {label}
-      </span>
-    </div>
-  );
-}
-
+/**
+ * A supporting detail, not a section. This used to be a full numbered section
+ * with 3xl stat blocks and a labelled 26-week grid — roughly the same page
+ * weight as Experience, for something that is corroboration at best. It now
+ * reads as one line of evidence and gets out of the way.
+ */
 export async function GitHubActivity() {
   const username = DATA.contact.social.GitHub.url.split("/").pop()!;
   const data = await getGitHubContributions(username);
@@ -79,86 +72,47 @@ export async function GitHubActivity() {
   const mostActiveMonth = getMostActiveMonth(weeks);
 
   return (
-    <div className="flex flex-col gap-8">
-      {/* Stats */}
-      <div className="flex flex-wrap gap-10">
-        <Stat
-          label="Contributions this year"
-          value={data.totalContributions.toLocaleString()}
-        />
-        <Stat label="Current streak" value={`${currentStreak}d`} />
-        <Stat label="Most active month" value={mostActiveMonth} />
-      </div>
+    <section
+      id="github"
+      aria-label="GitHub activity"
+      className="border-border/50 mb-24 flex flex-col gap-4 border-y py-5 md:mb-32 md:flex-row md:items-center md:justify-between md:gap-8"
+    >
+      <p className="text-muted-foreground text-sm/relaxed">
+        <span className="text-foreground font-semibold tabular-nums">
+          {data.totalContributions.toLocaleString()}
+        </span>{" "}
+        contributions in the last year
+        <span aria-hidden="true" className="text-muted-foreground/40 px-2">
+          ·
+        </span>
+        <span className="text-foreground font-semibold tabular-nums">
+          {currentStreak}
+        </span>
+        -day streak
+        <span aria-hidden="true" className="text-muted-foreground/40 px-2">
+          ·
+        </span>
+        busiest in{" "}
+        <span className="text-foreground font-semibold">{mostActiveMonth}</span>
+      </p>
 
-      {/* Heatmap */}
-      <div className="overflow-x-auto pb-2">
-        <div className="inline-flex min-w-max flex-col gap-1.5">
-          {/* Month labels */}
-          <div className="ml-9 flex gap-1">
-            {weeks.map((week, i) => {
-              const firstDay = week.contributionDays[0];
-              if (!firstDay) return <div key={i} className="w-3 shrink-0" />;
-              const date = new Date(firstDay.date);
-              const isNewMonth = date.getDate() <= 7;
-              return (
-                <div key={i} className="w-3 shrink-0">
-                  {isNewMonth && (
-                    <span className="text-muted-foreground font-mono text-[10px]">
-                      {MONTH_NAMES[date.getMonth()]}
-                    </span>
-                  )}
-                </div>
-              );
-            })}
-          </div>
-
-          {/* Grid with day labels */}
-          <div className="flex gap-1">
-            {/* Day labels */}
-            <div className="flex w-8 flex-col gap-1">
-              {DAY_LABELS.map((label, i) => (
-                <div key={i} className="flex h-3 items-center">
-                  <span className="text-muted-foreground font-mono text-[10px]">
-                    {label}
-                  </span>
-                </div>
-              ))}
-            </div>
-
-            {/* Contribution columns */}
-            {weeks.map((week, wi) => (
-              <div key={wi} className="flex flex-col gap-1">
-                {week.contributionDays.map((day) => (
-                  <div
-                    key={day.date}
-                    title={`${day.date}: ${day.contributionCount} contribution${day.contributionCount !== 1 ? "s" : ""}`}
-                    className={cn(
-                      "size-3 rounded-sm",
-                      getIntensityClass(day.contributionCount),
-                    )}
-                  />
-                ))}
-              </div>
-            ))}
-          </div>
-
-          {/* Legend */}
-          <div className="mt-1 flex items-center justify-end gap-2">
-            <span className="text-muted-foreground font-mono text-[10px]">
-              Less
-            </span>
-            {[0, 3, 6, 9, 12].map((count) => (
+      {/* Decorative at this size — the sentence above carries the same facts,
+          so the grid is aria-hidden rather than read out cell by cell. */}
+      <div aria-hidden="true" className="flex gap-[3px] overflow-hidden">
+        {weeks.map((week, wi) => (
+          <div key={wi} className="flex flex-col gap-[3px]">
+            {week.contributionDays.map((day) => (
               <div
-                key={count}
-                className={cn("size-3 rounded-sm", getIntensityClass(count))}
+                key={day.date}
+                className={cn(
+                  "size-[7px] rounded-[2px]",
+                  getIntensityClass(day.contributionCount),
+                )}
               />
             ))}
-            <span className="text-muted-foreground font-mono text-[10px]">
-              More
-            </span>
           </div>
-        </div>
+        ))}
       </div>
-    </div>
+    </section>
   );
 }

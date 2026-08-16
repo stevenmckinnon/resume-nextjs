@@ -6,7 +6,8 @@ import { GitHubActivity } from "@/components/github-activity";
 import { Hero } from "@/components/hero";
 import BlurFade from "@/components/magicui/blur-fade";
 import { OtherJob } from "@/components/other-job";
-import { ProjectRow } from "@/components/project-row";
+import { ProjectFeature } from "@/components/project-feature";
+import { ProjectTile } from "@/components/project-tile";
 import { ResumeCard } from "@/components/resume-card";
 import { SectionHeading } from "@/components/section-heading";
 import { SkillsSection } from "@/components/skills-section";
@@ -41,6 +42,8 @@ const Section = ({
 );
 
 export default function Page() {
+  const [featuredProject, ...supportingProjects] = DATA.projects ?? [];
+
   return (
     <>
       <Hero />
@@ -128,9 +131,8 @@ export default function Page() {
           ))}
         </Section>
 
-        {/* Projects drops the 240px rail so the rows get the full column
-            width — at 1200px the rail left them too narrow to read as wide
-            asymmetric rows, which is the whole point of the treatment. */}
+        {/* Projects drops the 240px rail so the feature image gets the full
+            column width. */}
         <section id="projects" className="mb-24 md:mb-32">
           <BlurFade delay={BLUR_FADE_DELAY}>
             <div className="border-primary-accent/40 mb-12 flex flex-col gap-2 border-l-2 pl-6 md:mb-20">
@@ -143,21 +145,38 @@ export default function Page() {
             </div>
           </BlurFade>
 
-          <div className="flex flex-col gap-16 md:gap-24">
-            {DATA.projects?.map((project, id) => (
-              <BlurFade key={project.name} delay={BLUR_FADE_DELAY}>
-                <ProjectRow
-                  title={project.name}
-                  description={project.description}
-                  website={project.website}
-                  github={project.github}
-                  tags={project.tags ?? []}
-                  image={project.image}
-                  reversed={id % 2 === 1}
-                />
-              </BlurFade>
-            ))}
-          </div>
+          {/* One feature, then a grid. Five alternating image-and-text rows
+              was the same move repeated five times, and it gave every project
+              identical weight regardless of which one is worth looking at. */}
+          {featuredProject && (
+            <BlurFade delay={BLUR_FADE_DELAY}>
+              <ProjectFeature
+                title={featuredProject.name}
+                description={featuredProject.description}
+                website={featuredProject.website}
+                github={featuredProject.github}
+                tags={featuredProject.tags ?? []}
+                image={featuredProject.image}
+              />
+            </BlurFade>
+          )}
+
+          {supportingProjects.length > 0 && (
+            <div className="mt-16 grid grid-cols-1 gap-12 md:mt-24 md:grid-cols-2 md:gap-x-8 md:gap-y-16">
+              {supportingProjects.map((project) => (
+                <BlurFade key={project.name} delay={BLUR_FADE_DELAY}>
+                  <ProjectTile
+                    title={project.name}
+                    description={project.description}
+                    website={project.website}
+                    github={project.github}
+                    tags={project.tags ?? []}
+                    image={project.image}
+                  />
+                </BlurFade>
+              ))}
+            </div>
+          )}
         </section>
 
         <GitHubActivity />

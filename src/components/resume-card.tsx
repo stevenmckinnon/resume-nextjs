@@ -137,7 +137,7 @@ export const ResumeCard = ({
           opacity: isExpanded ? 1 : 0,
         }}
         transition={{ duration: 0.3, ease: [0.23, 1, 0.32, 1] }}
-        className="overflow-hidden sm:pl-16"
+        className="overflow-hidden sm:pl-2"
         aria-hidden={!isExpanded}
       >
         <div className="border-border/40 text-muted-foreground mt-4 border-t pt-4 font-sans text-sm/relaxed">

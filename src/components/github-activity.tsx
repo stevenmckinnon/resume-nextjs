@@ -82,17 +82,16 @@ export async function GitHubActivity() {
           {data.totalContributions.toLocaleString()}
         </span>{" "}
         contributions in the last year
+        {/* One separator, not two. A middle dot between every clause turns a
+            sentence into a metadata strip, which is the look this line is
+            trying to avoid; the second break is a plain comma. */}
         <span aria-hidden="true" className="text-muted-foreground/40 px-2">
           ·
         </span>
         <span className="text-foreground font-semibold tabular-nums">
           {currentStreak}
         </span>
-        -day streak
-        <span aria-hidden="true" className="text-muted-foreground/40 px-2">
-          ·
-        </span>
-        busiest in{" "}
+        -day streak, busiest in{" "}
         <span className="text-foreground font-semibold">{mostActiveMonth}</span>
       </p>
 

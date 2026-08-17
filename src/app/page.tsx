@@ -4,6 +4,7 @@ import Markdown from "react-markdown";
 import { Contact } from "@/components/contact";
 import { GitHubActivity } from "@/components/github-activity";
 import { Hero } from "@/components/hero";
+import { LogDumperDemo } from "@/components/log-dumper-demo";
 import BlurFade from "@/components/magicui/blur-fade";
 import { OtherJob } from "@/components/other-job";
 import { ProjectFeature } from "@/components/project-feature";
@@ -42,7 +43,12 @@ const Section = ({
 );
 
 export default function Page() {
-  const [featuredProject, ...supportingProjects] = DATA.projects ?? [];
+  const [featuredProject, ...rest] = DATA.projects ?? [];
+  // Anything with a live demo is pulled out of the screenshot grid and given
+  // its own block below it. A tile showing a PNG of a tool you can actually
+  // run three inches further down is the weaker of the two.
+  const supportingProjects = rest.filter((project) => !project.liveDemo);
+  const liveProjects = rest.filter((project) => project.liveDemo);
 
   return (
     <>
@@ -150,14 +156,7 @@ export default function Page() {
               identical weight regardless of which one is worth looking at. */}
           {featuredProject && (
             <BlurFade delay={BLUR_FADE_DELAY}>
-              <ProjectFeature
-                title={featuredProject.name}
-                description={featuredProject.description}
-                website={featuredProject.website}
-                github={featuredProject.github}
-                tags={featuredProject.tags ?? []}
-                image={featuredProject.image}
-              />
+              <ProjectFeature project={featuredProject} />
             </BlurFade>
           )}
 
@@ -165,16 +164,17 @@ export default function Page() {
             <div className="mt-16 grid grid-cols-1 gap-12 md:mt-24 md:grid-cols-2 md:gap-x-8 md:gap-y-16">
               {supportingProjects.map((project) => (
                 <BlurFade key={project.name} delay={BLUR_FADE_DELAY}>
-                  <ProjectTile
-                    title={project.name}
-                    description={project.description}
-                    website={project.website}
-                    github={project.github}
-                    tags={project.tags ?? []}
-                    image={project.image}
-                  />
+                  <ProjectTile project={project} />
                 </BlurFade>
               ))}
+            </div>
+          )}
+
+          {liveProjects.length > 0 && (
+            <div className="mt-16 md:mt-24">
+              <BlurFade delay={BLUR_FADE_DELAY}>
+                <LogDumperDemo />
+              </BlurFade>
             </div>
           )}
         </section>

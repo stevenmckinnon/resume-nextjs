@@ -224,6 +224,13 @@ I care most about the parts that are hard to retrofit later: accessibility, API 
         "claude",
       ],
       image: "/caley-demo.png",
+      // Only `standfirst` is filled in. `role`, `year` and `sections` need
+      // writing rather than deriving; each block is skipped while its field is
+      // absent, so the dialog is short right now rather than padded.
+      details: {
+        standfirst:
+          "An invoicing app built on Next.js and Prisma. It issues invoices, chases them by email through Resend, and tracks what has actually been paid.",
+      },
     },
     {
       name: "CareerWealth",
@@ -262,11 +269,20 @@ I care most about the parts that are hard to retrofit later: accessibility, API 
     {
       name: "Biosite",
       description: `Open-source link-in-bio tool built with Next.js. A lightweight alternative to the commercial services.`,
-      website: "https://www.stevemck.link",
+      website: "https://www.mckinnon.bio",
       github: "https://github.com/stevenmckinnon/biosite",
       defaultExpanded: true,
       tags: ["nextjs", "typescript", "tailwindcss", "vercel", "shadcn"],
       image: "/biosite-demo.png",
+    },
+    {
+      name: "xray.",
+      description: `A dev-time overlay that maps an element's computed styles back to your design tokens, and flags the values that only work in the theme you happen to be looking at.`,
+      website: "https://xray-styles.vercel.app/",
+      github: "https://github.com/stevenmckinnon/xray",
+      defaultExpanded: true,
+      tags: ["typescript"],
+      image: "/xray-demo.png",
     },
     {
       name: "Log Dumper",
@@ -276,6 +292,7 @@ I care most about the parts that are hard to retrofit later: accessibility, API 
       defaultExpanded: true,
       tags: ["typescript"],
       image: "/logdumper-demo.png",
+      liveDemo: true,
     },
   ],
 } as const;

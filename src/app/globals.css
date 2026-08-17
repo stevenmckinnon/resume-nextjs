@@ -21,9 +21,15 @@ html {
     transition-duration: 0.01ms !important;
   }
 
-  ::view-transition-old(root),
-  ::view-transition-new(root) {
-    animation: none !important;
+  /* Broadened from `root` to `*`. The theme toggle's circular reveal is the
+     only view transition on the site today and it does use `root`, but a rule
+     that only covers the one transition that happens to exist is a trap for
+     the next one. */
+  ::view-transition-old(*),
+  ::view-transition-new(*),
+  ::view-transition-group(*) {
+    animation-duration: 0.01ms !important;
+    animation-delay: 0s !important;
   }
 }
 
@@ -320,6 +326,13 @@ code[data-line-numbers-max-digits="3"] > [data-line]::before {
     var(--font-manrope), ui-sans-serif, system-ui, sans-serif,
     "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
   --font-mono: var(--font-syne), ui-monospace, monospace;
+  /* An actual fixed-pitch stack. `--font-mono` is Syne, a display face chosen
+     for labels and dates, and it is proportional — fine for a "COLOPHON"
+     kicker, wrong for anything the reader parses as data. Endpoints, log
+     timestamps and code need columns that line up. */
+  --font-code:
+    ui-monospace, SFMono-Regular, "SF Mono", Menlo, Consolas, "Liberation Mono",
+    monospace;
   --font-serif:
     var(--font-manrope), ui-sans-serif, system-ui, sans-serif,
     "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";

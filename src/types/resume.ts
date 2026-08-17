@@ -85,6 +85,27 @@ export type Skill = {
   icon?: React.ComponentType<IconProps>;
 };
 
+/**
+ * The expanded view of a project, shown in a dialog rather than on its own
+ * route. A side project is worth a few paragraphs, and a full page navigation
+ * for a few paragraphs reads as an empty page however well it animates.
+ *
+ * Every field is optional. The dialog is worth opening without any of them,
+ * because it shows the screenshot at a size where it can actually be read,
+ * and each block renders only when its content exists — so a half-written
+ * entry is a shorter dialog, not one full of empty headings.
+ */
+export type ProjectDetails = {
+  /** One sentence under the title. The reason to keep reading. */
+  standfirst?: string;
+  /** e.g. "2025". Shown in the meta row. */
+  year?: string;
+  /** e.g. "Design and build". Shown in the meta row. */
+  role?: string;
+  /** Ordered prose. Heading plus one or more paragraphs. */
+  sections?: { heading: string; body: string[] }[];
+};
+
 export type Project = {
   name: string;
   description: string;
@@ -95,6 +116,18 @@ export type Project = {
   icon?: string;
   tags?: (keyof typeof iconMap)[];
   image?: string;
+  /**
+   * Rendered as a live, interactive block instead of a screenshot tile, and
+   * skipped by the tile grid so it doesn't appear twice. Only set this where a
+   * real running demo exists — the flag decides layout, not just styling.
+   */
+  liveDemo?: boolean;
+  /**
+   * Extra prose for the project dialog. Absent is fine: every tile opens a
+   * dialog regardless, since the enlarged screenshot is the baseline reason
+   * to open one.
+   */
+  details?: ProjectDetails;
 };
 
 export type Resume = {

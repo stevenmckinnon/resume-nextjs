@@ -45,12 +45,6 @@ export type Contact = {
   };
 };
 
-export type NavbarItem = {
-  href: string;
-  icon: React.ComponentType<IconProps>;
-  label: string;
-};
-
 export type WorkExperience = {
   company: string;
   href: string;
@@ -140,7 +134,6 @@ export type Resume = {
   summary: string;
   avatarUrl: string;
   skills: Skill[];
-  navbar: NavbarItem[];
   contact: Contact;
   work: WorkExperience[];
   education: EducationItem[];

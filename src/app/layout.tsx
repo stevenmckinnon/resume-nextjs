@@ -4,8 +4,9 @@ import { CommandPaletteProvider } from "@/components/command-palette";
 import { GradientOrbs } from "@/components/magicui/gradient-orbs";
 import { ScrollProgress } from "@/components/magicui/scroll-progress";
 import { MotionProvider } from "@/components/motion-provider";
-import Navbar from "@/components/navbar";
+import { SectionIndex } from "@/components/section-index";
 import { ThemeProvider } from "@/components/theme-provider";
+import { UtilityBar } from "@/components/utility-bar";
 import { ProjectDialogProvider } from "@/components/project-dialog";
 import { Toaster } from "@/components/ui/sonner";
 import { TooltipProvider } from "@/components/ui/tooltip";
@@ -118,7 +119,7 @@ export default function RootLayout({
       className={cn(fontSans.variable, fontMono.variable)}
       suppressHydrationWarning
     >
-      <body className="bg-background selection:bg-primary selection:text-primary-foreground relative mx-auto min-h-dvh pb-16 font-sans antialiased sm:pb-24">
+      <body className="bg-background selection:bg-primary selection:text-primary-foreground relative mx-auto min-h-dvh pb-24 font-sans antialiased">
         <ThemeProvider enableSystem attribute="class" defaultTheme="dark">
           <MotionProvider>
             <TooltipProvider delay={0}>
@@ -141,7 +142,8 @@ export default function RootLayout({
                     {children}
                   </main>
                   <Colophon />
-                  <Navbar />
+                  <SectionIndex />
+                  <UtilityBar />
                   <Toaster />
                 </ProjectDialogProvider>
               </CommandPaletteProvider>

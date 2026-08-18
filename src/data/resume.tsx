@@ -1,12 +1,6 @@
 import { Icons } from "@/components/icons";
 import { calculateYearsOfExperience } from "@/lib/utils";
 import type { Resume } from "@/types/resume";
-import {
-  BriefcaseIcon,
-  FolderKanbanIcon,
-  HomeIcon,
-  MailIcon,
-} from "lucide-react";
 
 export const DATA: Resume = {
   name: "Steve McKinnon",
@@ -44,12 +38,6 @@ I care most about the parts that are hard to retrofit later: accessibility, API 
     { name: "GraphQL", icon: Icons.graphql },
     { name: "Storybook", icon: Icons.storybook },
     { name: "Figma", icon: Icons.figma },
-  ],
-  navbar: [
-    { href: "/", icon: HomeIcon, label: "Home" },
-    { href: "#work", icon: BriefcaseIcon, label: "Experience" },
-    { href: "#projects", icon: FolderKanbanIcon, label: "Projects" },
-    { href: "#contact", icon: MailIcon, label: "Contact" },
   ],
   contact: {
     email: "hello@stevenmckinnon.co.uk",

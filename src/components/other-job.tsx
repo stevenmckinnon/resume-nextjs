@@ -34,7 +34,10 @@ export const OtherJob = () => (
     {/* Opener — full-bleed, heading overlaid on the image rather than sitting
         in the 240px rail every other section uses. */}
     <BlurFade delay={BLUR_FADE_DELAY}>
-      <figure className="border-border/50 relative border-y">
+      {/* data-full-bleed marks media that replaces the page background edge
+          to edge. The section index watches for these and switches to its
+          over-photo palette while it overlaps one. */}
+      <figure data-full-bleed className="border-border/50 relative border-y">
         {/* Taller on phones: the overlaid heading needs vertical room, and a
             21/9 crop at 375px leaves a letterbox with text on top of it. */}
         <ParallaxImage
@@ -163,7 +166,10 @@ export const OtherJob = () => (
 
     {/* Closer — the job rather than the show. */}
     <BlurFade delay={BLUR_FADE_DELAY * 5}>
-      <figure className="border-border/50 mt-12 border-y md:mt-20">
+      <figure
+        data-full-bleed
+        className="border-border/50 mt-12 border-y md:mt-20"
+      >
         <ParallaxImage
           src="/wr-production.jpg"
           alt="The view from behind the production desk: banks of monitors and mixing gear facing the ring, with the crowd holding up coloured cards"

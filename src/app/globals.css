@@ -568,6 +568,18 @@ html {
   color: var(--foreground);
 }
 
+/* While the name is docking, a fixed copy in the header stands in for the heading.
+   Opacity rather than visibility, so screen readers still get the page's h1. */
+:root[data-name-docking] .hero-name {
+  opacity: 0;
+}
+
+/* Must match .hero-name so the swap to the moving copy is invisible. */
+.docking-name {
+  line-height: 0.95;
+  letter-spacing: -0.025em;
+}
+
 /* The career timeline. Three rows, a native range input stretched over them. */
 .scrub-row {
   height: 2rem;

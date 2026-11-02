@@ -4,8 +4,8 @@ import {
   useCommandPalette,
   useShortcutLabel,
 } from "@/components/command-palette";
+import { DockingName } from "@/components/docking-name";
 import { LengthToggle } from "@/components/length-toggle";
-import { DATA } from "@/data/resume";
 import { useNumberKeysEnabled } from "@/lib/preferences";
 import { toggleTheme } from "@/lib/theme-transition";
 import { cn } from "@/lib/utils";
@@ -105,12 +105,7 @@ export const Mixer = () => {
   return (
     <header className="bg-background fixed inset-x-0 bottom-0 z-40 md:sticky md:top-0 md:bottom-auto">
       <div className="mx-auto flex h-14 w-full max-w-[1440px] items-center gap-1 px-2 md:h-16 md:gap-6 md:px-10">
-        <a
-          href="#content"
-          className="text-foreground hover:text-primary-accent font-display hidden shrink-0 py-0.5 text-lg font-bold tracking-tight transition-colors xl:block"
-        >
-          {DATA.name}
-        </a>
+        <DockingName />
 
         <nav
           aria-label="Sections"

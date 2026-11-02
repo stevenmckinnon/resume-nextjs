@@ -49,6 +49,7 @@ const eslintConfig = [
         {
           ignore: [
             "^hero-name$",
+            "^docking-name$",
             "^scrub",
             "^tally$",
             "^reveal",

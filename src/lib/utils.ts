@@ -43,4 +43,46 @@ export function calculateYearsOfExperience(date: string): number {
   return Math.floor(timeDifference / (1000 * 60 * 60 * 24 * 365.25));
 }
 
-export const BLUR_FADE_DELAY = 0.04;
+const MONTH_NAMES = [
+  "January",
+  "February",
+  "March",
+  "April",
+  "May",
+  "June",
+  "July",
+  "August",
+  "September",
+  "October",
+  "November",
+  "December",
+];
+
+/** A date as a count of months, so two dates can be subtracted. */
+export function monthIndex(date: Date): number {
+  return date.getFullYear() * 12 + date.getMonth();
+}
+
+/** Reads the "February 2024" format used throughout resume.tsx. */
+export function parseMonthYear(value: string): number {
+  const [month = "", year = ""] = value.split(" ");
+  const index = MONTH_NAMES.indexOf(month);
+  if (index === -1 || !/^\d{4}$/.test(year)) {
+    throw new Error(`Expected a date like "February 2024", got "${value}"`);
+  }
+  return Number(year) * 12 + index;
+}
+
+export function formatMonthIndex(index: number): string {
+  return `${MONTH_NAMES[index % 12]} ${Math.floor(index / 12)}`;
+}
+
+/** "2 years, 9 months". Written out so it reads properly aloud. */
+export function formatDuration(months: number): string {
+  const years = Math.floor(months / 12);
+  const rest = months % 12;
+  const parts = [];
+  if (years) parts.push(`${years} ${years === 1 ? "year" : "years"}`);
+  if (rest) parts.push(`${rest} ${rest === 1 ? "month" : "months"}`);
+  return parts.join(", ") || "Under a month";
+}

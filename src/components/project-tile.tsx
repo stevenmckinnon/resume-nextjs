@@ -32,10 +32,10 @@ export const ProjectTile = ({ project }: { project: Project }) => {
         onClick={() => open(project)}
         aria-labelledby={titleId}
         aria-haspopup="dialog"
-        className="focus-visible:ring-ring/50 block w-full cursor-pointer text-left focus-visible:rounded-2xl focus-visible:ring-2 focus-visible:outline-none"
+        className="focus-visible:ring-ring/50 block w-full cursor-pointer text-left focus-visible:rounded-lg focus-visible:ring-2 focus-visible:outline-none"
       >
         {project.image && (
-          <div className="relative aspect-16/10 w-full overflow-hidden rounded-2xl">
+          <div className="short:hidden relative aspect-16/10 w-full overflow-hidden rounded-lg">
             {/* Only one element may carry a given layoutId at a time. While
                 this project's dialog is open the dialog owns the id, and the
                 tile leaves a same-sized hole so the grid doesn't reflow. */}
@@ -46,20 +46,20 @@ export const ProjectTile = ({ project }: { project: Project }) => {
               >
                 <Image
                   src={project.image}
-                  alt={project.name}
+                  alt=""
                   fill
                   sizes="(max-width: 768px) 100vw, 50vw"
                   className="object-cover object-center transition-transform duration-500 group-hover:scale-[1.03]"
                 />
               </motion.div>
             )}
-            <div className="image-outline pointer-events-none absolute inset-0 rounded-2xl" />
+            <div className="image-outline pointer-events-none absolute inset-0 rounded-lg" />
           </div>
         )}
 
         <h3
           id={titleId}
-          className="group-hover:text-primary-accent mt-5 inline-flex items-baseline gap-1.5 text-xl font-black tracking-tight transition-colors lg:text-2xl"
+          className="group-hover:text-primary-accent short:mt-0 font-display mt-5 inline-flex items-baseline gap-1.5 text-2xl font-bold tracking-tight transition-colors lg:text-3xl"
         >
           {project.name}
           <ArrowUpRight
@@ -76,7 +76,7 @@ export const ProjectTile = ({ project }: { project: Project }) => {
         </p>
       )}
 
-      <ProjectTags tags={project.tags ?? []} className="mt-3" />
+      <ProjectTags tags={project.tags ?? []} className="short:hidden mt-3" />
 
       <div className="mt-4 flex flex-wrap items-center gap-x-5 gap-y-2">
         <Link
@@ -84,7 +84,7 @@ export const ProjectTile = ({ project }: { project: Project }) => {
           {...(project.website.startsWith("/")
             ? {}
             : { target: "_blank", rel: "noopener noreferrer" })}
-          className="text-muted-foreground hover:text-primary-accent flex w-fit items-center gap-1.5 text-sm font-semibold transition-colors"
+          className="text-muted-foreground hover:text-primary-accent flex min-h-6 w-fit items-center gap-1.5 py-2 text-sm font-semibold transition-colors"
         >
           Visit
           <ArrowUpRight className="size-4" strokeWidth={2} />
@@ -94,7 +94,7 @@ export const ProjectTile = ({ project }: { project: Project }) => {
             href={project.github}
             target="_blank"
             rel="noopener noreferrer"
-            className="text-muted-foreground hover:text-primary-accent flex w-fit items-center gap-2 text-sm font-semibold transition-colors"
+            className="text-muted-foreground hover:text-primary-accent flex min-h-6 w-fit items-center gap-2 py-2 text-sm font-semibold transition-colors"
           >
             <Icons.github className="size-4" />
             Source

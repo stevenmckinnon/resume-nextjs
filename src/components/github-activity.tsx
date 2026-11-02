@@ -75,7 +75,7 @@ export async function GitHubActivity() {
     <section
       id="github"
       aria-label="GitHub activity"
-      className="border-border/50 mb-24 flex flex-col gap-4 border-y py-5 md:mb-32 md:flex-row md:items-center md:justify-between md:gap-8"
+      className="bg-muted/30 short:hidden mb-24 flex flex-col gap-4 rounded-lg p-5 md:mb-40 md:flex-row md:items-center md:justify-between md:gap-8 md:px-8"
     >
       <p className="text-muted-foreground text-sm/relaxed">
         <span className="text-foreground font-semibold tabular-nums">

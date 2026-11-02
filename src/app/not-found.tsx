@@ -1,6 +1,6 @@
 "use client";
 
-import BlurFade from "@/components/magicui/blur-fade";
+import { Reveal } from "@/components/reveal";
 import { motion } from "framer-motion";
 import Link from "next/link";
 import { useEffect, useState } from "react";
@@ -63,30 +63,30 @@ export default function NotFound() {
   return (
     <div className="relative flex min-h-dvh flex-col items-center justify-center px-6">
       {/* Section label — mimics the site's section numbering */}
-      <BlurFade delay={0.05} animateOnLoad>
-        <span className="text-primary-accent mb-6 block font-mono text-sm tracking-widest uppercase">
+      <Reveal onLoad>
+        <span className="text-primary-accent mb-6 block text-sm font-semibold">
           Error
         </span>
-      </BlurFade>
+      </Reveal>
 
-      <BlurFade delay={0.15} animateOnLoad>
-        <h1 className="relative text-[clamp(7rem,25vw,16rem)] leading-none font-black tracking-tighter select-none">
+      <Reveal onLoad>
+        <h1 className="font-display relative text-[clamp(7rem,25vw,16rem)] leading-none font-bold tracking-tighter select-none">
           <GlitchText text="404" />
         </h1>
-      </BlurFade>
+      </Reveal>
 
-      <BlurFade delay={0.25} animateOnLoad>
+      <Reveal onLoad>
         <div className="border-primary-accent/40 my-8 w-24 border-t" />
-      </BlurFade>
+      </Reveal>
 
-      <BlurFade delay={0.35} animateOnLoad>
+      <Reveal onLoad>
         <p className="text-muted-foreground max-w-sm text-center font-sans text-base/relaxed">
           This page doesn&apos;t exist. Or it did, and something went wrong.
           Either way, there&apos;s nothing to see here.
         </p>
-      </BlurFade>
+      </Reveal>
 
-      <BlurFade delay={0.45} animateOnLoad>
+      <Reveal onLoad>
         <motion.div
           whileHover={{ x: -3 }}
           transition={{ type: "spring", stiffness: 400, damping: 20 }}
@@ -94,13 +94,13 @@ export default function NotFound() {
         >
           <Link
             href="/"
-            className="text-primary-accent hover:text-primary-accent/70 flex items-center gap-2 font-mono text-sm tracking-widest uppercase transition-colors"
+            className="text-primary-accent hover:text-primary-accent/70 flex items-center gap-2 text-sm font-semibold transition-colors"
           >
             <span className="text-xs">←</span>
             Back to home
           </Link>
         </motion.div>
-      </BlurFade>
+      </Reveal>
     </div>
   );
 }

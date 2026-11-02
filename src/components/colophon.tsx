@@ -14,37 +14,36 @@ const ENTRIES: { term: string; detail: React.ReactNode }[] = [
   {
     term: "Typefaces",
     detail:
-      "Manrope for everything you read. Syne for labels, dates and figures.",
+      "Archivo Narrow for the name and headings, set large. Manrope for everything you read.",
   },
   {
     term: "Colour",
     detail:
-      "OKLCH throughout. The neutrals carry a low warm chroma, so no grey here is a dead grey.",
+      "OKLCH throughout. The one accent is a tally light: it marks what is live, and little else.",
   },
   {
-    term: "Grid",
+    term: "Length",
     detail:
-      "A 1200px column with a 240px heading rail. The sections that earn it break out of both.",
+      "Full or short, as a view transition over one data attribute. Add ?view=short to a link to send the short one.",
   },
   {
     term: "Motion",
     detail:
-      "Framer Motion, wrapped once in MotionConfig so reduced-motion is honoured globally, not per component.",
+      "Entrances run on CSS view timelines, so nothing waits on JavaScript to become visible. Reduced motion is honoured everywhere.",
   },
   {
     term: "Built with",
     detail: "Next.js 16 App Router, React 19, TypeScript, Tailwind CSS v4.",
   },
   {
-    term: "Deployed on",
-    detail: "Vercel.",
+    term: "Keyboard and paper",
+    detail:
+      "The timeline is a native range input. Keys 1 to 5 cut between sections, and can be turned off in the palette. Printing gives an A4 CV.",
   },
 ];
 
 const Eyebrow = ({ children }: { children: React.ReactNode }) => (
-  <h2 className="text-muted-foreground font-mono text-xs tracking-widest uppercase">
-    {children}
-  </h2>
+  <h2 className="text-muted-foreground text-base font-semibold">{children}</h2>
 );
 
 /**
@@ -57,7 +56,7 @@ const Eyebrow = ({ children }: { children: React.ReactNode }) => (
  * discover any other way.
  */
 export const Colophon = () => (
-  <footer className="border-border/50 relative border-t">
+  <footer className="bg-muted/30 short:hidden relative">
     {/* Three stacked full-width blocks, no heading rail.
 
         This used to mirror the page's 240px-rail section grid, but that rail
@@ -65,13 +64,13 @@ export const Colophon = () => (
         enough to anchor a column. Holding a 12px mono kicker instead, it left
         roughly 230px of empty space beside one small word and shunted every
         line of the footer to the right of centre. */}
-    <div className="mx-auto flex w-full max-w-[1200px] flex-col gap-14 px-6 py-16 md:gap-16 md:px-12 md:py-24 lg:px-24">
+    <div className="mx-auto flex w-full max-w-[1440px] flex-col gap-14 px-4 py-16 md:gap-16 md:px-10 md:py-24">
       {/* Lead item. This is a working MCP server and nothing else on the page
           hints at it, so it gets the heading and the interaction. It sits
           outside the colophon rather than under its label: the endpoint is not
           a note about how the site was made, it is a thing you can use. */}
       <div className="flex flex-col gap-4">
-        <h2 className="text-foreground max-w-[20ch] text-2xl font-black tracking-tight text-balance md:text-3xl lg:text-4xl">
+        <h2 className="text-foreground font-display max-w-[20ch] text-3xl font-bold tracking-tight text-balance md:text-4xl lg:text-5xl">
           This page is also an MCP server
         </h2>
         <p className="text-muted-foreground max-w-[58ch] text-base/relaxed text-pretty">
@@ -89,11 +88,8 @@ export const Colophon = () => (
             MCP block above it. */}
         <dl className="grid grid-cols-1 gap-x-10 sm:grid-cols-2 lg:grid-cols-3">
           {ENTRIES.map(({ term, detail }) => (
-            <div
-              key={term}
-              className="border-border/40 flex flex-col gap-1.5 border-t py-4"
-            >
-              <dt className="text-muted-foreground font-mono text-xs tracking-widest uppercase">
+            <div key={term} className="flex flex-col gap-1.5 py-4">
+              <dt className="text-muted-foreground text-sm font-semibold">
                 {term}
               </dt>
               <dd className="text-foreground/90 text-sm/relaxed text-pretty">
@@ -104,7 +100,7 @@ export const Colophon = () => (
         </dl>
       </div>
 
-      <div className="border-border/40 text-muted-foreground flex flex-col gap-3 border-t pt-6 text-sm sm:flex-row sm:items-center sm:justify-between">
+      <div className="text-muted-foreground flex flex-col gap-3 text-sm sm:flex-row sm:items-center sm:justify-between">
         <p>
           {DATA.name}. Written and rewritten in {DATA.location}.
         </p>
@@ -112,7 +108,7 @@ export const Colophon = () => (
           href={SOURCE_URL}
           target="_blank"
           rel="noopener noreferrer"
-          className="hover:text-primary-accent flex w-fit items-center gap-2 font-semibold transition-colors"
+          className="hover:text-primary-accent flex w-fit items-center gap-2 py-0.5 font-semibold transition-colors"
         >
           <Icons.github className="size-4" />
           Source for this site

@@ -41,6 +41,22 @@ const eslintConfig = [
       "better-tailwindcss/enforce-consistent-class-order": "off",
       "better-tailwindcss/enforce-consistent-line-wrapping": "off",
       "better-tailwindcss/no-unnecessary-whitespace": "off",
+
+      // Hand-written in globals.css because they need keyframes, range-input
+      // pseudo-elements or print rules that utilities cannot express.
+      "better-tailwindcss/no-unknown-classes": [
+        "error",
+        {
+          ignore: [
+            "^hero-name$",
+            "^scrub",
+            "^tally$",
+            "^reveal",
+            "^print-cv",
+            "^no-scrollbar$",
+          ],
+        },
+      ],
     },
     settings: {
       "better-tailwindcss": {

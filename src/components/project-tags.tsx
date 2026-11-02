@@ -1,7 +1,7 @@
 import { iconMap } from "@/types/resume";
 
 /**
- * Plain mono text, no pills and no separator glyph.
+ * Plain text, no pills and no separator glyph.
  *
  * These were bordered chips once, which put roughly thirty boxes on the page
  * competing with the screenshots. The replacement used a middle dot between
@@ -20,7 +20,7 @@ export const ProjectTags = ({
 
   return (
     <ul
-      className={`text-muted-foreground flex flex-wrap gap-x-3 gap-y-1 font-mono text-xs ${className ?? ""}`}
+      className={`text-muted-foreground flex flex-wrap gap-x-3 gap-y-1 text-sm ${className ?? ""}`}
     >
       {tags.map((tag) => (
         <li key={tag}>{tag}</li>

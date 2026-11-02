@@ -1,7 +1,6 @@
-import BlurFade from "@/components/magicui/blur-fade";
 import { ParallaxImage } from "@/components/parallax-image";
+import { Reveal } from "@/components/reveal";
 import { DATA } from "@/data/resume";
-import { BLUR_FADE_DELAY } from "@/lib/utils";
 import Image from "next/image";
 import Link from "next/link";
 
@@ -18,26 +17,25 @@ const SHOWS = [
 ];
 
 const Caption = ({ children }: { children: React.ReactNode }) => (
-  <p className="text-muted-foreground mt-3 font-mono text-xs tracking-wide">
-    {children}
-  </p>
+  <p className="text-muted-foreground mt-3 text-sm">{children}</p>
 );
 
 /**
- * The one section that does not use the page's numbered-rail grid. It runs
- * edge to edge and sets its own rhythm — full-bleed, then type, then an
- * asymmetric pair, then full-bleed again. Everything above it is a column of
- * cards, so the break is the point: this is the part of the CV nobody else has.
+ * The source of the whole concept: the mixer, the tally and the timeline all
+ * come from this job. It runs edge to edge and sets its own rhythm, full-bleed,
+ * then type, then an asymmetric pair, then full-bleed again. The short version
+ * keeps the credits and drops the photographs.
  */
 export const OtherJob = () => (
-  <section id="other" className="mb-24 md:mb-32">
+  <section
+    id="other"
+    aria-labelledby="other-heading"
+    className="short:mb-20 @container mb-24 md:mb-40"
+  >
     {/* Opener — full-bleed, heading overlaid on the image rather than sitting
         in the 240px rail every other section uses. */}
-    <BlurFade delay={BLUR_FADE_DELAY}>
-      {/* data-full-bleed marks media that replaces the page background edge
-          to edge. The section index watches for these and switches to its
-          over-photo palette while it overlaps one. */}
-      <figure data-full-bleed className="border-border/50 relative border-y">
+    <Reveal className="short:hidden">
+      <figure className="relative">
         {/* Taller on phones: the overlaid heading needs vertical room, and a
             21/9 crop at 375px leaves a letterbox with text on top of it. */}
         <ParallaxImage
@@ -45,31 +43,43 @@ export const OtherJob = () => (
           alt="Steve McKinnon in the ring with a handheld broadcast camera at an NXT UK taping"
           className="aspect-3/4 w-full sm:aspect-video lg:aspect-21/9"
         />
-        {/* Scrim sits over the parallax frame, not inside it, so it stays put
-            while the photograph drifts underneath. */}
-        <div className="pointer-events-none absolute inset-0 bg-linear-to-t from-black/85 via-black/30 to-transparent" />
-
-        <figcaption className="absolute inset-x-0 bottom-0 p-6 md:p-12 lg:p-16">
-          <div className="mx-auto w-full max-w-[1200px]">
-            <h2 className="text-3xl font-black tracking-tight text-balance text-white uppercase md:text-5xl lg:text-6xl">
-              The Other Job
-            </h2>
-            <p className="mt-3 max-w-md text-base/relaxed text-white/90 md:text-lg">
+        {/* A lower third, the way a broadcast names what is on screen. Solid,
+            because a gradient scrim only ever guesses at the contrast of whatever
+            part of the photograph drifts underneath it. */}
+        <figcaption className="bg-background absolute inset-x-0 bottom-0 flex gap-4 p-5 md:inset-x-auto md:bottom-10 md:left-10 md:gap-5 md:p-8">
+          <span aria-hidden="true" className="bg-tally w-1.5 shrink-0" />
+          <div>
+            <p
+              aria-hidden="true"
+              className="font-display text-foreground text-[clamp(2.75rem,7.5cqw,6rem)] leading-none font-bold tracking-[-0.025em]"
+            >
+              The other job
+            </p>
+            <p className="text-muted-foreground mt-3 text-base/relaxed md:text-lg">
               I shoot wrestling. Sometimes for WWE.
             </p>
           </div>
         </figcaption>
       </figure>
-    </BlurFade>
+    </Reveal>
 
-    <div className="mx-auto w-full max-w-[1200px] px-6 md:px-12 lg:px-24">
+    <div className="@container mx-auto w-full max-w-[1440px] px-4 md:px-10">
+      {/* One heading in the document at any length. It is only seen in the short
+          version, where the photograph it sits on is gone; the full version
+          shows the same words over the picture. */}
+      <h2
+        id="other-heading"
+        className="short:not-sr-only font-display short:text-[clamp(3rem,9cqw,7.5rem)] short:leading-none short:font-bold short:tracking-[-0.025em] sr-only"
+      >
+        The other job
+      </h2>
       {/* The show names are the credit. Set as type rather than as captions,
           because two of the photos have no branding in frame to caption with.
           They need the label above them: without it this is five wrestling
           words in large type and no indication of what they are. */}
-      <BlurFade delay={BLUR_FADE_DELAY * 2}>
-        <div className="pt-12 md:pt-20">
-          <h3 className="text-muted-foreground font-mono text-xs tracking-widest uppercase">
+      <Reveal>
+        <div className="short:pt-4 pt-12 md:pt-20">
+          <h3 className="text-foreground text-xl font-bold tracking-tight md:text-2xl">
             Shows I&apos;ve worked on
           </h3>
           <ul className="mt-5 flex flex-wrap items-baseline gap-x-4 gap-y-1 md:mt-6 md:gap-x-6">
@@ -82,7 +92,7 @@ export const OtherJob = () => (
                 {/* Sized for eight names, not five. At text-5xl the longer
                     list ran to four lines and outweighed the photography it
                     is meant to caption. */}
-                <span className="text-foreground/90 text-xl font-black tracking-tight whitespace-nowrap uppercase md:text-3xl lg:text-4xl">
+                <span className="text-foreground/90 font-display text-2xl font-bold whitespace-nowrap uppercase md:text-4xl lg:text-5xl">
                   {show}
                 </span>
                 {/* Trails its own name rather than leading the next one, so a
@@ -100,12 +110,12 @@ export const OtherJob = () => (
             ))}
           </ul>
         </div>
-      </BlurFade>
+      </Reveal>
 
       {/* Asymmetric pair — the only portrait image in the set anchors the left
           column, so the ratio does the work instead of a border. */}
-      <div className="grid grid-cols-1 gap-8 pt-12 md:grid-cols-[minmax(0,5fr)_minmax(0,7fr)] md:gap-16 md:pt-20">
-        <BlurFade delay={BLUR_FADE_DELAY * 3}>
+      <div className="short:hidden grid grid-cols-1 gap-8 pt-12 md:grid-cols-[minmax(0,5fr)_minmax(0,7fr)] md:gap-16 md:pt-20">
+        <Reveal>
           <figure>
             <div className="relative aspect-3/4 w-full overflow-hidden rounded-2xl">
               <Image
@@ -119,16 +129,16 @@ export const OtherJob = () => (
             </div>
             <Caption>The monitor is what goes out.</Caption>
           </figure>
-        </BlurFade>
+        </Reveal>
 
-        <BlurFade delay={BLUR_FADE_DELAY * 4}>
+        <Reveal order={1}>
           <div className="flex h-full flex-col justify-center gap-8">
             <p className="text-muted-foreground max-w-[46ch] text-lg/relaxed text-pretty md:text-xl/relaxed">
               Weekends and evenings I&apos;m on a broadcast camera. Live, no
               second take, and the director is in your ear the whole time.
             </p>
 
-            <ul className="divide-border/50 divide-y">
+            <ul className="flex flex-col gap-2">
               {DATA.otherWork.map((work) => (
                 <li
                   key={`${work.company}-${work.start}`}
@@ -141,7 +151,7 @@ export const OtherJob = () => (
                           href={work.href}
                           target="_blank"
                           rel="noopener noreferrer"
-                          className="decoration-primary hover:text-primary-accent underline-offset-4 transition-colors hover:underline"
+                          className="decoration-primary hover:text-primary-accent inline-block py-0.5 underline-offset-4 transition-colors hover:underline"
                         >
                           {work.company}
                         </Link>
@@ -153,32 +163,29 @@ export const OtherJob = () => (
                       {work.title}
                     </p>
                   </div>
-                  <span className="text-muted-foreground shrink-0 font-mono text-xs">
-                    {work.start} - {work.end ?? "Present"}
+                  <span className="text-muted-foreground shrink-0 text-sm tabular-nums">
+                    Since {work.start}
                   </span>
                 </li>
               ))}
             </ul>
           </div>
-        </BlurFade>
+        </Reveal>
       </div>
     </div>
 
     {/* Closer — the job rather than the show. */}
-    <BlurFade delay={BLUR_FADE_DELAY * 5}>
-      <figure
-        data-full-bleed
-        className="border-border/50 mt-12 border-y md:mt-20"
-      >
+    <Reveal className="short:hidden">
+      <figure className="mt-12 md:mt-20">
         <ParallaxImage
           src="/wr-production.jpg"
           alt="The view from behind the production desk: banks of monitors and mixing gear facing the ring, with the crowd holding up coloured cards"
           className="aspect-4/3 w-full sm:aspect-video lg:aspect-21/9"
         />
       </figure>
-      <div className="mx-auto w-full max-w-[1200px] px-6 md:px-12 lg:px-24">
+      <div className="mx-auto w-full max-w-[1440px] px-4 md:px-10">
         <Caption>Behind the production desk.</Caption>
       </div>
-    </BlurFade>
+    </Reveal>
   </section>
 );

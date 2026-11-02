@@ -10,7 +10,7 @@ import {
 } from "@/components/ui/card";
 import { Separator } from "@/components/ui/separator";
 import { Badge } from "@/components/ui/badge";
-import BlurFade from "@/components/magicui/blur-fade";
+import { Reveal } from "@/components/reveal";
 import { LogDevTools, LogDumper, useLogger } from "@stevenmckinnon/log-dumper";
 import {
   AlertTriangle,
@@ -154,7 +154,7 @@ const DemoContent = () => {
   return (
     <div className="container mx-auto max-w-6xl px-4 py-16 md:py-24">
       {/* Hero Section */}
-      <BlurFade delay={0.1}>
+      <Reveal onLoad>
         <div className="mb-16 text-center">
           <motion.div
             initial={{ scale: 0.9, opacity: 0 }}
@@ -198,14 +198,14 @@ const DemoContent = () => {
             />
           </div>
         </div>
-      </BlurFade>
+      </Reveal>
 
       <Separator className="mb-16" />
 
       {/* Demo Sections */}
       <div className="mx-auto max-w-3xl space-y-8">
         {/* Counter Section */}
-        <BlurFade delay={0.2}>
+        <Reveal onLoad>
           <Card className="border-green-200 bg-green-50/50 dark:border-green-900 dark:bg-green-950/20">
             <CardHeader>
               <CardTitle className="flex items-center gap-2 text-green-700 dark:text-green-300">
@@ -264,15 +264,15 @@ const DemoContent = () => {
               </div>
             </CardContent>
           </Card>
-        </BlurFade>
+        </Reveal>
 
         {/* Named Logger Section */}
-        <BlurFade delay={0.3}>
+        <Reveal onLoad>
           <AuthSection />
-        </BlurFade>
+        </Reveal>
 
         {/* Error Boundary Test */}
-        <BlurFade delay={0.4}>
+        <Reveal onLoad>
           <Card className="border-red-200 bg-red-50/50 dark:border-red-900 dark:bg-red-950/20">
             <CardHeader>
               <CardTitle className="flex items-center gap-2 text-red-700 dark:text-red-300">
@@ -288,11 +288,11 @@ const DemoContent = () => {
               <BuggyComponent />
             </CardContent>
           </Card>
-        </BlurFade>
+        </Reveal>
       </div>
 
       {/* Actions Footer */}
-      <BlurFade delay={0.5}>
+      <Reveal onLoad>
         <div className="mt-16 space-y-6">
           <Separator />
           <div className="flex flex-col items-center gap-4 text-center">
@@ -309,7 +309,7 @@ const DemoContent = () => {
             </p>
           </div>
         </div>
-      </BlurFade>
+      </Reveal>
     </div>
   );
 };

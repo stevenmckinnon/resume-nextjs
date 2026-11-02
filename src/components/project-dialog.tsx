@@ -144,7 +144,7 @@ export function ProjectDialogProvider({
                     className="flex flex-col gap-5 p-6 md:p-8"
                   >
                     <div className="flex flex-col gap-3">
-                      <Dialog.Title className="text-2xl font-black tracking-tight md:text-3xl">
+                      <Dialog.Title className="font-display text-3xl font-bold tracking-tight md:text-4xl">
                         {active.name}
                       </Dialog.Title>
 
@@ -154,7 +154,7 @@ export function ProjectDialogProvider({
                     </div>
 
                     {(details?.role || details?.year) && (
-                      <dl className="text-muted-foreground flex flex-wrap gap-x-8 gap-y-2 font-mono text-xs tracking-widest uppercase">
+                      <dl className="text-muted-foreground flex flex-wrap gap-x-8 gap-y-2 text-sm">
                         {details.role && (
                           <div className="flex gap-2">
                             <dt>Role</dt>
@@ -179,7 +179,7 @@ export function ProjectDialogProvider({
                         key={section.heading}
                         className="flex flex-col gap-2"
                       >
-                        <h3 className="text-foreground text-sm font-black tracking-widest uppercase">
+                        <h3 className="text-foreground text-base font-bold">
                           {section.heading}
                         </h3>
                         <div className="text-muted-foreground flex max-w-[62ch] flex-col gap-3 text-base/relaxed text-pretty">

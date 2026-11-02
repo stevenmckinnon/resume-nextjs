@@ -3,7 +3,6 @@ import {
   cn,
   formatDate,
   calculateYearsOfExperience,
-  BLUR_FADE_DELAY,
 } from "../utils";
 
 describe("Utility Functions", () => {
@@ -14,13 +13,6 @@ describe("Utility Functions", () => {
         "class1 class2"
       );
       expect(cn("class1", ["class2", "class3"])).toBe("class1 class2 class3");
-    });
-  });
-
-  describe("BLUR_FADE_DELAY constant", () => {
-    it("has the correct value", () => {
-      expect(BLUR_FADE_DELAY).toBe(0.04);
-      expect(typeof BLUR_FADE_DELAY).toBe("number");
     });
   });
 

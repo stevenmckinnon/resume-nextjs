@@ -47,6 +47,8 @@ export type Contact = {
 
 export type WorkExperience = {
   company: string;
+  /** Used where the full name will not fit, such as a timeline clip. */
+  shortName?: string;
   href: string;
   badges?: string[]; // Or a more specific badge type if needed
   location?: string;
@@ -76,7 +78,13 @@ export type ProjectLink = {
 
 export type Skill = {
   name: string;
-  icon?: React.ComponentType<IconProps>;
+  group: string;
+};
+
+/** A figure worth stating large. Only ever taken from the CV. */
+export type Highlight = {
+  value: string;
+  label: string;
 };
 
 /**
@@ -134,6 +142,7 @@ export type Resume = {
   summary: string;
   avatarUrl: string;
   skills: Skill[];
+  highlights: Highlight[];
   contact: Contact;
   work: WorkExperience[];
   education: EducationItem[];

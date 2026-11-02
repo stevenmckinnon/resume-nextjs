@@ -1,45 +1,20 @@
-import Link from "next/link";
-import Markdown from "react-markdown";
-
 import { Contact } from "@/components/contact";
 import { GitHubActivity } from "@/components/github-activity";
 import { Hero } from "@/components/hero";
 import { LogDumperDemo } from "@/components/log-dumper-demo";
-import BlurFade from "@/components/magicui/blur-fade";
 import { OtherJob } from "@/components/other-job";
 import { ProjectFeature } from "@/components/project-feature";
 import { ProjectTile } from "@/components/project-tile";
-import { ResumeCard } from "@/components/resume-card";
+import { Reveal } from "@/components/reveal";
+import { Rundown } from "@/components/rundown";
 import { SectionHeading } from "@/components/section-heading";
 import { SkillsSection } from "@/components/skills-section";
 import { DATA } from "@/data/resume";
-import { BLUR_FADE_DELAY } from "@/lib/utils";
-import { MapPin } from "lucide-react";
 
-const Section = ({
-  id,
-  title,
-  kicker,
-  children,
-  className,
-}: {
-  id: string;
-  title: string;
-  kicker?: string;
-  children: React.ReactNode;
-  className?: string;
-}) => (
-  <section
-    id={id}
-    className={`mb-24 grid grid-cols-1 gap-8 md:mb-32 md:grid-cols-[240px_1fr] md:gap-16 ${className} `}
-  >
-    <div className="h-fit md:sticky md:top-32">
-      <BlurFade delay={BLUR_FADE_DELAY}>
-        <SectionHeading title={title} kicker={kicker} />
-      </BlurFade>
-    </div>
-    <div className="flex flex-col gap-y-10">{children}</div>
-  </section>
+const Column = ({ children }: { children: React.ReactNode }) => (
+  <div className="@container mx-auto w-full max-w-[1440px] px-4 md:px-10">
+    {children}
+  </div>
 );
 
 export default function Page() {
@@ -49,146 +24,174 @@ export default function Page() {
   // run three inches further down is the weaker of the two.
   const supportingProjects = rest.filter((project) => !project.liveDemo);
   const liveProjects = rest.filter((project) => project.liveDemo);
+  const [lead, ...paragraphs] = DATA.summary.split("\n\n");
 
   return (
     <>
       <Hero />
-      <div className="mx-auto w-full max-w-[1200px] px-6 md:px-12 lg:px-24">
-        <Section
+
+      <Column>
+        <section
           id="about"
-          title="About"
-          kicker="Twelve years of front-end. Eight of them at the same bank."
+          aria-labelledby="about-heading"
+          className="short:mb-20 mb-24 flex flex-col gap-10 md:mb-40"
         >
-          <BlurFade delay={BLUR_FADE_DELAY * 2}>
-            <div className="flex flex-col gap-6">
-              <div className="text-muted-foreground flex items-center gap-2">
-                <MapPin className="size-4" />
-                <Link
-                  href={DATA.locationLink}
-                  className="hover:text-primary-accent transition-colors hover:underline"
-                >
-                  {DATA.location}
-                </Link>
-              </div>
-              {/* The summary is three paragraphs now. Preflight strips the
-                  default <p> margin, so without this they run together as one
-                  block and the deliberate pauses are lost. Capped to a
-                  readable measure rather than the full column width. */}
-              <div className="text-muted-foreground max-w-[62ch] space-y-5 text-lg/relaxed text-pretty">
-                <Markdown>{DATA.summary}</Markdown>
-              </div>
-            </div>
-          </BlurFade>
-        </Section>
+          <Reveal>
+            <SectionHeading id="about-heading" title="About" />
+          </Reveal>
 
-        <Section
-          id="skills"
-          title="Skills"
-          kicker="What I reach for, and what I've actually shipped with."
-        >
-          <SkillsSection />
-        </Section>
-
-        <Section
-          id="work"
-          title="Experience"
-          kicker="Five roles, three companies, one recurring theme."
-        >
-          {DATA.work.map((work, id) => (
-            <BlurFade
-              key={`${work.company}-${work.start}`}
-              delay={BLUR_FADE_DELAY + id * 0.05}
-            >
-              <ResumeCard
-                logoUrl={work.logoUrl}
-                altText={work.company}
-                title={work.company}
-                subtitle={work.title}
-                href={work.href}
-                badges={work.badges}
-                period={`${work.start} - ${work.end ?? "Present"}`}
-                description={work.description}
-                index={id}
-              />
-            </BlurFade>
-          ))}
-        </Section>
-
-        <Section
-          id="education"
-          title="Education"
-          kicker="I studied games development and ended up in risk technology."
-        >
-          {DATA.education.map((education, id) => (
-            <BlurFade
-              key={education.school}
-              delay={BLUR_FADE_DELAY + id * 0.05}
-            >
-              <ResumeCard
-                key={education.school}
-                href={education.href}
-                logoUrl={education.logoUrl}
-                altText={education.school}
-                title={education.school}
-                subtitle={education.degree}
-                period={`${education.start} - ${education.end}`}
-              />
-            </BlurFade>
-          ))}
-        </Section>
-
-        {/* Projects drops the 240px rail so the feature image gets the full
-            column width. */}
-        <section id="projects" className="mb-24 md:mb-32">
-          <BlurFade delay={BLUR_FADE_DELAY}>
-            <div className="border-primary-accent/40 mb-12 flex flex-col gap-2 border-l-2 pl-6 md:mb-20">
-              <h2 className="text-foreground text-2xl font-black tracking-tight uppercase md:text-4xl lg:text-5xl">
-                Projects
-              </h2>
-              <p className="text-muted-foreground max-w-md text-base/relaxed md:text-lg">
-                Things I built because I wanted them to exist.
+          <div className="grid grid-cols-1 gap-x-16 gap-y-12 lg:grid-cols-12">
+            <Reveal className="flex flex-col gap-5 lg:col-span-6">
+              <p className="text-foreground text-2xl/snug font-semibold tracking-tight text-balance md:text-3xl/snug">
+                {lead}
               </p>
-            </div>
-          </BlurFade>
+              {paragraphs.map((paragraph, index) => (
+                <p
+                  key={paragraph}
+                  className={`text-muted-foreground max-w-[60ch] text-lg/relaxed text-pretty ${index > 0 ? "short:hidden" : ""}`}
+                >
+                  {paragraph}
+                </p>
+              ))}
+            </Reveal>
 
-          {/* One feature, then a grid. Five alternating image-and-text rows
-              was the same move repeated five times, and it gave every project
-              identical weight regardless of which one is worth looking at. */}
-          {featuredProject && (
-            <BlurFade delay={BLUR_FADE_DELAY}>
-              <ProjectFeature project={featuredProject} />
-            </BlurFade>
-          )}
+            <Reveal
+              order={1}
+              className="flex scroll-mt-24 flex-col gap-6 lg:col-span-6"
+            >
+              <section id="skills" aria-labelledby="skills-heading">
+                <h3
+                  id="skills-heading"
+                  className="text-foreground font-display mb-5 text-3xl font-bold tracking-tight md:text-4xl"
+                >
+                  Skills
+                </h3>
+                <SkillsSection />
+              </section>
+            </Reveal>
+          </div>
 
-          {supportingProjects.length > 0 && (
-            <div className="mt-16 grid grid-cols-1 gap-12 md:mt-24 md:grid-cols-2 md:gap-x-8 md:gap-y-16">
-              {supportingProjects.map((project) => (
-                <BlurFade key={project.name} delay={BLUR_FADE_DELAY}>
+          <Reveal order={2}>
+            <dl className="grid grid-cols-1 gap-x-10 gap-y-6 sm:grid-cols-3">
+              {DATA.highlights.map(({ value, label }) => (
+                <div key={label} className="flex flex-col gap-1">
+                  <dt className="text-muted-foreground max-w-[26ch] text-base/snug">
+                    {label}
+                  </dt>
+                  <dd className="text-foreground font-display order-first text-[clamp(3.5rem,9cqw,7.5rem)] leading-none font-bold tracking-[-0.025em] tabular-nums">
+                    {value}
+                  </dd>
+                </div>
+              ))}
+            </dl>
+          </Reveal>
+        </section>
+
+        <section
+          id="work"
+          aria-labelledby="work-heading"
+          className="short:mb-20 mb-24 flex flex-col gap-10 md:mb-40"
+        >
+          <Reveal>
+            <SectionHeading
+              id="work-heading"
+              title="Experience"
+              kicker="Five roles, three companies, one recurring theme: the UI foundations other people build on."
+            />
+          </Reveal>
+
+          <Rundown />
+
+          <Reveal>
+            <section
+              id="education"
+              aria-labelledby="education-heading"
+              className="flex scroll-mt-24 flex-col gap-1 px-5 md:px-8"
+            >
+              <h3
+                id="education-heading"
+                className="text-muted-foreground text-base font-semibold"
+              >
+                Education
+              </h3>
+              {DATA.education.map((education) => (
+                <p
+                  key={education.school}
+                  className="text-foreground text-lg/snug"
+                >
+                  {education.degree},{" "}
+                  <a
+                    href={education.href}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="hover:text-primary-accent font-semibold underline-offset-4 transition-colors hover:underline"
+                  >
+                    {education.school}
+                  </a>
+                  . {education.start} to {education.end}.
+                </p>
+              ))}
+            </section>
+          </Reveal>
+        </section>
+
+        <section
+          id="projects"
+          aria-labelledby="projects-heading"
+          className="short:mb-20 mb-24 md:mb-40"
+        >
+          <Reveal>
+            <SectionHeading
+              id="projects-heading"
+              title="Projects"
+              kicker="Things I built because I wanted them to exist."
+              className="short:mb-8 mb-10 md:mb-16"
+            />
+          </Reveal>
+
+          {/* The short version flattens the feature and the grid into one list
+              of names and sentences, with the pictures gone. */}
+          <div className="short:grid short:grid-cols-1 short:gap-x-8 short:gap-y-6 short:md:grid-cols-2 short:lg:grid-cols-3">
+            {featuredProject && (
+              <Reveal>
+                <ProjectFeature project={featuredProject} />
+              </Reveal>
+            )}
+
+            <div className="short:contents mt-16 grid grid-cols-1 gap-12 md:mt-24 md:grid-cols-2 md:gap-x-8 md:gap-y-16">
+              {supportingProjects.map((project, index) => (
+                <Reveal key={project.name} order={index % 2}>
                   <ProjectTile project={project} />
-                </BlurFade>
+                </Reveal>
               ))}
             </div>
-          )}
+
+            {liveProjects.map((project) => (
+              <div key={project.name} className="short:block hidden">
+                <ProjectTile project={project} />
+              </div>
+            ))}
+          </div>
 
           {liveProjects.length > 0 && (
-            <div className="mt-16 md:mt-24">
-              <BlurFade delay={BLUR_FADE_DELAY}>
+            <div className="short:hidden mt-16 md:mt-24">
+              <Reveal>
                 <LogDumperDemo />
-              </BlurFade>
+              </Reveal>
             </div>
           )}
         </section>
 
         <GitHubActivity />
-      </div>
+      </Column>
 
-      {/* Deliberately outside the 1200px column — this section runs edge to
-          edge, which it cannot do from inside a max-width container. */}
+      {/* Deliberately outside the column: this section runs edge to edge, which
+          it cannot do from inside a max-width container. */}
       <OtherJob />
 
-      <div className="mx-auto w-full max-w-[1200px] px-6 pb-24 md:px-12 lg:px-24">
+      <Column>
         <Contact />
-      </div>
+      </Column>
     </>
   );
 }

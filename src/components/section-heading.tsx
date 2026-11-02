@@ -1,29 +1,33 @@
+import { cn } from "@/lib/utils";
+
 interface SectionHeadingProps {
   title: string;
   /** Editorial standfirst. One line, sets up the section in the site's voice. */
   kicker?: string;
+  id?: string;
+  className?: string;
 }
 
 /**
- * No section number.
- *
- * Each heading used to carry a zero-padded `01`/`02` in accent mono above the
- * title. Two problems. The sequence was a lie — shrinking the GitHub section
- * left it unnumbered between 05 and 06, so the count skipped a section the
- * reader could plainly see. And the numbers were never navigable: they
- * enumerated without indexing anything, while the command palette did the
- * actual wayfinding. A section's place on the page already tells you where you
- * are; the heading alone is enough.
+ * No section number and no rule beside it. Size does the work: the jump from
+ * this to the body text is what tells you a new section has started, at any
+ * width and with no ornament to maintain.
  */
-export const SectionHeading = ({ title, kicker }: SectionHeadingProps) => (
-  <div className="border-primary-accent/40 flex flex-row items-center gap-4 border-b pb-4 md:flex-col md:items-start md:border-b-0 md:border-l-2 md:pb-0 md:pl-6">
-    <h2 className="text-foreground text-xl font-black tracking-tight wrap-break-word uppercase md:text-2xl md:break-normal lg:text-3xl">
+export const SectionHeading = ({
+  title,
+  kicker,
+  id,
+  className,
+}: SectionHeadingProps) => (
+  <div className={cn("flex flex-col gap-3", className)}>
+    <h2
+      id={id}
+      className="text-foreground font-display text-[clamp(3rem,9cqw,7.5rem)] leading-none font-bold tracking-[-0.025em]"
+    >
       {title}
     </h2>
-    {/* Hidden on mobile, where the heading collapses to a single row and a
-        second line of prose would crowd the content it introduces. */}
     {kicker && (
-      <p className="text-muted-foreground hidden max-w-[28ch] text-sm/relaxed text-balance md:block">
+      <p className="text-muted-foreground max-w-[52ch] text-lg/relaxed text-pretty md:text-xl/relaxed">
         {kicker}
       </p>
     )}

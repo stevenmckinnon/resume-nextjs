@@ -65,7 +65,7 @@ const ACTIONS: {
  * introduce for a demo panel.
  */
 const LEVEL_STYLES: Record<string, string> = {
-  debug: "text-muted-foreground/70",
+  debug: "text-muted-foreground",
   info: "text-muted-foreground",
   warn: "text-foreground font-bold",
   error: "text-destructive font-bold",
@@ -88,7 +88,7 @@ const ControlButton = ({
     type="button"
     onClick={onClick}
     className={cn(
-      "border-border/70 text-muted-foreground hover:border-primary-accent/40 hover:text-foreground rounded-md border px-3 py-1.5 font-mono text-xs transition-colors",
+      "border-border/70 text-muted-foreground hover:border-primary-accent/40 hover:text-foreground rounded-md border px-3 py-1.5 text-[0.8125rem] transition-colors",
       "focus-visible:ring-ring/50 cursor-pointer focus-visible:ring-2 focus-visible:outline-none",
       className,
     )}
@@ -135,14 +135,7 @@ export const LogDumperDemo = () => {
   return (
     <article className="border-border/50 grid grid-cols-1 gap-10 rounded-2xl border p-6 md:grid-cols-[minmax(0,4fr)_minmax(0,6fr)] md:gap-12 md:p-10">
       <div className="flex flex-col gap-4">
-        <div className="flex items-center gap-2">
-          <span className="bg-primary-accent size-1.5 animate-pulse rounded-full" />
-          <span className="text-muted-foreground font-mono text-xs tracking-widest uppercase">
-            Running on this page
-          </span>
-        </div>
-
-        <h3 className="text-2xl font-black tracking-tight lg:text-3xl">
+        <h3 className="font-display text-3xl font-bold tracking-tight lg:text-4xl">
           <Link
             href="https://www.npmjs.com/package/@stevenmckinnon/log-dumper"
             target="_blank"
@@ -171,14 +164,14 @@ export const LogDumperDemo = () => {
             href="https://github.com/stevenmckinnon/log-dumper"
             target="_blank"
             rel="noopener noreferrer"
-            className="text-muted-foreground hover:text-primary-accent flex w-fit items-center gap-2 text-sm font-semibold transition-colors"
+            className="text-muted-foreground hover:text-primary-accent flex min-h-6 w-fit items-center gap-2 py-2 text-sm font-semibold transition-colors"
           >
             <Icons.github className="size-4" />
             Source
           </Link>
           <Link
             href="/log-dumper"
-            className="text-muted-foreground hover:text-primary-accent flex w-fit items-center gap-2 text-sm font-semibold transition-colors"
+            className="text-muted-foreground hover:text-primary-accent flex min-h-6 w-fit items-center gap-2 py-2 text-sm font-semibold transition-colors"
           >
             Full demo
             <ArrowUpRight className="size-4" strokeWidth={2} />
@@ -186,10 +179,10 @@ export const LogDumperDemo = () => {
         </div>
       </div>
 
-      <div className="flex flex-col gap-3">
+      <div data-ui className="flex flex-col gap-3">
         <div className="border-border/70 bg-card/40 overflow-hidden rounded-lg border">
-          <div className="border-border/50 text-muted-foreground flex items-center justify-between border-b px-4 py-2.5 font-mono text-[11px] tracking-wide">
-            <span className="uppercase">log stream</span>
+          <div className="border-border/50 text-muted-foreground flex items-center justify-between border-b px-4 py-2.5 text-[0.8125rem]">
+            <span>Log stream</span>
             <span className="tabular-nums">
               {entries.length} {entries.length === 1 ? "entry" : "entries"}
             </span>
@@ -202,7 +195,7 @@ export const LogDumperDemo = () => {
             {/* Clearing the stream otherwise leaves a 260px void with no
                 indication that the buttons below refill it. */}
             {entries.length === 0 && (
-              <li className="text-muted-foreground/60 font-code absolute inset-0 flex items-center justify-center text-[11px]">
+              <li className="text-muted-foreground font-code absolute inset-0 flex items-center justify-center text-[0.8125rem]">
                 Press a button below to emit an entry
               </li>
             )}
@@ -218,11 +211,11 @@ export const LogDumperDemo = () => {
                     animate={{ opacity: 1, y: 0 }}
                     exit={{ opacity: 0 }}
                     transition={{ type: "spring", duration: 0.35, bounce: 0 }}
-                    className="font-code flex items-baseline gap-3 px-4 py-2.5 text-[11px]/relaxed"
+                    className="font-code flex items-baseline gap-3 px-4 py-2.5 text-[0.8125rem]/relaxed"
                   >
                     <time
                       dateTime={entry.timestamp}
-                      className="text-muted-foreground/60 shrink-0 tabular-nums"
+                      className="text-muted-foreground shrink-0 tabular-nums"
                     >
                       {new Date(entry.timestamp).toLocaleTimeString("en-GB", {
                         hour12: false,
@@ -245,7 +238,7 @@ export const LogDumperDemo = () => {
                         {entry.message}
                       </span>
                       {context && (
-                        <span className="text-muted-foreground/70 wrap-break-word">
+                        <span className="text-muted-foreground wrap-break-word">
                           {context}
                         </span>
                       )}

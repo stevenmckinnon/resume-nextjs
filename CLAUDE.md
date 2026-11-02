@@ -36,21 +36,24 @@ All resume content lives in a single source of truth: **`src/data/resume.tsx`** 
 ### Key Directories
 
 - `src/app/` — Next.js App Router pages and API routes
-  - `page.tsx` — Main portfolio page composed of `Section` blocks (About, Skills, Experience, Education, Projects, Other, Contact)
-  - `layout.tsx` — Root layout with fonts (Manrope + Syne), metadata from `DATA`, theme provider, gradient background layers
+  - `page.tsx` — Main portfolio page: hero, About (with Skills), Experience (with Education), Projects, Other job, Contact
+  - `layout.tsx` — Root layout with fonts (Manrope + Archivo Narrow), metadata and JSON-LD from `DATA`, theme provider, the pre-paint page length script
+  - `opengraph-image.tsx` — Generated share card
   - `api/send/route.ts` — Contact form handler via Resend; uses `botid` for bot protection
   - `log-dumper/` — Dev utility page using `@stevenmckinnon/log-dumper`
 - `src/components/` — All React components
   - `ui/` — shadcn/ui primitives (Avatar, Badge, Button, Card, Form, Input, etc.)
-  - `magicui/` — Custom animation/visual components (BlurFade, Dock, Confetti, ScrollProgress, GradientOrbs)
-  - Feature components: `hero.tsx`, `resume-card.tsx`, `project-card.tsx`, `skills-section.tsx`, `contact.tsx`, `navbar.tsx`, `spinnable-photo.tsx`
+  - `magicui/` — Custom animation/visual components (Dock, Confetti)
+  - Feature components: `hero.tsx`, `career-timeline.tsx`, `rundown.tsx`, `mixer.tsx`, `length-toggle.tsx`, `print-cv.tsx`, `reveal.tsx`, `project-feature.tsx`, `project-tile.tsx`, `skills-section.tsx`, `contact.tsx`
 - `src/types/resume.ts` — TypeScript types for all resume data structures plus `iconMap` for project tech icons
-- `src/lib/utils.ts` — `cn()` helper, `formatDate()`, `calculateYearsOfExperience()`, `BLUR_FADE_DELAY` constant
+- `src/lib/utils.ts` — `cn()` helper, `formatDate()`, `calculateYearsOfExperience()`, month and duration helpers
+- `src/lib/career.ts` — Turns `DATA` into the timeline's tracks and clips
+- `src/lib/preferences.ts` — Page length (full or short) and the number key shortcut setting
 - `src/test/` — Vitest setup (`setup.ts`) and custom render utilities (`utils.tsx`)
 
 ### Styling
 
-Tailwind CSS v4 with `@tailwindcss/postcss`. The `cn()` utility (clsx + tailwind-merge) is used throughout for conditional class composition. Fonts: `--font-sans` (Manrope) and `--font-mono` (Syne, used for section numbers/labels).
+Tailwind CSS v4 with `@tailwindcss/postcss`. The `cn()` utility (clsx + tailwind-merge) is used throughout for conditional class composition. Fonts: `--font-sans` (Manrope) and `--font-display` (Archivo Narrow, for the name and headings). The `short:` variant styles the short version of the page, set by `data-view="short"` on `<html>`. Print output is `print-cv.tsx`, styled in the Paper block of `globals.css`.
 
 ### Testing
 

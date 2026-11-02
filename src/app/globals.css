@@ -3,6 +3,9 @@
 @import "shadcn/tailwind.css";
 
 @custom-variant dark (&:is(.dark *));
+/* The short version of the page. Set on <html> by a script before first paint,
+   so this is CSS all the way down and nothing has to re-render to switch. */
+@custom-variant short (:root[data-view="short"] &);
 
 html {
   scroll-behavior: smooth;
@@ -325,11 +328,11 @@ code[data-line-numbers-max-digits="3"] > [data-line]::before {
   --font-sans:
     var(--font-manrope), ui-sans-serif, system-ui, sans-serif,
     "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
-  --font-mono: var(--font-syne), ui-monospace, monospace;
-  /* An actual fixed-pitch stack. `--font-mono` is Syne, a display face chosen
-     for labels and dates, and it is proportional — fine for a "COLOPHON"
-     kicker, wrong for anything the reader parses as data. Endpoints, log
-     timestamps and code need columns that line up. */
+  --font-display:
+    var(--font-archivo-narrow), var(--font-manrope), ui-sans-serif, sans-serif;
+  --font-mono: ui-monospace, monospace;
+  /* For anything the reader parses as data: endpoints, log timestamps and code
+     need columns that line up. */
   --font-code:
     ui-monospace, SFMono-Regular, "SF Mono", Menlo, Consolas, "Liberation Mono",
     monospace;
@@ -377,6 +380,7 @@ code[data-line-numbers-max-digits="3"] > [data-line]::before {
   --color-primary-foreground: var(--primary-foreground);
   --color-primary: var(--primary);
   --color-primary-accent: var(--primary-accent);
+  --color-tally: var(--tally);
   --color-popover-foreground: var(--popover-foreground);
   --color-popover: var(--popover);
   --color-card-foreground: var(--card-foreground);
@@ -429,6 +433,10 @@ code[data-line-numbers-max-digits="3"] > [data-line]::before {
      enough for near-white button text to pass AA is far too dark to read as
      text itself. On white the fill is already 6.4:1, so light mode shares it. */
   --primary-accent: var(--primary);
+  /* A lit tally lamp: brighter than the brand fill, because it is a light. Only
+     ever a small dot or the playhead, and always beside a word that says the
+     same thing, so nothing depends on seeing red. */
+  --tally: oklch(0.56 0.2 25);
   --secondary: oklch(0.96 0.006 60);
   --secondary-foreground: oklch(0.24 0.008 45);
   --muted: oklch(0.965 0.005 60);
@@ -497,6 +505,7 @@ code[data-line-numbers-max-digits="3"] > [data-line]::before {
   /* 5.4:1 on --background and 4.9:1 on --card. The fill above is 3.5:1, still
      too low for text, which is why the two are separate tokens. */
   --primary-accent: oklch(0.64 0.155 22);
+  --tally: oklch(0.66 0.2 25);
   --secondary: oklch(0.27 0.008 45);
   --secondary-foreground: oklch(0.985 0.003 60);
   --muted: oklch(0.26 0.006 45);
@@ -533,3 +542,305 @@ code[data-line-numbers-max-digits="3"] > [data-line]::before {
   ---break---
 */
 
+/* ---- On Air ---- */
+
+html {
+  scroll-padding-top: 5rem;
+}
+
+@media (max-width: 767.98px) {
+  html {
+    scroll-padding-top: 1.5rem;
+    scroll-padding-bottom: 4.5rem;
+  }
+}
+
+/* Fitted to its container so it holds one line edge to edge at every width. The
+   dvh cap stops a condensed face this tall eating a short laptop screen; there
+   it simply stops short of the right edge. */
+.hero-name {
+  font-family: var(--font-display);
+  font-weight: 700;
+  font-size: min(16.5cqw, 30dvh);
+  line-height: 0.95;
+  letter-spacing: -0.025em;
+  white-space: nowrap;
+  color: var(--foreground);
+}
+
+/* The career timeline. Three rows, a native range input stretched over them. */
+.scrub-row {
+  height: 2rem;
+}
+
+@media (min-width: 768px) {
+  .scrub-row {
+    height: 2.25rem;
+  }
+}
+
+.scrub,
+.scrub-playhead-rail {
+  height: 6rem;
+}
+
+@media (min-width: 768px) {
+  .scrub,
+  .scrub-playhead-rail {
+    height: 6.75rem;
+  }
+}
+
+.scrub {
+  appearance: none;
+  position: absolute;
+  inset: 0 0 auto;
+  width: 100%;
+  margin: 0;
+  background: transparent;
+  cursor: ew-resize;
+  /* A vertical swipe over the timeline still scrolls the page. */
+  touch-action: pan-y;
+}
+
+.scrub:focus {
+  outline: none;
+}
+
+/* The thumb is an invisible 24px hit area the full height of the tracks. What
+   you see is the playhead element, which is free to look like one. */
+.scrub::-webkit-slider-runnable-track {
+  height: 100%;
+  background: transparent;
+}
+
+.scrub::-webkit-slider-thumb {
+  appearance: none;
+  width: 24px;
+  height: 6.75rem;
+  background: transparent;
+  cursor: ew-resize;
+}
+
+.scrub::-moz-range-track {
+  height: 100%;
+  background: transparent;
+}
+
+.scrub::-moz-range-thumb {
+  width: 24px;
+  height: 6.75rem;
+  border: 0;
+  background: transparent;
+  cursor: ew-resize;
+}
+
+.scrub:focus-visible ~ .scrub-playhead-rail .scrub-playhead {
+  box-shadow:
+    0 0 0 2px var(--background),
+    0 0 0 4px var(--ring);
+}
+
+/* On arrival the footage is laid in left to right as the playhead runs up to
+   now. Clip-path and transform only, and it plays once. */
+@media (prefers-reduced-motion: no-preference) {
+  .scrub-reveal {
+    animation: scrub-reveal 1.4s cubic-bezier(0.65, 0, 0.35, 1) both;
+  }
+
+  .scrub-playhead-rail {
+    animation: scrub-run 1.4s cubic-bezier(0.65, 0, 0.35, 1) both;
+  }
+}
+
+@keyframes scrub-reveal {
+  from {
+    clip-path: inset(0 100% 0 0);
+  }
+  to {
+    clip-path: inset(0 0 0 0);
+  }
+}
+
+@keyframes scrub-run {
+  from {
+    transform: translateX(-100cqw);
+    opacity: 0;
+  }
+  8% {
+    opacity: 1;
+  }
+  to {
+    transform: none;
+  }
+}
+
+/* The only continuous motion on the page, and a slow one. */
+@media (prefers-reduced-motion: no-preference) {
+  .tally {
+    animation: tally 2.6s ease-in-out infinite;
+  }
+}
+
+@keyframes tally {
+  50% {
+    opacity: 0.55;
+  }
+}
+
+/* Entrances. Content is visible by default; a browser with view timelines adds
+   the rise on top. Scroll-driven, so landing partway down needs no special case
+   and there is nothing to stay hidden if a script fails. */
+@keyframes reveal {
+  from {
+    opacity: 0;
+    translate: 0 24px;
+  }
+  to {
+    opacity: 1;
+    translate: 0 0;
+  }
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  @supports (animation-timeline: view()) {
+    .reveal {
+      animation: reveal linear both;
+      animation-timeline: view();
+      animation-range: entry calc(var(--reveal-order, 0) * 50px)
+        entry calc(180px + var(--reveal-order, 0) * 50px);
+    }
+  }
+
+  .reveal-load {
+    animation: reveal 0.5s cubic-bezier(0.16, 1, 0.3, 1)
+      calc(var(--reveal-order, 0) * 70ms) both;
+  }
+}
+
+/* Named for the length switch only. See setPageLength for why not always. */
+.view-switching #hero {
+  view-transition-name: hero;
+}
+.view-switching #about {
+  view-transition-name: about;
+}
+.view-switching #work {
+  view-transition-name: work;
+}
+.view-switching #projects {
+  view-transition-name: projects;
+}
+.view-switching #other {
+  view-transition-name: other;
+}
+.view-switching #contact {
+  view-transition-name: contact;
+}
+
+::view-transition-group(*) {
+  animation-duration: 0.45s;
+  animation-timing-function: cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+/* Scrolls only as a last resort at the narrowest widths, so no track to show. */
+.no-scrollbar {
+  scrollbar-width: none;
+}
+
+/* ---- Paper ---- */
+
+.print-cv {
+  display: none;
+}
+
+@page {
+  size: A4;
+  margin: 16mm 17mm;
+}
+
+@media print {
+  /* next-themes sets color-scheme inline, which paints the page margins dark
+     however white the document is. */
+  :root {
+    color-scheme: light !important;
+  }
+
+  html,
+  body {
+    background: #fff !important;
+    padding: 0 !important;
+    min-height: 0 !important;
+  }
+
+  body > *:not(.print-cv) {
+    display: none !important;
+  }
+
+  .print-cv {
+    display: block;
+    color: #111;
+    font-size: 9.5pt;
+    line-height: 1.42;
+  }
+
+  .print-cv h1 {
+    font-family: var(--font-display);
+    font-size: 32pt;
+    font-weight: 700;
+    line-height: 1.05;
+    letter-spacing: -0.02em;
+  }
+
+  .print-cv header p {
+    font-size: 10.5pt;
+    margin-top: 2pt;
+  }
+
+  .print-cv-contact {
+    color: #444;
+  }
+
+  .print-cv h2 {
+    font-family: var(--font-display);
+    font-size: 14pt;
+    font-weight: 700;
+    color: #9c2a32;
+    margin: 11pt 0 3pt;
+    break-after: avoid;
+  }
+
+  .print-cv section > p + p {
+    margin-top: 3pt;
+  }
+
+  .print-cv dl > div {
+    display: grid;
+    grid-template-columns: 34mm 1fr;
+    gap: 3mm;
+  }
+
+  .print-cv dt {
+    font-weight: 700;
+  }
+
+  .print-cv h3 {
+    font-size: 10pt;
+    font-weight: 700;
+  }
+
+  .print-cv-dates {
+    color: #444;
+  }
+
+  .print-cv-role {
+    margin-bottom: 6pt;
+    break-inside: avoid;
+  }
+
+  .print-cv ul {
+    list-style: disc;
+    padding-left: 12pt;
+    margin-top: 2pt;
+  }
+}

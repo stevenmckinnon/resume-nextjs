@@ -1,149 +1,87 @@
-"use client";
-
-import { SpinnablePhoto } from "@/components/spinnable-photo";
+import { CareerTimeline } from "@/components/career-timeline";
+import { LengthToggle } from "@/components/length-toggle";
 import { Button } from "@/components/ui/button";
 import { DATA } from "@/data/resume";
-import { cn } from "@/lib/utils";
-import { type Variants, motion, useScroll, useTransform } from "framer-motion";
+import { buildTimeline } from "@/lib/career";
 import { Download } from "lucide-react";
 import Link from "next/link";
-import { useRef } from "react";
+
+// Module scope rather than inside the component, where a Date would make the
+// route dynamic under Cache Components. "Now" is the month of the last build.
+const TIMELINE = buildTimeline(new Date());
 
 export const Hero = () => {
   const socials = Object.values(DATA.contact.social).filter(
     (social) => social.navbar,
   );
 
-  // Scroll-linked parallax for image
-  const heroRef = useRef<HTMLElement>(null);
-  const { scrollYProgress } = useScroll({
-    target: heroRef,
-    offset: ["start start", "end start"],
-  });
-
-  const y = useTransform(scrollYProgress, [0, 1], [0, 150]);
-  const opacity = useTransform(scrollYProgress, [0, 0.6], [1, 0]);
-  const scale = useTransform(scrollYProgress, [0, 1], [1, 1.1]);
-
-  // Split name for styling
-  const [firstName, lastName] = DATA.name.toUpperCase().split(" ");
-
-  // One entrance step. Chunks are staggered by the container below, so the
-  // sequence reads name → role → actions → socials rather than letter-by-letter.
-  const chunk: Variants = {
-    hidden: { y: 16, opacity: 0 },
-    visible: {
-      y: 0,
-      opacity: 1,
-      transition: { type: "spring", duration: 0.6, bounce: 0 },
-    },
-  };
-
-  const stack: Variants = {
-    hidden: { opacity: 0 },
-    visible: {
-      opacity: 1,
-      transition: { staggerChildren: 0.1, delayChildren: 0.1 },
-    },
-  };
-
   return (
     <section
-      ref={heroRef}
       id="hero"
-      className="relative flex min-h-dvh flex-col justify-center overflow-hidden py-12 md:py-24"
+      aria-label="Introduction"
+      className="@container mx-auto flex w-full max-w-[1440px] flex-col gap-5 px-4 pt-6 pb-10 md:min-h-[min(calc(100dvh-4rem),58rem)] md:gap-6 md:px-10 md:pt-4 md:pb-8"
     >
-      {/* Oversized initials, purely decorative depth */}
-      <div className="pointer-events-none absolute top-0 right-0 z-0 translate-x-[20%] -translate-y-[10%] text-[30vw] leading-none font-black tracking-tighter opacity-[0.02] select-none dark:opacity-[0.04]">
-        {DATA.initials}
-      </div>
+      <h1 className="hero-name">{DATA.name}</h1>
 
-      <div className="z-10 mx-auto grid w-full max-w-[1200px] grid-cols-1 items-center gap-8 px-6 md:grid-cols-2 md:gap-16 md:px-12 lg:px-24">
-        <motion.div
-          className="order-2 flex flex-col items-start space-y-6 text-left md:order-1 md:space-y-8"
-          variants={stack}
-          initial="hidden"
-          animate="visible"
-        >
-          {/* Name */}
-          <motion.h1
-            variants={chunk}
-            aria-label={DATA.name}
-            className="text-foreground text-5xl leading-[0.85] font-black tracking-tighter md:text-6xl lg:text-7xl xl:text-8xl"
-          >
-            <span
-              className="from-foreground to-foreground/70 block bg-linear-to-b bg-clip-text text-transparent"
-              aria-hidden="true"
-            >
-              {firstName}
-            </span>
-            <span className="text-primary block" aria-hidden="true">
-              {lastName}
-            </span>
-          </motion.h1>
+      <CareerTimeline
+        timeline={TIMELINE}
+        intro={
+          <>
+            <p className="text-foreground max-w-[32ch] text-2xl/snug font-semibold tracking-tight text-balance md:text-3xl/snug lg:text-[1.75rem]/snug">
+              {DATA.description}
+            </p>
 
-          {/* Role */}
-          <motion.p
-            variants={chunk}
-            className="border-primary-accent/30 text-muted-foreground max-w-xl border-l-2 pl-6 text-lg/relaxed font-light md:text-xl lg:text-2xl"
-          >
-            {DATA.description}
-          </motion.p>
+            <div className="flex flex-wrap items-center gap-3">
+              <Button
+                size="lg"
+                nativeButton={false}
+                className="active:scale-[0.96]"
+                render={<Link href="#contact">Get in touch</Link>}
+              />
+              <Button
+                variant="secondary"
+                size="lg"
+                nativeButton={false}
+                className="group active:scale-[0.96]"
+                render={
+                  <a href="/api/cv" download="Steve McKinnon CV.pdf">
+                    <Download
+                      aria-hidden="true"
+                      className="mr-2 size-4 transition-transform group-hover:-translate-y-0.5"
+                    />
+                    Download CV
+                  </a>
+                }
+              />
+              <LengthToggle className="lg:hidden" />
+            </div>
 
-          {/* Actions */}
-          <motion.div variants={chunk} className="flex flex-wrap gap-4">
-            <Button
-              size="lg"
-              nativeButton={false}
-              className="active:scale-[0.96] lg:h-14 lg:text-lg"
-              render={<Link href="#contact">Get in touch</Link>}
-            />
-
-            <Button
-              variant="outline"
-              size="lg"
-              nativeButton={false}
-              className="group active:scale-[0.96] lg:h-14 lg:text-lg"
-              render={
-                <a href="/api/cv" download="Steve McKinnon CV.pdf">
-                  <Download className="mr-2 size-4 transition-transform group-hover:-translate-y-0.5" />
-                  Download CV
-                </a>
-              }
-            />
-          </motion.div>
-
-          {/* Socials */}
-          <motion.div
-            variants={chunk}
-            className="-ml-3 flex items-center gap-1"
-          >
-            {socials.map((social) => (
-              <Link
-                key={social.name}
-                href={social.url}
-                target="_blank"
-                rel="noopener noreferrer"
-                className={cn(
-                  "group relative flex items-center justify-center rounded-full p-3",
-                  "text-muted-foreground transition-colors duration-150",
-                  "hover:bg-primary/10 hover:text-primary-accent",
-                )}
+            <div className="text-muted-foreground flex flex-wrap items-center gap-x-4 gap-y-1 text-sm">
+              <a
+                href={`mailto:${DATA.contact.email}`}
+                className="text-foreground hover:text-primary-accent inline-block py-0.5 font-semibold underline underline-offset-4 transition-colors"
               >
-                <social.icon className="size-5" />
-                <span className="sr-only">{social.name}</span>
-              </Link>
-            ))}
-          </motion.div>
-        </motion.div>
-
-        {/* Profile Photo with drag-to-spin */}
-        <SpinnablePhoto
-          src={DATA.avatarUrl}
-          alt={DATA.name}
-          parallax={{ y, opacity, scale }}
-        />
-      </div>
+                {DATA.contact.email}
+              </a>
+              <span>{DATA.location}</span>
+              <span className="-ml-2 flex items-center">
+                {socials.map((social) => (
+                  <Link
+                    key={social.name}
+                    href={social.url}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="hover:text-primary-accent flex size-9 items-center justify-center rounded-md transition-colors"
+                  >
+                    <social.icon aria-hidden="true" className="size-4" />
+                    <span className="sr-only">{social.name}</span>
+                  </Link>
+                ))}
+              </span>
+            </div>
+          </>
+        }
+      />
     </section>
   );
 };

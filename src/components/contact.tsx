@@ -1,6 +1,7 @@
 "use client";
 
-import BlurFade from "@/components/magicui/blur-fade";
+import { copyEmail } from "@/components/command-palette";
+import { Reveal } from "@/components/reveal";
 import { SectionHeading } from "@/components/section-heading";
 import { Button } from "@/components/ui/button";
 import {
@@ -13,11 +14,12 @@ import {
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
+import { DATA } from "@/data/resume";
 import { toast } from "sonner";
 import { cn } from "@/lib/utils";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { motion } from "framer-motion";
-import { BadgeCheck, Clock, Loader2, Send } from "lucide-react";
+import { BadgeCheck, Copy, Loader2, Send } from "lucide-react";
 import { useEffect, useRef, useState } from "react";
 import { useForm } from "react-hook-form";
 import * as z from "zod";
@@ -44,8 +46,6 @@ const schema = z.object({
 });
 
 export type ContactFormData = z.infer<typeof schema>;
-
-const BLUR_FADE_DELAY = 0.04;
 
 export const Contact = () => {
   const [loading, setLoading] = useState(false);
@@ -109,7 +109,7 @@ export const Contact = () => {
           initial={{ scale: 0.8, opacity: 0 }}
           animate={{ scale: 1, opacity: 1 }}
           transition={{ type: "spring", duration: 0.6 }}
-          className="border-primary-accent bg-card relative z-10 flex flex-col items-center gap-6 rounded-2xl border-2 p-12 text-center shadow-[0_0_60px_color-mix(in_srgb,var(--color-primary)_20%,transparent)]"
+          className="border-primary-accent bg-card relative z-10 flex flex-col items-center gap-6 rounded-2xl border-2 p-12 text-center"
         >
           <motion.div
             initial={{ scale: 0 }}
@@ -145,37 +145,74 @@ export const Contact = () => {
   return (
     <section
       id="contact"
-      className="border-border/50 relative border-t-2 py-12 md:py-24"
+      aria-labelledby="contact-heading"
+      className="relative pb-16 md:pb-32"
     >
-      <div className="relative grid grid-cols-1 gap-12 lg:grid-cols-2">
-        <div className="flex flex-col justify-start space-y-6">
-          <BlurFade delay={BLUR_FADE_DELAY * 2}>
-            <SectionHeading title="Contact" />
-          </BlurFade>
-          <BlurFade delay={BLUR_FADE_DELAY * 3}>
-            <p className="text-muted-foreground max-w-md text-xl font-light">
-              Hiring, or just want to talk shop? Send me a message.
-            </p>
-          </BlurFade>
-          <BlurFade delay={BLUR_FADE_DELAY * 4}>
-            <div className="border-primary-accent/20 bg-primary/5 flex items-center gap-3 rounded-lg border px-4 py-3">
-              <Clock className="text-primary-accent size-5" strokeWidth={1.5} />
-              <span className="text-muted-foreground text-sm">
-                I usually reply within{" "}
-                <span className="text-foreground font-semibold">24 hours</span>
-              </span>
-            </div>
-          </BlurFade>
-        </div>
+      <Reveal>
+        <SectionHeading
+          id="contact-heading"
+          title="Contact"
+          kicker="Hiring, or just want to talk shop? I usually reply within 24 hours."
+        />
+      </Reveal>
 
-        <div className="relative">
+      {/* The address is the headline act. The form is there for anyone who
+          prefers one; a recruiter mostly wants something to paste. */}
+      <Reveal
+        order={1}
+        className="mt-8 flex flex-wrap items-center gap-x-4 gap-y-2"
+      >
+        <a
+          href={`mailto:${DATA.contact.email}`}
+          className="text-primary-accent font-display min-w-0 text-[clamp(1.75rem,9.1cqw,8rem)] leading-tight font-bold tracking-[-0.025em] wrap-anywhere underline-offset-8 hover:underline"
+        >
+          {DATA.contact.email}
+        </a>
+        <Button
+          type="button"
+          variant="secondary"
+          data-needs-js
+          onClick={() => void copyEmail()}
+          className="active:scale-[0.96]"
+        >
+          <Copy aria-hidden="true" className="size-4" />
+          Copy address
+        </Button>
+      </Reveal>
+
+      <div className="short:hidden mt-12 grid grid-cols-1 gap-x-16 gap-y-10 md:mt-16 lg:grid-cols-12">
+        <Reveal className="flex flex-col gap-2 lg:col-span-4">
+          <h3 className="text-foreground text-lg font-bold">Elsewhere</h3>
+          <ul className="flex flex-col">
+            {Object.values(DATA.contact.social)
+              .filter((social) => social.navbar)
+              .map((social) => (
+                <li key={social.name}>
+                  <a
+                    href={social.url}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="text-muted-foreground hover:text-primary-accent inline-flex items-center gap-2.5 py-1.5 font-medium transition-colors"
+                  >
+                    <social.icon aria-hidden="true" className="size-4" />
+                    {social.name}
+                  </a>
+                </li>
+              ))}
+          </ul>
+        </Reveal>
+
+        <div className="relative lg:col-span-8">
+          <h3 className="text-foreground mb-4 text-lg font-bold">
+            Or send a message
+          </h3>
           <Form {...form}>
-            <BlurFade delay={BLUR_FADE_DELAY * 4}>
+            <Reveal order={1}>
               {/* Panel radius is concentric with the inputs inside it: Input is
                   rounded-lg (--radius), plus this panel's p-4. */}
               <form
                 onSubmit={form.handleSubmit(onSubmit)}
-                className="border-border/50 bg-card/50 focus-within:border-primary-accent/30 space-y-6 rounded-[calc(var(--radius)+1rem)] border p-4 backdrop-blur-sm transition-[border-color] duration-300"
+                className="bg-card space-y-6 rounded-[calc(var(--radius)+1rem)] p-4 md:p-6"
                 noValidate
               >
                 <div className="grid grid-cols-1 gap-6 sm:grid-cols-2">
@@ -190,7 +227,7 @@ export const Contact = () => {
                             autoComplete="name"
                             placeholder="Your name"
                             required
-                            className="transition-[box-shadow,border-color] duration-150 focus:shadow-[0_0_16px_color-mix(in_srgb,var(--color-primary)_10%,transparent)]"
+                            className="transition-[border-color] duration-150"
                             {...field}
                           />
                         </FormControl>
@@ -210,7 +247,7 @@ export const Contact = () => {
                             autoComplete="email"
                             placeholder="Your email"
                             required
-                            className="transition-[box-shadow,border-color] duration-150 focus:shadow-[0_0_16px_color-mix(in_srgb,var(--color-primary)_10%,transparent)]"
+                            className="transition-[border-color] duration-150"
                             {...field}
                           />
                         </FormControl>
@@ -229,7 +266,7 @@ export const Contact = () => {
                         <Input
                           placeholder="What's this about?"
                           required
-                          className="transition-[box-shadow,border-color] duration-150 focus:shadow-[0_0_16px_color-mix(in_srgb,var(--color-primary)_10%,transparent)]"
+                          className="transition-[border-color] duration-150"
                           {...field}
                         />
                       </FormControl>
@@ -249,12 +286,12 @@ export const Contact = () => {
                             placeholder="Tell me about the role, the team, or what you're building..."
                             required
                             maxLength={1000}
-                            className="min-h-[150px] transition-[box-shadow,border-color] duration-150 focus:shadow-[0_0_16px_color-mix(in_srgb,var(--color-primary)_10%,transparent)]"
+                            className="min-h-[150px] transition-[border-color] duration-150"
                             {...field}
                           />
                           <span
                             className={cn(
-                              "absolute right-3 bottom-3 font-mono text-[10px] transition-colors",
+                              "absolute right-3 bottom-3 text-xs tabular-nums transition-colors",
                               field.value.length > 900
                                 ? "text-destructive"
                                 : "text-muted-foreground",
@@ -273,7 +310,7 @@ export const Contact = () => {
                   type="submit"
                   disabled={loading}
                   size="lg"
-                  className="w-full active:scale-[0.96] lg:h-14 lg:text-lg"
+                  className="w-full active:scale-[0.96]"
                 >
                   <span className="flex items-center justify-center gap-2">
                     {loading ? (
@@ -288,7 +325,7 @@ export const Contact = () => {
                   </span>
                 </Button>
               </form>
-            </BlurFade>
+            </Reveal>
           </Form>
         </div>
       </div>

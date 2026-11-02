@@ -1,35 +1,27 @@
-"use client";
-
-import BlurFade from "@/components/magicui/blur-fade";
 import { DATA } from "@/data/resume";
-import { BLUR_FADE_DELAY } from "@/lib/utils";
+
+const GROUPS = [...new Set(DATA.skills.map((skill) => skill.group))];
 
 /**
- * Was a single 80px row of bordered chips — a footnote for the thing the site
- * is actually selling. Now a set-width list where each skill gets a line, the
- * icon reads at a usable size, and the type carries the weight.
- *
- * Still read-only labels rather than controls, so there is no hover or press
- * affordance: motion here would promise an interaction that does not exist.
+ * Grouped as on the CV, and plain text on purpose. Each name is a word a
+ * recruiter may be searching the page for, and the icons this used to carry
+ * could only ever cover the half of the list with a logo to its name.
  */
 export const SkillsSection = () => (
-  <ul className="grid grid-cols-2 gap-x-8 sm:grid-cols-3">
-    {DATA.skills.map(({ name, icon: Icon }) => (
-      <li key={name} className="border-border/40 border-b">
-        {/* One delay for the whole list, not a per-item stagger. Staggering
-            ten reference labels drew the eye across them one at a time for no
-            reason — a stagger should communicate hierarchy, and these are
-            peers. */}
-        <BlurFade
-          delay={BLUR_FADE_DELAY}
-          className="flex items-center gap-3 py-4"
-        >
-          {Icon && <Icon className="text-primary-accent size-5 shrink-0" />}
-          <span className="text-foreground truncate text-base font-semibold tracking-tight md:text-lg">
-            {name}
-          </span>
-        </BlurFade>
-      </li>
+  <dl className="flex flex-col gap-4">
+    {GROUPS.map((group) => (
+      <div
+        key={group}
+        className="grid grid-cols-1 gap-x-4 gap-y-0.5 sm:grid-cols-[9.5rem_minmax(0,1fr)]"
+      >
+        <dt className="text-muted-foreground text-sm font-semibold">{group}</dt>
+        <dd className="text-foreground text-base/snug">
+          {DATA.skills
+            .filter((skill) => skill.group === group)
+            .map((skill) => skill.name)
+            .join(", ")}
+        </dd>
+      </div>
     ))}
-  </ul>
+  </dl>
 );

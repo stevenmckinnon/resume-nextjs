@@ -2,6 +2,13 @@
 
 import type { IconProps } from "@/components/icons";
 import { DATA } from "@/data/resume";
+import {
+  type PageLength,
+  setNumberKeysEnabled,
+  setPageLength,
+  useNumberKeysEnabled,
+  usePageLength,
+} from "@/lib/preferences";
 import { toggleTheme } from "@/lib/theme-transition";
 import { cn } from "@/lib/utils";
 import { Autocomplete } from "@base-ui/react/autocomplete";
@@ -16,8 +23,11 @@ import {
   DownloadIcon,
   FolderKanbanIcon,
   GraduationCapIcon,
+  KeyboardIcon,
   MailIcon,
   MoonIcon,
+  PrinterIcon,
+  RowsIcon,
   SearchIcon,
   SparklesIcon,
   SunIcon,
@@ -106,7 +116,7 @@ const SECTION_COMMANDS: Command[] = [
   },
   {
     value: "other",
-    label: "The Other Job",
+    label: "The other job",
     keywords:
       "beyond code other interests outside hobbies wwe wrestling camera photography",
     icon: CompassIcon,
@@ -121,7 +131,7 @@ const SECTION_COMMANDS: Command[] = [
   },
 ];
 
-async function copyEmail() {
+export async function copyEmail() {
   try {
     await navigator.clipboard.writeText(DATA.contact.email);
     toast.success("Email copied", { description: DATA.contact.email });
@@ -135,9 +145,13 @@ async function copyEmail() {
 export function buildCommandGroups({
   resolvedTheme,
   setTheme,
+  pageLength = "full",
+  numberKeys = true,
 }: {
   resolvedTheme: string | undefined;
   setTheme: (theme: string) => void;
+  pageLength?: PageLength;
+  numberKeys?: boolean;
 }): CommandGroup[] {
   const isDark = resolvedTheme === "dark";
 
@@ -150,6 +164,24 @@ export function buildCommandGroups({
       hint: "PDF",
       href: "/api/cv",
       download: "Steve McKinnon CV.pdf",
+    },
+    {
+      value: "print-cv",
+      label: "Print this page as a CV",
+      keywords: "resume paper a4 pdf save",
+      icon: PrinterIcon,
+      // After the dialog's exit, or the browser captures it mid-animation.
+      run: () => void setTimeout(() => window.print(), 200),
+    },
+    {
+      value: "page-length",
+      label:
+        pageLength === "full"
+          ? "Show the short version"
+          : "Show the full version",
+      keywords: "skim summary length quick view tldr",
+      icon: RowsIcon,
+      run: () => setPageLength(pageLength === "full" ? "short" : "full"),
     },
     {
       value: "copy-email",
@@ -165,6 +197,15 @@ export function buildCommandGroups({
       keywords: "theme dark light appearance colour color",
       icon: isDark ? SunIcon : MoonIcon,
       run: () => toggleTheme(resolvedTheme, setTheme),
+    },
+    {
+      value: "number-keys",
+      label: numberKeys
+        ? "Turn off number key shortcuts"
+        : "Turn on number key shortcuts",
+      keywords: "keyboard accessibility mixer sections",
+      icon: KeyboardIcon,
+      run: () => setNumberKeysEnabled(!numberKeys),
     },
   ];
 
@@ -236,7 +277,7 @@ export function useShortcutLabel() {
 }
 
 const Kbd = ({ children }: { children: React.ReactNode }) => (
-  <kbd className="border-border/60 bg-muted/60 text-muted-foreground inline-flex h-5 min-w-5 items-center justify-center rounded-sm border px-1 font-mono text-[10px] leading-none">
+  <kbd className="border-border/60 bg-muted/60 text-muted-foreground inline-flex h-5 min-w-5 items-center justify-center rounded-sm border px-1 text-[0.6875rem] leading-none">
     {children}
   </kbd>
 );
@@ -250,10 +291,13 @@ export function CommandPaletteProvider({
   const [query, setQuery] = useState("");
   const pendingScroll = useRef<string | null>(null);
   const { resolvedTheme, setTheme } = useTheme();
+  const pageLength = usePageLength();
+  const numberKeys = useNumberKeysEnabled();
 
   const groups = useMemo(
-    () => buildCommandGroups({ resolvedTheme, setTheme }),
-    [resolvedTheme, setTheme],
+    () =>
+      buildCommandGroups({ resolvedTheme, setTheme, pageLength, numberKeys }),
+    [resolvedTheme, setTheme, pageLength, numberKeys],
   );
 
   useEffect(() => {
@@ -348,7 +392,7 @@ export function CommandPaletteProvider({
                             items={group.items}
                             className="not-last:mb-1"
                           >
-                            <Autocomplete.GroupLabel className="text-muted-foreground flex h-8 items-center px-3 font-mono text-[10px] tracking-widest uppercase select-none">
+                            <Autocomplete.GroupLabel className="text-muted-foreground flex h-8 items-center px-3 text-xs font-semibold select-none">
                               {group.value}
                             </Autocomplete.GroupLabel>
                             <Autocomplete.Collection>

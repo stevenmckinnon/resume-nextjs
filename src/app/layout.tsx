@@ -1,42 +1,45 @@
 import { WebMCP } from "@/components/webmcp";
 import { Colophon } from "@/components/colophon";
 import { CommandPaletteProvider } from "@/components/command-palette";
-import { GradientOrbs } from "@/components/magicui/gradient-orbs";
-import { ScrollProgress } from "@/components/magicui/scroll-progress";
+import { Mixer } from "@/components/mixer";
 import { MotionProvider } from "@/components/motion-provider";
-import { SectionIndex } from "@/components/section-index";
+import { PrintCv } from "@/components/print-cv";
 import { ThemeProvider } from "@/components/theme-provider";
-import { UtilityBar } from "@/components/utility-bar";
 import { ProjectDialogProvider } from "@/components/project-dialog";
 import { Toaster } from "@/components/ui/sonner";
 import { TooltipProvider } from "@/components/ui/tooltip";
 import { DATA } from "@/data/resume";
+import { PAGE_LENGTH_SCRIPT } from "@/lib/page-length-script";
 import { cn } from "@/lib/utils";
 import { Analytics } from "@vercel/analytics/next";
 import type { Metadata, Viewport } from "next";
-import { Manrope, Syne } from "next/font/google";
+import localFont from "next/font/local";
 
 import "./globals.css";
 
+// Self-hosted rather than through next/font/google, whose Turbopack loader
+// intermittently failed both `next dev` and `next build` here with "queries have
+// exactly one entry". Both are variable fonts, cut to the latin subset, under the
+// SIL Open Font License.
+//
 // These deliberately do NOT claim the --font-sans / --font-mono names. Those are
 // Tailwind theme tokens, and a token defined as `var(--font-sans)` that resolves
 // against a property of the same name is a circular reference: the declaration
 // is dropped and the typeface silently never applies. Keep the loader variables
 // and the theme tokens on separate names, and map one to the other in
 // globals.css.
-const fontSans = Manrope({
-  subsets: ["latin"],
+const fontSans = localFont({
+  src: "./fonts/Manrope-latin.woff2",
+  weight: "200 800",
   variable: "--font-manrope",
   display: "swap",
-  preload: true,
-  weight: ["400", "500", "600", "700", "800"],
 });
 
-const fontMono = Syne({
-  subsets: ["latin"],
-  variable: "--font-syne",
+const fontDisplay = localFont({
+  src: "./fonts/ArchivoNarrow-latin.woff2",
+  weight: "400 700",
+  variable: "--font-archivo-narrow",
   display: "swap",
-  preload: false,
 });
 
 export const viewport: Viewport = {
@@ -74,14 +77,6 @@ export const metadata: Metadata = {
     siteName: `${DATA.name}`,
     locale: "en_GB",
     type: "website",
-    images: [
-      {
-        url: "/me.jpg",
-        width: 1200,
-        height: 630,
-        alt: DATA.name,
-      },
-    ],
   },
   robots: {
     index: true,
@@ -98,13 +93,33 @@ export const metadata: Metadata = {
     title: `${DATA.name}`,
     card: "summary_large_image",
     creator: "@stevenmckinnon",
-    images: ["/me.jpg"],
   },
   verification: {
     google: "",
     yandex: "",
   },
 };
+
+// Tells search engines and recruiting tools who this is without them having to
+// read the page. Escaped as the Next.js JSON-LD guide advises.
+const PERSON_JSON_LD = JSON.stringify({
+  "@context": "https://schema.org",
+  "@type": "Person",
+  name: DATA.name,
+  url: DATA.url,
+  email: `mailto:${DATA.contact.email}`,
+  jobTitle: DATA.work[0]?.title,
+  worksFor: { "@type": "Organization", name: DATA.work[0]?.company },
+  address: {
+    "@type": "PostalAddress",
+    addressLocality: "Glasgow",
+    addressCountry: "GB",
+  },
+  knowsAbout: DATA.skills.map((skill) => skill.name),
+  sameAs: Object.values(DATA.contact.social)
+    .filter((social) => social.navbar)
+    .map((social) => social.url),
+}).replace(/</g, "\\u003c");
 
 export default function RootLayout({
   children,
@@ -116,10 +131,20 @@ export default function RootLayout({
     // `html { @apply font-sans }` rule in globals.css can resolve them.
     <html
       lang="en"
-      className={cn(fontSans.variable, fontMono.variable)}
+      className={cn(fontSans.variable, fontDisplay.variable)}
       suppressHydrationWarning
     >
-      <body className="bg-background selection:bg-primary selection:text-primary-foreground relative mx-auto min-h-dvh pb-24 font-sans antialiased">
+      <body className="bg-background selection:bg-primary selection:text-primary-foreground relative mx-auto min-h-dvh pb-14 font-sans antialiased md:pb-0">
+        <script dangerouslySetInnerHTML={{ __html: PAGE_LENGTH_SCRIPT }} />
+        {/* Controls that do nothing without a script should not be offered
+            without one. The content they sit over is all there regardless. */}
+        <noscript>
+          <style>{`[data-needs-js]{display:none!important}`}</style>
+        </noscript>
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{ __html: PERSON_JSON_LD }}
+        />
         <ThemeProvider enableSystem attribute="class" defaultTheme="dark">
           <MotionProvider>
             <TooltipProvider delay={0}>
@@ -132,18 +157,12 @@ export default function RootLayout({
                     Skip to content
                   </a>
 
-                  {/* Background layers */}
-                  <div className="bg-background fixed inset-0 -z-10 size-full" />
-                  <GradientOrbs />
-                  <div className="pointer-events-none fixed inset-0 -z-10 size-full bg-[linear-gradient(to_right,#80808008_1px,transparent_1px),linear-gradient(to_bottom,#80808008_1px,transparent_1px)] mask-[radial-gradient(ellipse_60%_50%_at_50%_0%,#000_70%,transparent_100%)] bg-size-[24px_24px]" />
-
-                  <ScrollProgress className="top-0 z-50" />
+                  <Mixer />
                   <main id="content" className="relative flex h-full flex-col">
                     {children}
                   </main>
                   <Colophon />
-                  <SectionIndex />
-                  <UtilityBar />
+                  <PrintCv />
                   <Toaster />
                 </ProjectDialogProvider>
               </CommandPaletteProvider>

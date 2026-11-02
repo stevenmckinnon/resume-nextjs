@@ -1,3 +1,9 @@
+# pnpm 9 refuses a workspace file with no packages, and may be what a deploy
+# installs with for this lockfile version. pnpm 12 only reads overrides from here
+# and pnpm 9 only from package.json, so they are kept in both.
+packages:
+  - .
+
 overrides:
   '@types/react': 19.2.14
   '@types/react-dom': 19.2.3

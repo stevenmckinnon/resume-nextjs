@@ -7,6 +7,7 @@ packages:
 overrides:
   '@types/react': 19.2.14
   '@types/react-dom': 19.2.3
+  'minimatch@^10': ^11.0.4
 
 allowBuilds:
   esbuild: true

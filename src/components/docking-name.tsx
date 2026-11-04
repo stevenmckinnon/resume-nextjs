@@ -114,7 +114,6 @@ export const DockingName = () => {
 
     // Layout can only be read once mounted, and this has to land before the
     // first paint or the heading would visibly swap with its copy.
-    // eslint-disable-next-line react-hooks/set-state-in-effect
     measure();
     document.documentElement.dataset.nameDocking = "";
 

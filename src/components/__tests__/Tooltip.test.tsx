@@ -5,7 +5,19 @@ import {
   TooltipProvider,
   TooltipTrigger
 } from '@/components/ui/tooltip';
-import { render, screen, fireEvent, act } from '@/test/utils';
+import { render, screen } from '@/test/utils';
+
+type MockProps = {
+  children?: React.ReactNode;
+  className?: string;
+  render?: React.ReactNode;
+};
+
+type MockRootProps = {
+  children?: React.ReactNode | ((state: { open?: boolean }) => React.ReactNode);
+  open?: boolean;
+  defaultOpen?: boolean;
+};
 
 // Mock the Base UI tooltip primitives
 vi.mock('@base-ui/react/tooltip', async () => {
@@ -14,7 +26,7 @@ vi.mock('@base-ui/react/tooltip', async () => {
     ...actual,
     Tooltip: {
       ...actual.Tooltip,
-      Root: ({ children, open, defaultOpen, onOpenChange }: any) => {
+      Root: ({ children, open, defaultOpen }: MockRootProps) => {
         return (
           <div data-testid="tooltip-root">
             {typeof children === 'function'
@@ -23,19 +35,19 @@ vi.mock('@base-ui/react/tooltip', async () => {
           </div>
         );
       },
-      Trigger: ({ children, className, render }: any) => (
+      Trigger: ({ children, className, render }: MockProps) => (
         <div data-testid="tooltip-trigger" className={className}>
           {render ? render : children}
         </div>
       ),
-      Portal: ({ children }: any) => <div data-testid="tooltip-portal">{children}</div>,
-      Positioner: ({ children }: any) => <div data-testid="tooltip-positioner">{children}</div>,
-      Popup: ({ children, className }: any) => (
+      Portal: ({ children }: MockProps) => <div data-testid="tooltip-portal">{children}</div>,
+      Positioner: ({ children }: MockProps) => <div data-testid="tooltip-positioner">{children}</div>,
+      Popup: ({ children, className }: MockProps) => (
         <div data-testid="tooltip-content" className={className}>
           {children}
         </div>
       ),
-      Provider: ({ children }: any) => <div data-testid="tooltip-provider">{children}</div>,
+      Provider: ({ children }: MockProps) => <div data-testid="tooltip-provider">{children}</div>,
       Arrow: () => null,
     },
   };

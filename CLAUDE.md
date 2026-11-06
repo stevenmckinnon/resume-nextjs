@@ -43,7 +43,7 @@ All resume content lives in a single source of truth: **`src/data/resume.tsx`** 
   - `log-dumper/` — Dev utility page using `@stevenmckinnon/log-dumper`
 - `src/components/` — All React components
   - `ui/` — shadcn/ui primitives (Avatar, Badge, Button, Card, Form, Input, etc.)
-  - `magicui/` — Custom animation/visual components (Dock, Confetti)
+  - `magicui/` — Custom animation/visual components (Confetti)
   - Feature components: `hero.tsx`, `career-timeline.tsx`, `rundown.tsx`, `mixer.tsx`, `length-toggle.tsx`, `print-cv.tsx`, `reveal.tsx`, `project-feature.tsx`, `project-tile.tsx`, `skills-section.tsx`, `contact.tsx`
 - `src/types/resume.ts` — TypeScript types for all resume data structures plus `iconMap` for project tech icons
 - `src/lib/utils.ts` — `cn()` helper, `formatDate()`, `calculateYearsOfExperience()`, month and duration helpers

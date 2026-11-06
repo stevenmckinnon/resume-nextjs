@@ -104,7 +104,7 @@ export const ContactEmail = ({
             </Section>
 
             {/* Main Content Card */}
-            <Section className="border-border rounded-b-2xl border-t bg-white px-8 py-8">
+            <Section className="border-border rounded-b-2xl border-t bg-white p-8">
               {/* Badge */}
               <div className="bg-primary-light mb-5 inline-block rounded-full px-3.5 py-1.5">
                 <span className="text-primary font-mono text-[11px] font-semibold tracking-widest">

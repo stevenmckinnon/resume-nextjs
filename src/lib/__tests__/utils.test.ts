@@ -1,4 +1,4 @@
-import { describe, it, expect, vi, beforeEach, afterEach } from "vitest";
+import { describe, it, expect, beforeEach, afterEach } from "vitest";
 import {
   cn,
   formatDate,
@@ -31,14 +31,14 @@ describe("Utility Functions", () => {
           if (arguments.length === 0) {
             super(fixedDate);
           } else {
-            super(value as any);
+            super(value as string | number | Date);
           }
         }
 
         static now() {
           return fixedDate;
         }
-      } as any;
+      } as unknown as DateConstructor;
     });
 
     afterEach(() => {
@@ -91,14 +91,14 @@ describe("Utility Functions", () => {
           if (arguments.length === 0) {
             super(fixedDate);
           } else {
-            super(value as any);
+            super(value as string | number | Date);
           }
         }
 
         static now() {
           return fixedDate.getTime();
         }
-      } as any;
+      } as unknown as DateConstructor;
 
       // Start date is 2014-06-01, so on 2024-03-01 it should be about 9.75 years
       // which rounds down to 9 years

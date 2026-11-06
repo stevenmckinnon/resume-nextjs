@@ -55,6 +55,8 @@ const eslintConfig = [
             "^reveal",
             "^print-cv",
             "^no-scrollbar$",
+            // Sonner styles itself from this class name.
+            "^toaster$",
           ],
         },
       ],
@@ -71,6 +73,14 @@ const eslintConfig = [
     // Tests pass fixture classNames like "custom-class" to assert className
     // merging. They are deliberately not Tailwind utilities.
     files: ["**/__tests__/**/*.{ts,tsx}", "**/*.test.{ts,tsx}"],
+    rules: {
+      "better-tailwindcss/no-unknown-classes": "off",
+    },
+  },
+  {
+    // The email template configures its own Tailwind theme inline, so the
+    // project theme the rule resolves from does not know its colour names.
+    files: ["src/components/emails/**/*.tsx"],
     rules: {
       "better-tailwindcss/no-unknown-classes": "off",
     },

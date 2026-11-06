@@ -131,14 +131,23 @@ const SECTION_COMMANDS: Command[] = [
   },
 ];
 
-export async function copyEmail() {
+/**
+ * Copies the address and says so. The palette has no button to change, so it
+ * confirms with a toast. A caller that shows its own confirmation passes
+ * `quiet` to skip the success toast; a failure always gets one.
+ */
+export async function copyEmail({ quiet = false } = {}) {
   try {
     await navigator.clipboard.writeText(DATA.contact.email);
-    toast.success("Email copied", { description: DATA.contact.email });
+    if (!quiet) {
+      toast.success("Email copied", { description: DATA.contact.email });
+    }
+    return true;
   } catch {
     toast.error("Couldn't copy the email", {
       description: DATA.contact.email,
     });
+    return false;
   }
 }
 

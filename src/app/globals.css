@@ -381,6 +381,7 @@ code[data-line-numbers-max-digits="3"] > [data-line]::before {
   --color-primary: var(--primary);
   --color-primary-accent: var(--primary-accent);
   --color-tally: var(--tally);
+  --color-success: var(--success);
   --color-popover-foreground: var(--popover-foreground);
   --color-popover: var(--popover);
   --color-card-foreground: var(--card-foreground);
@@ -437,6 +438,9 @@ code[data-line-numbers-max-digits="3"] > [data-line]::before {
      ever a small dot or the playhead, and always beside a word that says the
      same thing, so nothing depends on seeing red. */
   --tally: oklch(0.56 0.2 25);
+  /* Confirmation text and icons on a light surface. About 6:1 on --secondary.
+     Always paired with a tick and a changed word, so nothing depends on green. */
+  --success: oklch(0.45 0.12 150);
   --secondary: oklch(0.96 0.006 60);
   --secondary-foreground: oklch(0.24 0.008 45);
   --muted: oklch(0.965 0.005 60);
@@ -506,6 +510,8 @@ code[data-line-numbers-max-digits="3"] > [data-line]::before {
      too low for text, which is why the two are separate tokens. */
   --primary-accent: oklch(0.64 0.155 22);
   --tally: oklch(0.66 0.2 25);
+  /* About 7:1 on --secondary in dark mode. */
+  --success: oklch(0.8 0.16 150);
   --secondary: oklch(0.27 0.008 45);
   --secondary-foreground: oklch(0.985 0.003 60);
   --muted: oklch(0.26 0.006 45);

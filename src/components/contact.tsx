@@ -1,6 +1,6 @@
 "use client";
 
-import { copyEmail } from "@/components/command-palette";
+import { CopyEmailButton } from "@/components/copy-email-button";
 import { Reveal } from "@/components/reveal";
 import { SectionHeading } from "@/components/section-heading";
 import { Button } from "@/components/ui/button";
@@ -19,7 +19,7 @@ import { toast } from "sonner";
 import { cn } from "@/lib/utils";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { motion } from "framer-motion";
-import { BadgeCheck, Copy, Loader2, Send } from "lucide-react";
+import { BadgeCheck, Loader2, Send } from "lucide-react";
 import { useEffect, useRef, useState } from "react";
 import { useForm } from "react-hook-form";
 import * as z from "zod";
@@ -168,16 +168,7 @@ export const Contact = () => {
         >
           {DATA.contact.email}
         </a>
-        <Button
-          type="button"
-          variant="secondary"
-          data-needs-js
-          onClick={() => void copyEmail()}
-          className="active:scale-[0.96]"
-        >
-          <Copy aria-hidden="true" className="size-4" />
-          Copy address
-        </Button>
+        <CopyEmailButton />
       </Reveal>
 
       <div className="short:hidden mt-12 grid grid-cols-1 gap-x-16 gap-y-10 md:mt-16 lg:grid-cols-12">

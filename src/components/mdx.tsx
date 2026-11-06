@@ -1,6 +1,6 @@
 import Image from "next/image";
 import Link from "next/link";
-import React from "react";
+import React, { type ComponentProps, type ComponentPropsWithoutRef } from "react";
 
 function Table({ data }: { data: { headers: string[]; rows: string[][] } }) {
   const headers = data.headers.map((header, index) => (
@@ -24,8 +24,8 @@ function Table({ data }: { data: { headers: string[]; rows: string[][] } }) {
   );
 }
 
-function CustomLink(props: any) {
-  const href = props.href;
+function CustomLink(props: ComponentPropsWithoutRef<"a">) {
+  const href = props.href ?? "";
 
   if (href.startsWith("/")) {
     return (
@@ -42,8 +42,8 @@ function CustomLink(props: any) {
   return <a target="_blank" rel="noopener noreferrer" {...props} />;
 }
 
-function RoundedImage(props: any) {
-  return <Image alt={props.alt} className="rounded-lg" {...props} />;
+function RoundedImage(props: ComponentProps<typeof Image>) {
+  return <Image className="rounded-lg" {...props} alt={props.alt} />;
 }
 
 // This replaces rehype-slug
@@ -60,7 +60,7 @@ function slugify(str: string) {
 
 function createHeading(level: number) {
   const Heading = ({ children }: { children: React.ReactNode }) => {
-    let slug = slugify(children as string);
+    const slug = slugify(children as string);
     return React.createElement(
       `h${level}`,
       { id: slug },

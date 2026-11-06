@@ -4,7 +4,6 @@ import { headers } from "next/headers";
 import { z } from "zod";
 
 import EmailTemplate from "@/components/emails/contact";
-import type { ReactElement } from "react";
 import { DATA } from "@/data/resume";
 
 const resend = new Resend(process.env.RESEND_API_KEY);
@@ -105,7 +104,7 @@ export async function POST(request: Request) {
         name,
         email,
         subject,
-      }) as ReactElement<any>,
+      }),
     });
 
     if (error) {

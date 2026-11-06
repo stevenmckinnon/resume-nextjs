@@ -7,11 +7,10 @@ import {
   FormDescription,
   FormMessage,
   FormField,
-  useFormField
 } from '@/components/ui/form';
+import type { UseFormReturn } from 'react-hook-form';
 import { render, screen } from '@/test/utils';
 import { useForm, FormProvider } from 'react-hook-form';
-import { z } from 'zod';
 import { Input } from '@/components/ui/input';
 import React from 'react';
 
@@ -43,11 +42,7 @@ vi.mock('react-hook-form', async () => {
 });
 
 const TestForm = () => {
-  const formSchema = z.object({
-    username: z.string().min(2).max(50),
-  });
-
-  const form = useForm<z.infer<typeof formSchema>>({
+  const form = useForm<{ username: string }>({
     defaultValues: {
       username: '',
     },
@@ -84,7 +79,7 @@ const FormComponentWrapper = ({ children }: { children: React.ReactNode }) => {
   const mockForm = {
     getFieldState: vi.fn(),
     formState: { errors: {} }
-  } as any; // Type assertion to avoid TypeScript errors
+  } as unknown as UseFormReturn;
   
   return (
     <FormProvider {...mockForm}>
@@ -110,7 +105,7 @@ describe('Form Components', () => {
     );
     const label = screen.getByText('Test Label');
     expect(label).toBeInTheDocument();
-    expect(label).toHaveClass('flex items-center gap-2 text-sm leading-none font-medium peer-disabled:cursor-not-allowed peer-disabled:opacity-50');
+    expect(label).toHaveClass('flex items-center gap-2 text-sm/none font-medium peer-disabled:cursor-not-allowed peer-disabled:opacity-50');
   });
 
   it('renders FormLabel with custom className', () => {

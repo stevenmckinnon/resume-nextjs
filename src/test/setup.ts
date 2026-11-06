@@ -1,7 +1,7 @@
 import '@testing-library/jest-dom';
 import { afterEach, vi } from 'vitest';
 import { cleanup } from '@testing-library/react';
-import React from 'react';
+import React, { type ComponentPropsWithoutRef } from 'react';
 
 // Mock window.matchMedia
 Object.defineProperty(window, 'matchMedia', {
@@ -41,12 +41,12 @@ vi.mock('next/navigation', () => ({
 
 // Mock next/image
 vi.mock('next/image', () => ({
-  default: ({ src, alt, ...props }: { src: string; alt: string; [key: string]: any }) => 
+  default: ({ src, alt, ...props }: ComponentPropsWithoutRef<'img'> & { src: string; alt: string }) => 
     React.createElement('img', { src, alt, ...props })
 }));
 
 // Mock next/link
 vi.mock('next/link', () => ({
-  default: ({ children, href, ...props }: { children: React.ReactNode; href: string; [key: string]: any }) => 
+  default: ({ children, href, ...props }: ComponentPropsWithoutRef<'a'> & { children: React.ReactNode; href: string }) => 
     React.createElement('a', { href, ...props }, children)
 })); 

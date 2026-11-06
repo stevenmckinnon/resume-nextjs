@@ -8,6 +8,7 @@ vi.mock('@/components/ui/avatar', async () => {
   return {
     ...actual,
     AvatarImage: vi.fn().mockImplementation(({ src, alt, className, 'data-testid': dataTestId }) => (
+      // eslint-disable-next-line @next/next/no-img-element -- a plain img stands in for the primitive in this mock
       <img 
         src={src} 
         alt={alt} 

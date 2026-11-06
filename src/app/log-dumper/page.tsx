@@ -22,9 +22,9 @@ import {
   Minus,
   Plus,
   Shield,
-  Trash2,
   XCircle,
   Zap,
+  type LucideIcon,
 } from "lucide-react";
 import Link from "next/link";
 import { useState } from "react";
@@ -53,7 +53,7 @@ const BuggyComponent = () => {
       size="sm"
       onClick={() => setShouldThrow(true)}
     >
-      <Bug className="h-4 w-4" />
+      <Bug className="size-4" />
       Trigger Crash (Error Boundary)
     </Button>
   );
@@ -69,7 +69,7 @@ const AuthSection = () => {
     <Card className="border-purple-200 bg-purple-50/50 dark:border-purple-900 dark:bg-purple-950/20">
       <CardHeader>
         <CardTitle className="flex items-center gap-2 text-purple-700 dark:text-purple-300">
-          <Shield className="h-5 w-5" />
+          <Shield className="size-5" />
           Auth Section (Named Logger)
         </CardTitle>
         <CardDescription>
@@ -95,7 +95,7 @@ const AuthSection = () => {
               logWarn("Session expiring soon", { userId: "user_123" })
             }
           >
-            <AlertTriangle className="h-4 w-4" />
+            <AlertTriangle className="size-4" />
             Session Warning
           </Button>
           <Button
@@ -105,7 +105,7 @@ const AuthSection = () => {
               logError(new Error("Auth token expired"), { userId: "user_123" })
             }
           >
-            <XCircle className="h-4 w-4" />
+            <XCircle className="size-4" />
             Auth Error
           </Button>
         </div>
@@ -114,9 +114,9 @@ const AuthSection = () => {
   );
 };
 
-const FeatureBadge = ({ icon: Icon, label }: { icon: any; label: string }) => (
+const FeatureBadge = ({ icon: Icon, label }: { icon: LucideIcon; label: string }) => (
   <Badge variant="outline" className="gap-1.5 px-3 py-1.5">
-    <Icon className="h-3.5 w-3.5" />
+    <Icon className="size-3.5" />
     {label}
   </Badge>
 );
@@ -163,7 +163,7 @@ const DemoContent = () => {
             className="mb-6 inline-flex items-center justify-center"
           >
             <div className="bg-primary/10 rounded-full p-4">
-              <Logs className="text-primary-accent h-12 w-12" />
+              <Logs className="text-primary-accent size-12" />
             </div>
           </motion.div>
           <h1 className="mb-4 text-5xl font-bold tracking-tight md:text-6xl lg:text-7xl">
@@ -192,7 +192,7 @@ const DemoContent = () => {
                   rel="noopener noreferrer"
                 >
                   View on npm
-                  <ExternalLinkIcon className="h-4 w-4" />
+                  <ExternalLinkIcon className="size-4" />
                 </Link>
               }
             />
@@ -209,7 +209,7 @@ const DemoContent = () => {
           <Card className="border-green-200 bg-green-50/50 dark:border-green-900 dark:bg-green-950/20">
             <CardHeader>
               <CardTitle className="flex items-center gap-2 text-green-700 dark:text-green-300">
-                <Zap className="h-5 w-5" />
+                <Zap className="size-5" />
                 Interactive Counter Demo
               </CardTitle>
               <CardDescription>
@@ -223,9 +223,9 @@ const DemoContent = () => {
                   variant="outline"
                   size="lg"
                   onClick={handleDecrement}
-                  className="h-14 w-14 rounded-full"
+                  className="size-14 rounded-full"
                 >
-                  <Minus className="h-5 w-5" />
+                  <Minus className="size-5" />
                   <span className="sr-only">Decrement</span>
                 </Button>
                 <motion.span
@@ -240,9 +240,9 @@ const DemoContent = () => {
                   variant="outline"
                   size="lg"
                   onClick={handleIncrement}
-                  className="h-14 w-14 rounded-full"
+                  className="size-14 rounded-full"
                 >
-                  <Plus className="h-5 w-5" />
+                  <Plus className="size-5" />
                   <span className="sr-only">Increment</span>
                 </Button>
               </div>
@@ -254,11 +254,11 @@ const DemoContent = () => {
                   onClick={handleWarn}
                   className="border-yellow-500 text-yellow-700 hover:bg-yellow-50 hover:text-yellow-700 dark:border-yellow-600 dark:text-yellow-400 dark:hover:bg-yellow-950/20 dark:hover:text-yellow-400"
                 >
-                  <AlertTriangle className="h-4 w-4" />
+                  <AlertTriangle className="size-4" />
                   Log Warning
                 </Button>
                 <Button variant="destructive" size="sm" onClick={handleError}>
-                  <XCircle className="h-4 w-4" />
+                  <XCircle className="size-4" />
                   Log Error
                 </Button>
               </div>
@@ -276,7 +276,7 @@ const DemoContent = () => {
           <Card className="border-red-200 bg-red-50/50 dark:border-red-900 dark:bg-red-950/20">
             <CardHeader>
               <CardTitle className="flex items-center gap-2 text-red-700 dark:text-red-300">
-                <Shield className="h-5 w-5" />
+                <Shield className="size-5" />
                 Error Boundary Integration
               </CardTitle>
               <CardDescription className="text-red-600 dark:text-red-400">
@@ -301,7 +301,7 @@ const DemoContent = () => {
               export logs in real time.
               <span className="mt-2 flex items-center justify-center gap-2">
                 <span>Press</span>
-                <kbd className="bg-muted border-border rounded border px-1.5 py-0.5 font-mono text-xs">
+                <kbd className="bg-muted border-border rounded-sm border px-1.5 py-0.5 font-mono text-xs">
                   ⌘/Ctrl + Shift + D
                 </kbd>
                 <span>to toggle the panel.</span>
@@ -326,7 +326,7 @@ const App = () => {
           <Card className="border-red-200 bg-red-50/50 dark:border-red-900 dark:bg-red-950/20">
             <CardHeader>
               <CardTitle className="flex items-center gap-2 text-red-700 dark:text-red-300">
-                <Shield className="h-5 w-5" />
+                <Shield className="size-5" />
                 Application Error
               </CardTitle>
               <CardDescription className="text-red-600 dark:text-red-400">

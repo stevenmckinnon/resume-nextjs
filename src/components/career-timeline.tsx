@@ -10,47 +10,32 @@ import {
 import { RoleTitle } from "@/components/role-title";
 import { cn, formatMonthIndex } from "@/lib/utils";
 import Image from "next/image";
-import { type PointerEvent, type ReactNode, useId, useState } from "react";
+import { type PointerEvent, useId, useState } from "react";
 
 type FeedId = "engineering" | "icw" | "wwe" | "photography";
 
 /**
- * What the programme monitor shows. Chosen per clip rather than per track, since
+ * The picture on each track's tile. Chosen per clip rather than per track, since
  * the Broadcast track changes picture the month WWE joins ICW. Engineering has no
  * footage, so it shows the person doing it.
  *
- * Positions keep the face in frame across the monitor's two shapes: near square
- * on a desktop, 16:9 on a phone.
+ * Decorative: each tile is a radio named by its track, and the panel beside the
+ * tiles says in words what is on air.
  */
-const FEEDS: Record<FeedId, { src: string; alt: string; position: string }> = {
-  engineering: {
-    src: "/me.jpg",
-    alt: "Steve McKinnon, standing in front of dark green leaves",
-    position: "object-[50%_25%]",
-  },
-  icw: {
-    src: "/timeline-icw.jpg",
-    alt: "Steve at the ring ropes with a broadcast camera on his shoulder and a headset on, under stage lights",
-    position: "object-[85%_10%]",
-  },
-  wwe: {
-    src: "/timeline-wwe.jpg",
-    alt: "Steve at ringside with a broadcast camera on his shoulder, grinning at the lens, with the WWE title on a table beside him and the crowd behind",
-    position: "object-[100%_35%]",
-  },
+const FEEDS: Record<FeedId, { src: string; position: string }> = {
+  engineering: { src: "/me.jpg", position: "object-[50%_25%]" },
+  icw: { src: "/timeline-icw.jpg", position: "object-[75%_15%]" },
+  wwe: { src: "/timeline-wwe.jpg", position: "object-[85%_35%]" },
   photography: {
     src: "/timeline-photography.jpg",
-    alt: "Steve holding a stills camera at ringside at a wrestling show, with the crowd behind the barrier",
     position: "object-[35%_0%]",
   },
 };
 
-const FEED_IDS = Object.keys(FEEDS) as FeedId[];
-
-const feedFor = (clip: Clip | undefined): FeedId => {
-  if (!clip || clip.track === "engineering") return "engineering";
-  if (clip.track === "photography") return "photography";
-  return clip.label.includes("WWE") ? "wwe" : "icw";
+const feedFor = (track: TrackId, clip: Clip | undefined): FeedId => {
+  if (track === "engineering") return "engineering";
+  if (track === "photography") return "photography";
+  return clip?.label.includes("WWE") ? "wwe" : "icw";
 };
 
 /** Half the range thumb. The clips are inset by this so the playhead lines up. */
@@ -66,25 +51,19 @@ const playheadLeft = (position: number) =>
  *
  * It is a convenience over the rundown further down the page, never a gate in
  * front of it. Nothing here has to be touched to read the CV, and with scripts
- * off the slider disappears and the monitor simply states the current role.
+ * off the slider disappears and the panel beside the tiles simply states the current role.
  *
  * The scrubber is a native range input stretched over the tracks, not a custom
  * drag handler, which is where the arrow keys, Home and End, touch and the
  * screen reader's value announcements all come from.
  */
-export const CareerTimeline = ({
-  timeline,
-  intro,
-}: {
-  timeline: Timeline;
-  intro: ReactNode;
-}) => {
+export const CareerTimeline = ({ timeline }: { timeline: Timeline }) => {
   const { clips, length, origin } = timeline;
   const [month, setMonth] = useState(length);
   const [track, setTrack] = useState<TrackId>("engineering");
   const groupName = useId();
 
-  // A track that had not started by this month hands the monitor back to the
+  // A track that had not started by this month hands the panel back to the
   // day job rather than showing nothing.
   const onAir =
     clipAt(clips, track, month) ?? clipAt(clips, "engineering", month);
@@ -116,83 +95,49 @@ export const CareerTimeline = ({
   }
 
   return (
-    <div className="flex min-h-0 flex-1 flex-col gap-6 md:gap-8">
-      <div className="grid flex-1 grid-cols-1 gap-6 lg:grid-cols-12 lg:gap-10">
-        <div className="flex flex-col justify-end gap-6 lg:col-span-5">
-          {intro}
+    <div className="flex flex-col gap-6 md:gap-8">
+      <div className="grid grid-cols-1 gap-6 lg:grid-cols-12 lg:gap-10">
+        {/* Fixed height, so the page never shifts under the playhead as the
+            text changes length. */}
+        <div className="flex min-h-44 flex-col justify-end gap-2 lg:col-span-5 lg:min-h-56 lg:justify-center">
+          <p className="text-muted-foreground flex items-center gap-2 text-sm font-semibold tabular-nums">
+            <span
+              aria-hidden="true"
+              className="tally bg-tally size-2.5 rounded-full"
+            />
+            {when === "Now" ? "On air now" : when}
+          </p>
+          <p className="text-foreground text-xl font-bold tracking-tight text-balance md:text-2xl">
+            {onAir && <RoleTitle title={onAir.title} />}
+          </p>
+          <p className="text-foreground text-base font-semibold">
+            {onAir?.organisation}
+          </p>
+          <p className="text-muted-foreground max-w-[48ch] text-sm/relaxed text-pretty md:text-base/relaxed">
+            {onAir?.result}
+          </p>
+          {alsoRunning.length > 0 && (
+            <p className="text-muted-foreground mt-1 text-sm">
+              Also running: {alsoRunning.map(clipSummary).join(", ")}
+            </p>
+          )}
         </div>
 
-        {/* The monitor keeps its size through every change so the page never
-            shifts under the playhead. */}
-        <div
-          data-ui
-          className="bg-card grid min-h-0 overflow-hidden rounded-lg sm:grid-cols-[minmax(0,2fr)_minmax(0,3fr)] lg:col-span-7"
-        >
-          <div className="bg-muted relative aspect-video sm:aspect-auto sm:min-h-60">
-            {FEED_IDS.map((id) => {
-              const feed = FEEDS[id];
-              const isLive = feedFor(onAir) === id;
-              return (
-                <Image
-                  key={id}
-                  src={feed.src}
-                  alt={isLive ? feed.alt : ""}
-                  fill
-                  sizes="(max-width: 640px) 100vw, 25vw"
-                  priority={id === "engineering"}
-                  className={cn(
-                    "object-cover transition-opacity duration-300",
-                    feed.position,
-                    isLive ? "opacity-100" : "opacity-0",
-                  )}
-                />
-              );
-            })}
-          </div>
-
-          <div className="flex min-h-64 flex-col justify-center gap-2 p-5 md:p-6 lg:min-h-0">
-            <p className="text-muted-foreground flex items-center gap-2 text-sm font-semibold tabular-nums">
-              <span
-                aria-hidden="true"
-                className="tally bg-tally size-2.5 rounded-full"
-              />
-              {when}
-            </p>
-            <p className="text-card-foreground text-xl font-bold tracking-tight text-balance md:text-2xl">
-              {onAir && <RoleTitle title={onAir.title} />}
-            </p>
-            <p className="text-card-foreground text-base font-semibold">
-              {onAir?.organisation}
-            </p>
-            <p className="text-muted-foreground text-sm/relaxed text-pretty md:text-base/relaxed">
-              {onAir?.result}
-            </p>
-            {alsoRunning.length > 0 && (
-              <p className="text-muted-foreground mt-1 text-sm">
-                Also running: {alsoRunning.map(clipSummary).join(", ")}
-              </p>
-            )}
-          </div>
-        </div>
-      </div>
-
-      <div
-        data-ui
-        className="grid grid-cols-[5.75rem_minmax(0,1fr)] gap-x-2 md:grid-cols-[7rem_minmax(0,1fr)]"
-      >
         {/* One tab stop, arrow keys between tracks. */}
-        <fieldset className="contents">
-          <legend className="sr-only">Show this track on the monitor</legend>
-          <div className="flex flex-col">
-            {TRACKS.map(({ id, label }) => (
+        <fieldset
+          data-ui
+          className="grid grid-cols-3 content-center gap-3 md:gap-4 lg:col-span-7"
+        >
+          <legend className="sr-only">Show this track</legend>
+          {TRACKS.map(({ id, label }) => {
+            const clip = clipAt(clips, id, month);
+            const feed = FEEDS[feedFor(id, clip)];
+            const isLive = (onAir?.track ?? "engineering") === id;
+
+            return (
               <label
                 key={id}
-                className={cn(
-                  "has-focus-visible:outline-ring scrub-row flex cursor-pointer items-center gap-2 rounded-sm text-[0.8125rem] font-semibold outline-offset-2 transition-colors has-focus-visible:outline-2 md:text-sm",
-                  (onAir?.track ?? "engineering") === id
-                    ? "text-foreground"
-                    : "text-muted-foreground hover:text-foreground",
-                )}
+                className="group has-focus-visible:outline-ring flex cursor-pointer flex-col gap-2.5 outline-offset-4 has-focus-visible:outline-2"
               >
                 <input
                   type="radio"
@@ -203,19 +148,68 @@ export const CareerTimeline = ({
                   className="sr-only"
                 />
                 <span
-                  aria-hidden="true"
                   className={cn(
-                    "size-1.5 shrink-0 rounded-full transition-colors",
-                    (onAir?.track ?? "engineering") === id
-                      ? "bg-tally"
-                      : "bg-muted-foreground/40",
+                    "bg-muted outline-tally relative block aspect-4/3 overflow-hidden transition-[opacity,outline-width] duration-200",
+                    isLive ? "outline-4" : "opacity-55 group-hover:opacity-100",
                   )}
-                />
-                {label}
+                >
+                  <Image
+                    src={feed.src}
+                    alt=""
+                    fill
+                    sizes="(max-width: 1024px) 33vw, 20vw"
+                    className={cn("object-cover", feed.position)}
+                  />
+                </span>
+                <span
+                  className={cn(
+                    "text-sm font-semibold transition-colors md:text-base",
+                    isLive
+                      ? "text-foreground"
+                      : "text-muted-foreground group-hover:text-foreground",
+                  )}
+                >
+                  {label}
+                  {!clip && (
+                    <span className="text-muted-foreground font-medium">
+                      {" "}
+                      (not yet)
+                    </span>
+                  )}
+                </span>
               </label>
-            ))}
-          </div>
+            );
+          })}
         </fieldset>
+      </div>
+
+      <div
+        data-ui
+        className="grid grid-cols-[5.75rem_minmax(0,1fr)] gap-x-2 md:grid-cols-[7rem_minmax(0,1fr)]"
+      >
+        <div aria-hidden="true" className="flex flex-col">
+          {TRACKS.map(({ id, label }) => (
+            <span
+              key={id}
+              className={cn(
+                "scrub-row flex items-center gap-2 text-[0.8125rem] font-semibold transition-colors md:text-sm",
+                (onAir?.track ?? "engineering") === id
+                  ? "text-foreground"
+                  : "text-muted-foreground",
+              )}
+            >
+              <span
+                className={cn(
+                  "size-1.5 shrink-0 rounded-full transition-colors",
+                  (onAir?.track ?? "engineering") === id
+                    ? "bg-tally"
+                    : "bg-muted-foreground/40",
+                )}
+              />
+              {label}
+            </span>
+          ))}
+        </div>
 
         <div className="@container relative">
           <div className="scrub-reveal flex flex-col">

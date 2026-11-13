@@ -326,10 +326,10 @@ code[data-line-numbers-max-digits="3"] > [data-line]::before {
      These used to name DM Sans and Space Mono, neither of which the app loads,
      so every utility fell through to the generic system fallback. */
   --font-sans:
-    var(--font-manrope), ui-sans-serif, system-ui, sans-serif,
+    var(--font-archivo), ui-sans-serif, system-ui, sans-serif,
     "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
   --font-display:
-    var(--font-archivo-narrow), var(--font-manrope), ui-sans-serif, sans-serif;
+    var(--font-archivo-narrow), var(--font-archivo), ui-sans-serif, sans-serif;
   --font-mono: ui-monospace, monospace;
   /* For anything the reader parses as data: endpoints, log timestamps and code
      need columns that line up. */
@@ -337,13 +337,17 @@ code[data-line-numbers-max-digits="3"] > [data-line]::before {
     ui-monospace, SFMono-Regular, "SF Mono", Menlo, Consolas, "Liberation Mono",
     monospace;
   --font-serif:
-    var(--font-manrope), ui-sans-serif, system-ui, sans-serif,
+    var(--font-archivo), ui-sans-serif, system-ui, sans-serif,
     "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
-  /* Must match the :root/.dark --radius below. This value bakes the whole
+  /* Square. Rounded corners at one radius on every surface were the clearest
+     sign this was built from a component kit; the site's references are
+     broadcast graphics, which are cut square. Kept as a token rather than
+     deleted so the rounded-* scale still resolves (below zero clamps to 0).
+     Must match the :root/.dark --radius below. This value bakes the whole
      rounded-* utility scale at build time, so if it drifts from the runtime
      token, `rounded-lg` and `calc(var(--radius))` silently disagree and any
      concentric-radius calculation is wrong. */
-  --radius: 0.5rem;
+  --radius: 0rem;
   --tracking-tighter: calc(var(--tracking-normal) - 0.05em);
   --tracking-tight: calc(var(--tracking-normal) - 0.025em);
   --tracking-wide: calc(var(--tracking-normal) + 0.025em);
@@ -398,7 +402,7 @@ code[data-line-numbers-max-digits="3"] > [data-line]::before {
   --radius-lg: var(--radius);
   --radius-xl: calc(var(--radius) + 4px);
   --font-heading:
-    var(--font-manrope), ui-sans-serif, system-ui, sans-serif,
+    var(--font-archivo), ui-sans-serif, system-ui, sans-serif,
     "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
   --radius-2xl: calc(var(--radius) + 8px);
   --radius-3xl: calc(var(--radius) + 12px);
@@ -457,7 +461,7 @@ code[data-line-numbers-max-digits="3"] > [data-line]::before {
   /* The brand red, not a grey. A neutral focus ring sitting on a neutral
      border is the least visible option on offer. */
   --ring: oklch(0.505 0.17 22);
-  --radius: 0.5rem;
+  --radius: 0rem;
   --letter-spacing: normal;
   --spacing: 0.25rem;
   /* Pure black. A tinted neutral picks up the surface colour behind it and
@@ -527,7 +531,7 @@ code[data-line-numbers-max-digits="3"] > [data-line]::before {
   --ring: oklch(0.64 0.155 22);
   /* Must match the light-mode value: a theme switch should recolour the page,
      not reshape every card, button and avatar on it. */
-  --radius: 0.5rem;
+  --radius: 0rem;
   --letter-spacing: normal;
   --spacing: 0.25rem;
   --image-outline: oklch(1 0 0 / 0.1);

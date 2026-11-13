@@ -6,8 +6,14 @@ import { describe, expect, it } from "vitest";
 
 const timeline = buildTimeline(new Date(2026, 10, 15));
 
+const tileImage = (track: string) =>
+  screen
+    .getByRole("radio", { name: track })
+    .closest("label")!
+    .querySelector("img");
+
 const setup = () => {
-  render(<CareerTimeline timeline={timeline} intro={<p>Intro</p>} />);
+  render(<CareerTimeline timeline={timeline} />);
   return screen.getByRole("slider", { name: /move through career/i });
 };
 
@@ -20,7 +26,9 @@ describe("CareerTimeline", () => {
       "aria-valuetext",
       "Now: Senior Lead Front-End Developer, JPMorgan Chase",
     );
-    expect(screen.getByText("Now", { selector: "p" })).toBeInTheDocument();
+    expect(
+      screen.getByText("On air now", { selector: "p" }),
+    ).toBeInTheDocument();
   });
 
   it("names the date and role for screen readers as it moves", () => {
@@ -43,24 +51,32 @@ describe("CareerTimeline", () => {
     ).toBeInTheDocument();
   });
 
-  it("shows the photo for whichever camera work is on air", () => {
+  it("shows the WWE picture on the broadcast tile once WWE has started", () => {
     const slider = setup();
-    fireEvent.click(screen.getByRole("radio", { name: "Broadcast" }));
 
     // Both WWE and ICW by now, so the WWE picture.
-    expect(screen.getByAltText(/WWE title/)).toHaveClass("opacity-100");
+    expect(tileImage("Broadcast")).toHaveAttribute("src", "/timeline-wwe.jpg");
 
     // October 2020 is ICW on its own.
     fireEvent.change(slider, { target: { value: 76 } });
-    expect(screen.getByAltText(/ring ropes/)).toHaveClass("opacity-100");
-    expect(screen.queryByAltText(/WWE title/)).not.toBeInTheDocument();
+    expect(tileImage("Broadcast")).toHaveAttribute("src", "/timeline-icw.jpg");
   });
 
-  it("shows the photography picture on that track", () => {
-    setup();
-    fireEvent.click(screen.getByRole("radio", { name: "Photography" }));
+  it("marks a track that had not started yet", () => {
+    const slider = setup();
+    fireEvent.change(slider, { target: { value: 0 } });
 
-    expect(screen.getByAltText(/stills camera/)).toHaveClass("opacity-100");
+    expect(screen.getAllByText("(not yet)")).toHaveLength(2);
+  });
+
+  it("keeps the track names as the radios' names", () => {
+    setup();
+
+    // The tile pictures are decorative, so they add nothing to the name.
+    expect(tileImage("Photography")).toHaveAttribute("alt", "");
+    expect(
+      screen.getByRole("radio", { name: "Photography" }),
+    ).toBeInTheDocument();
   });
 
   it("falls back to engineering when a track had not started", () => {

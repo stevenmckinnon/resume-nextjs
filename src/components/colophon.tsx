@@ -14,7 +14,7 @@ const ENTRIES: { term: string; detail: React.ReactNode }[] = [
   {
     term: "Typefaces",
     detail:
-      "Archivo Narrow for the name and headings, set large. Manrope for everything you read.",
+      "Archivo Narrow for the name and headings, set large. Archivo, its wider sibling, for everything you read.",
   },
   {
     term: "Colour",

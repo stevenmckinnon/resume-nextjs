@@ -15,11 +15,14 @@ const COLUMN = "mx-auto w-full max-w-[1440px] px-4 md:px-10";
  * Name, then the picture nobody else applying for the job has, then the career
  * cut like an edit.
  *
- * The introduction sits in a lower third over the photograph, the way a broadcast
- * names what is on screen. Solid rather than a scrim, because a gradient only
- * guesses at the contrast of whatever part of the picture is underneath it. It is
- * inverted against the page in both themes, so it reads as a caption card rather
- * than as more of the page.
+ * On a phone the photograph is shown whole, at its own 3:2, so the camera stays
+ * in frame as well as the face, and the lower third tucks under its bottom edge
+ * rather than covering it. From the small breakpoint up there is room for both,
+ * and the introduction sits in a lower third over the photograph, the way a
+ * broadcast names what is on screen. Solid rather than a scrim, because a
+ * gradient only guesses at the contrast of whatever part of the picture is
+ * underneath it. It is inverted against the page in both themes, so it reads as
+ * a caption card rather than as more of the page.
  */
 export const Hero = () => {
   const socials = Object.values(DATA.contact.social).filter(
@@ -37,18 +40,18 @@ export const Hero = () => {
       </div>
 
       <div className="relative mt-3 md:mt-5">
-        <div className="relative aspect-4/5 w-full sm:aspect-video md:aspect-auto md:h-[min(42rem,68dvh)]">
+        <div className="relative aspect-3/2 w-full sm:aspect-video md:aspect-auto md:h-[min(42rem,68dvh)]">
           <Image
             src="/timeline-icw.jpg"
             alt="Steve at the ring ropes with a broadcast camera on his shoulder and a headset on, under stage lights"
             fill
             priority
             sizes="100vw"
-            className="object-cover object-[80%_50%] md:object-[50%_22%]"
+            className="object-cover object-[50%_40%] md:object-[50%_22%]"
           />
         </div>
 
-        <div className="bg-foreground text-background absolute inset-x-4 bottom-4 flex gap-4 p-5 sm:right-auto sm:max-w-xl md:bottom-10 md:left-10 md:gap-5 md:p-8">
+        <div className="bg-foreground text-background relative mx-4 -mt-10 flex gap-4 p-5 sm:absolute sm:inset-x-4 sm:right-auto sm:bottom-4 sm:mx-0 sm:mt-0 sm:max-w-xl md:bottom-10 md:left-10 md:gap-5 md:p-8">
           <span
             aria-hidden="true"
             className="bg-primary w-1.5 shrink-0 md:w-2"

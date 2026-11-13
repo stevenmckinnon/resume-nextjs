@@ -37,7 +37,7 @@ export const Rundown = () => (
             <article
               className={cn(
                 "grid grid-cols-1 gap-x-10 gap-y-4 rounded-lg p-5 md:p-8 lg:grid-cols-12",
-                isCurrent ? "bg-card" : "bg-muted/30",
+                isCurrent && "bg-card",
               )}
             >
               <div className="flex flex-col gap-2 lg:col-span-3">
@@ -57,7 +57,7 @@ export const Rundown = () => (
                 <span
                   aria-hidden="true"
                   className={cn(
-                    "h-1.5 max-w-44 rounded-sm",
+                    "h-2 max-w-44",
                     isCurrent ? "bg-primary" : "bg-muted-foreground/40",
                   )}
                   style={{ width: `${(months / LONGEST) * 100}%` }}

@@ -16,6 +16,10 @@ const OPTIONS: { value: PageLength; label: string }[] = [
 /**
  * Radios rather than a toggle button: "pressed" says nothing about what the
  * unpressed state is, and here both options are worth naming.
+ *
+ * Set as two words rather than a segmented pill. The pill is the stock control
+ * of every component kit; an underline under the length you are reading says
+ * the same thing with nothing to draw.
  */
 export const LengthToggle = ({ className }: { className?: string }) => {
   const length = usePageLength();
@@ -24,19 +28,16 @@ export const LengthToggle = ({ className }: { className?: string }) => {
   return (
     <fieldset
       data-needs-js
-      className={cn(
-        "bg-muted inline-flex shrink-0 items-center gap-0.5 rounded-md p-0.5",
-        className,
-      )}
+      className={cn("inline-flex shrink-0 items-center gap-3", className)}
     >
       <legend className="sr-only">Page length</legend>
       {OPTIONS.map(({ value, label }) => (
         <label
           key={value}
           className={cn(
-            "has-focus-visible:outline-ring flex h-8 cursor-pointer items-center rounded-sm px-2.5 text-[0.8125rem] font-semibold outline-offset-1 transition-colors has-focus-visible:outline-2",
+            "has-focus-visible:outline-ring flex h-9 cursor-pointer items-center text-sm font-semibold decoration-2 underline-offset-[6px] outline-offset-2 transition-colors has-focus-visible:outline-2",
             length === value
-              ? "bg-background text-foreground"
+              ? "text-foreground underline"
               : "text-muted-foreground hover:text-foreground",
           )}
         >

@@ -20,7 +20,8 @@ import "./globals.css";
 // Self-hosted rather than through next/font/google, whose Turbopack loader
 // intermittently failed both `next dev` and `next build` here with "queries have
 // exactly one entry". Both are variable fonts, cut to the latin subset, under the
-// SIL Open Font License.
+// SIL Open Font License. Archivo and Archivo Narrow are one family, so the body
+// and the headings share their shapes and only the width changes.
 //
 // These deliberately do NOT claim the --font-sans / --font-mono names. Those are
 // Tailwind theme tokens, and a token defined as `var(--font-sans)` that resolves
@@ -29,9 +30,9 @@ import "./globals.css";
 // and the theme tokens on separate names, and map one to the other in
 // globals.css.
 const fontSans = localFont({
-  src: "./fonts/Manrope-latin.woff2",
-  weight: "200 800",
-  variable: "--font-manrope",
+  src: "./fonts/Archivo-latin.woff2",
+  weight: "100 900",
+  variable: "--font-archivo",
   display: "swap",
 });
 

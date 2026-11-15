@@ -70,7 +70,7 @@ export const CopyEndpoint = ({ value, className }: CopyEndpointProps) => {
     >
       <code
         ref={codeRef}
-        className="text-foreground font-code truncate text-sm/none tracking-tight"
+        className="text-foreground font-code truncate text-sm/loose tracking-tight md:text-base/loose"
       >
         {value}
       </code>

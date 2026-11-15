@@ -148,7 +148,7 @@ export function ProjectDialogProvider({
                         {active.name}
                       </Dialog.Title>
 
-                      <Dialog.Description className="text-muted-foreground max-w-[58ch] text-base/relaxed text-pretty">
+                      <Dialog.Description className="text-muted-foreground max-w-full text-base/relaxed text-pretty">
                         {details?.standfirst ?? active.description}
                       </Dialog.Description>
                     </div>

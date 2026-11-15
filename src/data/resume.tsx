@@ -239,6 +239,8 @@ I care most about the parts that are hard to retrofit later: accessibility, API 
       description: `Invoicing app built with Next.js, Prisma, and Better Auth. Sends automated emails through Resend and tracks payments with real-time analytics.`,
       website: "https://caley.app",
       github: "https://github.com/stevenmckinnon/invoice-app",
+      kind: "product",
+      platform: "Web",
       defaultExpanded: true,
       logoUrl: "/caley-logo.svg",
       tags: [
@@ -261,11 +263,40 @@ I care most about the parts that are hard to retrofit later: accessibility, API 
       },
     },
     {
+      name: "Dashbar",
+      description:
+        "A Mac menu bar app that shows which Claude Code and Codex agents are working, how much of your plan is left, and which dev servers are sitting idle. Signed, notarised and on Homebrew.",
+      website: "https://usedashbar.com",
+      github: "https://github.com/stevenmckinnon/dashbar",
+      kind: "product",
+      platform: "macOS",
+      defaultExpanded: true,
+      tags: ["swift", "swiftui", "claude"],
+      image: "/dashbar-demo.png",
+    },
+    {
+      // Lead with what it is to the person using it. The App Store subtitle
+      // says "IPTV player", which is right for store search and the wrong
+      // first word on a CV.
+      name: "Marquee TV",
+      description:
+        "A media player for your own playlists on iPhone, iPad and Apple TV. Turns M3U files and Xtream logins into a browsable library of live TV, films and series, with search, a TV guide, Continue Watching and the Apple TV Top Shelf.",
+      website: "https://apps.apple.com/gb/app/marquee-tv/id6832108013",
+      linkLabel: "App Store",
+      kind: "product",
+      platform: "iPhone · iPad · Apple TV",
+      defaultExpanded: true,
+      tags: ["swift", "swiftui", "sqlite"],
+      image: "/marquee-demo.png",
+    },
+    {
       name: "CareerWealth",
       description:
         "Plots career paths against projected earnings so you can see what each move is worth. Built with Next.js and TypeScript.",
       website: "https://careerwealth.dev",
       github: "https://github.com/stevenmckinnon/career-dashboard",
+      kind: "product",
+      platform: "Web",
       defaultExpanded: true,
       tags: [
         "nextjs",
@@ -283,6 +314,7 @@ I care most about the parts that are hard to retrofit later: accessibility, API 
       description: `My photography portfolio, built with Next.js and Tailwind CSS. Cloudinary handles optimised image delivery.`,
       website: "https://stevenmckinnon.co.uk",
       github: "https://github.com/stevenmckinnon/photography",
+      platform: "Web",
       defaultExpanded: true,
       tags: [
         "nextjs",
@@ -299,6 +331,7 @@ I care most about the parts that are hard to retrofit later: accessibility, API 
       description: `Open-source link-in-bio tool built with Next.js. A lightweight alternative to the commercial services.`,
       website: "https://www.mckinnon.bio",
       github: "https://github.com/stevenmckinnon/biosite",
+      platform: "Web",
       defaultExpanded: true,
       tags: ["nextjs", "typescript", "tailwindcss", "vercel", "shadcn"],
       image: "/biosite-demo.png",
@@ -308,6 +341,7 @@ I care most about the parts that are hard to retrofit later: accessibility, API 
       description: `A dev-time overlay that maps an element's computed styles back to your design tokens, and flags the values that only work in the theme you happen to be looking at.`,
       website: "https://xray-styles.vercel.app/",
       github: "https://github.com/stevenmckinnon/xray",
+      platform: "Dev tool",
       defaultExpanded: true,
       tags: ["typescript"],
       image: "/xray-demo.png",
@@ -317,6 +351,7 @@ I care most about the parts that are hard to retrofit later: accessibility, API 
       description: `TypeScript library that captures user actions and errors in React apps, with a live DevTools panel and downloadable logs for debugging.`,
       website: "/log-dumper",
       github: "https://github.com/stevenmckinnon/log-dumper",
+      platform: "Library",
       defaultExpanded: true,
       tags: ["typescript"],
       image: "/logdumper-demo.png",

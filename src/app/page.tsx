@@ -4,12 +4,14 @@ import { Hero } from "@/components/hero";
 import { LogDumperDemo } from "@/components/log-dumper-demo";
 import { OtherJob } from "@/components/other-job";
 import { ProjectFeature } from "@/components/project-feature";
+import { ProjectIndex } from "@/components/project-index";
 import { ProjectTile } from "@/components/project-tile";
 import { Reveal } from "@/components/reveal";
 import { Rundown } from "@/components/rundown";
 import { SectionHeading } from "@/components/section-heading";
 import { SkillsSection } from "@/components/skills-section";
 import { DATA } from "@/data/resume";
+import type { Project } from "@/types/resume";
 
 const Column = ({ children }: { children: React.ReactNode }) => (
   <div className="@container mx-auto w-full max-w-[1440px] px-4 md:px-10">
@@ -18,12 +20,18 @@ const Column = ({ children }: { children: React.ReactNode }) => (
 );
 
 export default function Page() {
-  const [featuredProject, ...rest] = DATA.projects ?? [];
-  // Anything with a live demo is pulled out of the screenshot grid and given
-  // its own block below it. A tile showing a PNG of a tool you can actually
-  // run three inches further down is the weaker of the two.
-  const supportingProjects = rest.filter((project) => !project.liveDemo);
-  const liveProjects = rest.filter((project) => project.liveDemo);
+  // Two tiers. Products (things people use) get image tiles; everything else
+  // is a row in a compact list. The first product is the feature.
+  const projects: Project[] = [...(DATA.projects ?? [])];
+  const products = projects.filter((project) => project.kind === "product");
+  const [featuredProject, ...supportingProjects] = products;
+  // Anything with a live demo gets its own block instead of a row. A line
+  // describing a tool you can actually run three inches further down is the
+  // weaker of the two.
+  const builds = projects.filter(
+    (project) => project.kind !== "product" && !project.liveDemo,
+  );
+  const liveProjects = projects.filter((project) => project.liveDemo);
   const [lead, ...paragraphs] = DATA.summary.split("\n\n");
 
   return (
@@ -158,20 +166,30 @@ export default function Page() {
               </Reveal>
             )}
 
-            <div className="short:contents mt-16 grid grid-cols-1 gap-12 md:mt-24 md:grid-cols-2 md:gap-x-8 md:gap-y-16">
+            <div className="short:contents mt-16 grid grid-cols-1 gap-12 md:mt-24 md:grid-cols-2 md:gap-x-8 md:gap-y-16 lg:grid-cols-3">
               {supportingProjects.map((project, index) => (
-                <Reveal key={project.name} order={index % 2}>
+                <Reveal key={project.name} order={index % 3}>
                   <ProjectTile project={project} />
                 </Reveal>
               ))}
             </div>
 
-            {liveProjects.map((project) => (
+            {/* Smaller builds and the live demo are a list and a demo block in
+                the full view; the short view folds them into its one list. */}
+            {[...builds, ...liveProjects].map((project) => (
               <div key={project.name} className="short:block hidden">
                 <ProjectTile project={project} />
               </div>
             ))}
           </div>
+
+          {builds.length > 0 && (
+            <div className="short:hidden mt-20 md:mt-28">
+              <Reveal>
+                <ProjectIndex projects={builds} />
+              </Reveal>
+            </div>
+          )}
 
           {liveProjects.length > 0 && (
             <div className="short:hidden mt-16 md:mt-24">

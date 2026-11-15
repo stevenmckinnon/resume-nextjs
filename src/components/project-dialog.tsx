@@ -200,7 +200,7 @@ export function ProjectDialogProvider({
                           : { target: "_blank", rel: "noopener noreferrer" })}
                         className="text-foreground hover:text-primary-accent flex w-fit items-center gap-1.5 text-sm font-semibold transition-colors"
                       >
-                        Visit the site
+                        {active.linkLabel ?? "Visit the site"}
                         <ArrowUpRight className="size-4" strokeWidth={2} />
                       </Link>
                       {active.github && (

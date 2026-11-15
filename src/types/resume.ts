@@ -12,6 +12,8 @@ import {
   SiShadcnui,
   SiClaude,
   SiSupabase,
+  SiSwift,
+  SiSqlite,
 } from "@icons-pack/react-simple-icons";
 
 import type { JSX } from "react";
@@ -29,6 +31,9 @@ export const iconMap = {
   shadcn: SiShadcnui,
   claude: SiClaude,
   supabase: SiSupabase,
+  swift: SiSwift,
+  swiftui: SiSwift,
+  sqlite: SiSqlite,
 } as const;
 
 export type SocialLink = {
@@ -112,7 +117,18 @@ export type Project = {
   name: string;
   description: string;
   website: string;
-  github: string;
+  /** Absent for closed-source work. The Source link is skipped, not broken. */
+  github?: string;
+  /** Text for the `website` link. Defaults to "Visit"; "App Store" for apps. */
+  linkLabel?: string;
+  /** Where it runs, e.g. "Web", "macOS", "iPhone · iPad · Apple TV". */
+  platform?: string;
+  /**
+   * "product" gets an image tile: things people actually use. "build" (the
+   * default) gets one row in the compact list beneath. The list exists so a
+   * new side project lands in a tier instead of growing the image grid.
+   */
+  kind?: "product" | "build";
   defaultExpanded: boolean;
   logoUrl?: string;
   icon?: string;

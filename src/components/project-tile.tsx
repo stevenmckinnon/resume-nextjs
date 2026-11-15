@@ -1,13 +1,12 @@
 "use client";
 
-import { Icons } from "@/components/icons";
 import { projectLayoutId, useProjectDialog } from "@/components/project-dialog";
+import { ProjectLinks, ProjectPlatform } from "@/components/project-links";
 import { ProjectTags } from "@/components/project-tags";
 import type { Project } from "@/types/resume";
 import { motion } from "framer-motion";
 import { ArrowUpRight } from "lucide-react";
 import Image from "next/image";
-import Link from "next/link";
 import { useId } from "react";
 
 /**
@@ -48,7 +47,7 @@ export const ProjectTile = ({ project }: { project: Project }) => {
                   src={project.image}
                   alt=""
                   fill
-                  sizes="(max-width: 768px) 100vw, 50vw"
+                  sizes="(max-width: 768px) 100vw, (max-width: 1024px) 50vw, 400px"
                   className="object-cover object-center transition-transform duration-500 group-hover:scale-[1.03]"
                 />
               </motion.div>
@@ -57,9 +56,13 @@ export const ProjectTile = ({ project }: { project: Project }) => {
           </div>
         )}
 
+        <ProjectPlatform
+          platform={project.platform}
+          className="short:mt-0 mt-5"
+        />
         <h3
           id={titleId}
-          className="group-hover:text-primary-accent short:mt-0 font-display mt-5 inline-flex items-baseline gap-1.5 text-2xl font-bold tracking-tight transition-colors lg:text-3xl"
+          className="group-hover:text-primary-accent font-display mt-1 inline-flex items-baseline gap-1.5 text-2xl font-bold tracking-tight transition-colors lg:text-3xl"
         >
           {project.name}
           <ArrowUpRight
@@ -78,29 +81,7 @@ export const ProjectTile = ({ project }: { project: Project }) => {
 
       <ProjectTags tags={project.tags ?? []} className="short:hidden mt-3" />
 
-      <div className="mt-4 flex flex-wrap items-center gap-x-5 gap-y-2">
-        <Link
-          href={project.website}
-          {...(project.website.startsWith("/")
-            ? {}
-            : { target: "_blank", rel: "noopener noreferrer" })}
-          className="text-muted-foreground hover:text-primary-accent flex min-h-6 w-fit items-center gap-1.5 py-2 text-sm font-semibold transition-colors"
-        >
-          Visit
-          <ArrowUpRight className="size-4" strokeWidth={2} />
-        </Link>
-        {project.github && (
-          <Link
-            href={project.github}
-            target="_blank"
-            rel="noopener noreferrer"
-            className="text-muted-foreground hover:text-primary-accent flex min-h-6 w-fit items-center gap-2 py-2 text-sm font-semibold transition-colors"
-          >
-            <Icons.github className="size-4" />
-            Source
-          </Link>
-        )}
-      </div>
+      <ProjectLinks project={project} className="mt-4" />
     </article>
   );
 };

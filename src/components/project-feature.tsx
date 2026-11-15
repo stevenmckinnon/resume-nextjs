@@ -1,13 +1,12 @@
 "use client";
 
-import { Icons } from "@/components/icons";
 import { projectLayoutId, useProjectDialog } from "@/components/project-dialog";
+import { ProjectLinks, ProjectPlatform } from "@/components/project-links";
 import { ProjectTags } from "@/components/project-tags";
 import type { Project } from "@/types/resume";
 import { motion } from "framer-motion";
 import { ArrowUpRight } from "lucide-react";
 import Image from "next/image";
-import Link from "next/link";
 
 /**
  * The lead project: the picture uncropped, with its name and links beside it, so
@@ -50,6 +49,7 @@ export const ProjectFeature = ({ project }: { project: Project }) => {
       )}
 
       <div className="flex flex-col gap-3 md:col-span-5">
+        <ProjectPlatform platform={project.platform} className="-mb-1" />
         <h3 className="font-display short:text-2xl short:lg:text-3xl text-4xl font-bold tracking-tight lg:text-5xl">
           <button
             type="button"
@@ -77,29 +77,7 @@ export const ProjectFeature = ({ project }: { project: Project }) => {
           className="short:hidden relative z-10 mt-1"
         />
 
-        <div className="relative z-10 mt-2 flex flex-wrap items-center gap-x-5 gap-y-2">
-          <Link
-            href={project.website}
-            {...(project.website.startsWith("/")
-              ? {}
-              : { target: "_blank", rel: "noopener noreferrer" })}
-            className="text-muted-foreground hover:text-primary-accent flex min-h-6 w-fit items-center gap-1.5 py-2 text-sm font-semibold transition-colors"
-          >
-            Visit
-            <ArrowUpRight className="size-4" strokeWidth={2} />
-          </Link>
-          {project.github && (
-            <Link
-              href={project.github}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="text-muted-foreground hover:text-primary-accent flex min-h-6 w-fit items-center gap-2 py-2 text-sm font-semibold transition-colors"
-            >
-              <Icons.github className="size-4" />
-              Source
-            </Link>
-          )}
-        </div>
+        <ProjectLinks project={project} className="relative z-10 mt-2" />
       </div>
     </article>
   );
